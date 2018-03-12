@@ -41,46 +41,54 @@ CREATE TABLE UserJobPosition(
     UserUP VARCHAR(32) 
     )
     
-       
-INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
-    VALUES ('USER','ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL)
-    
-INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
-    VALUES (uuid(),'Super','User',CURRENT_TIMESTAMP,'A','SYSTEM',CURRENT_TIMESTAMP,'ADMINISTRATOR999',CURRENT_TIMESTAMP,'SYSTEM')
-    
-INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP,UserProfileID)
-	VALUES(uuid(),'SAIYAN8989','tangowaferchocolate999','A',CURRENT_TIMESTAMP,'SYSTEM',CURRENT_TIMESTAMP,'SYSTEM','148faf6b-22ba-11e8-bd24-1cb72c959c01')
     
     
-    SELECT * FROM UserJobPosition# UserProfile  UserLogin
+    DELIMITER $$
+	CREATE PROCEDURE WAF_Insert_AdminUser ()
+    BEGIN
+    SET @userprofileidad:=uuid();
+    SET @userloginidad:=uuid();
+	INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
+		VALUES ('ADMINISTRATOR999','ADMIN','A','CURRENT_TIMESTAMP','SYSTEM',NULL,NULL);
+	INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
+		VALUES ('USER111','ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
+
+	INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
+		VALUES (@userprofileidad,'Super','User',CURRENT_TIMESTAMP,'A','SYSTEM',CURRENT_TIMESTAMP,'ADMINISTRATOR999',NULL,NULL);
     
-   UPDATE UserJobPosition SET DateUP = NULL WHERE UserJobPosID='ADMINISTRATOR999'
+	INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP,UserProfileID)
+		VALUES(@userloginidad,'SAIYAN8989','tangowaferchocolate999','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
+    END;
     
- 
+    CALL WAF_Insert_AdminUser();
     
-    
+
+
     DELIMITER $$
     CREATE PROCEDURE WAF_Insert_Register (firstname VARCHAR(32), lastname VARCHAR(32), dob DATE, position VARCHAR(767), username VARCHAR(32), userpass VARCHAR(32))
     BEGIN
     DECLARE a VARCHAR(20);
+
     IF EXISTS(SELECT UserLoginID FROM UserLogin WHERE Username=username) THEN
 		SET a="Username is taken";
 	ELSE 
-		INSERT INTO UserLogin(Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP)
-			VALUES (username,userpass,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
-            
-        INSERT INTO UserProfile(FirstName,LastName,UserDOB,UserJobPosID,STSRC,DateIN,UserIN,DateUP,UserUP) 
-			VALUES(firstname,lastname,dob,position,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
+		SET @userloginid=uuid();
+		SET @userprofileid=uuid();        
+        INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,UserJobPosID,STSRC,DateIN,UserIN,DateUP,UserUP) 
+			VALUES(@userporfileid,firstname,lastname,dob,position,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
+		INSERT INTO UserLogin(UserLoginID,Username,Userpass,UserProfileID,STSRC,DateIN,UserIN,DateUP,UserUP)
+			VALUES (@userloginid,username,userpass,@userprofileid,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
         SET a ="User Registered";
 	END IF;
     END
+    
     
     
     DELIMITER $$
     CREATE FUNCTION WAF_Read_Login ( uname VARCHAR(32), upass VARCHAR(32))
     RETURNS bit
     BEGIN
-    IF EXISTS(SELECT * FROM UserLogin WHERE Username=uname AND Userpass=@userpass) THEN
+    IF EXISTS(SELECT * FROM UserLogin WHERE Username=uname AND Userpass=upass) THEN
 		RETURN 1;
 	ELSE 
 		RETURN 0;
@@ -111,6 +119,9 @@ INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,U
     DELETE FROM UserLogin
     WHERE UserProfileID = userprofileiddel;
     END
+    
+    
+
     
    
 
