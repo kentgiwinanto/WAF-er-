@@ -9,27 +9,75 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  
+    <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/fontawesome-all.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'SQLi');
+        data.addRows([
+          ['Monday', 3],
+          ['Tuesday', 1],
+          ['Wednesday', 4],
+          ['Thursday', 4],
+          ['Friday', 6],
+          ['Saturday', 3],
+          ['Sunday', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Number of Attacks',
+                       'width':815,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
 
    
   </head>
   <body>
 
+<!--Header Judul-->
 
     <header id="header">
       <div class="container">
         <div class="row">
           <div class="col-md-10">
             <h1> <i class="fas fa-cog"></i> WAF <small>Manage System</small>
-            <div class="dropdown" style="float: right;">
+
+           <div class="dropdown" style="float: right;">
     <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><i class="fas fa-user"></i>
     <span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#"><img src="#"></a></li>
+      <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Name</a></li>
+      <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Job Role</a></li>
+      <li role="presentation" class="divider"></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="server.html">Server</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="protection.html">Protection</a></li>
       <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>    
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>    
     </ul>
   </div> </h1>
           </div>
@@ -37,6 +85,8 @@
         </div>
       </div>
     </header>
+
+<!--BreadCrumb-->
 
     <section id="breadcrumb">
       <div class="container">
@@ -50,108 +100,143 @@
       <div class="container">
         <div class="row">
        
-
-          <div class="col-md-3">
-
-
-			<div class="list-group">
-					  <a href="#" class="list-group-item active main-color-list">
-					    Menu List
-					  </a>
-					  <a href="home.html" class="list-group-item"> Home</a>
-					  <a href="server.html" class="list-group-item"> Server</a>
-					  <a href="protection.html" class="list-group-item"> Protections</a>
-					</div>
-					        <div class="well">
-					          <div class="progress">
-					  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-					    <span class="sr-only">40% Complete (success)</span>
-					  </div>
-					</div>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-					    <span class="sr-only">20% Complete</span>
-					  </div>
-					</div>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-					    <span class="sr-only">60% Complete (warning)</span>
-					  </div>
-					</div>
-					<div class="progress">
-					  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-					    <span class="sr-only">80% Complete (danger)</span>
-					  </div>
-					</div>
-					        </div>
-
-          </div>
-          <div class="col-md-9">
-
+<!--Container COntent -->
+ 
+          <div class="col-md-9" style="">
 
 <div class="panel panel-default main-color-list">
   <div class="panel-heading">
-    <h3 class="panel-title">Protections</h3>
+    <h3 class="panel-title">Protection</h3>
   </div>
-  <div class="panel-body">
+  <div class="panel-body"> 
+    <div class="col-md-4">
+<table style="margin:center;">
+<tr>
+  <th>Protection 1</th>
+  <th></th>
+</tr>
+<tr>
+  <td>RFI</td>
+  <td></td>
+</tr>
+<tr>
+  <td>LFI</td>
+  <td></td>
+</tr>
+<tr>
+  <td>RCE</td>
+  <td></td>
+</tr>
+<tr>
+  <td>XSS</td>
+  <td></td>
+</tr>
+<tr>
+  <td>SQLI</td>
+  <td></td>
+</tr>
+</table>
+</div>
+<div class="col-md-4">
+  <table style="margin:center;">
+<tr>
+  <th>Protection 2</th>
+  <th></th>
+</tr>
+<tr>
+  <td>DOS Protection</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Scanner Detection</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Protocol Enrolement</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Protocol Attack</td>
+  <td></td>
+</tr>
+<tr>
+  <td>PHP Vulnerability</td>
+  <td></td>
+</tr>
+</table>
+</div>
+<div class="col-md-4">
+  <table>
+  <tr>
+    <th>Protection 3</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>Session Fixation</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>SQL Data Leakage</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Java Data Leakage</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>PHP Data Leakage</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>IIS Data Leakage</td>
+    <td></td>
+  </tr>
+</table>
+</div>
+
+<p><br><br><br><br><br><br></p>
 
 
-    <div class="col-md-3">
-      <div class="well">
-        <h2><i class="fas fa-list-alt"></i> Protection <small>32 Actives</small> </h2>
-      </div>
-    </div>
 
 
   </div>
 </div>
 
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#tab_a" data-toggle="tab">Log</a></li>
-  <li><a href="#tab_b" data-toggle="tab">Config</a></li>
-  <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tab D <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-      <li><a href="#tab_d1" data-toggle="tab">Tab D 1</a></li>
-    <li><a href="#tab_d2" data-toggle="tab">Tab D 2</a></li>
-    </ul><!-- end of dropdown menu -->
-  </li>
-</ul><!-- end of nav -->
-<div class="tab-content">
-        <div class="tab-pane active" id="tab_a">
-            <h4>Logs</h4>
-            <p>This container is for putting Log for WAF</p>
-        </div>
-        <div class="tab-pane" id="tab_b">
-            <h4>Configuration</h4>
-            <p>This container is for putting rule for Configure WAF</p>
-        </div>
-        <div class="tab-pane" id="tab_d1">
-            <h4>Pane D1</h4>
-            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                ac turpis egestas.</p>
-        </div>
-        <div class="tab-pane" id="tab_d2">
-            <h4>Pane D2</h4>
-            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                ac turpis egestas.</p>
-        </div>
-</div><!-- tab content -->
 
-        
+ 
+          </div>
 
-           
+
+
+<!--COntainer Recent-->
+
+ <div class="col-md-3">
+
+
+      <div class="panel panel-default main-color-list" style="border:none;">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent</h3>
+  </div>
+  <div class="panel-body">
+<p><br><br><br><br><br><br></p>
+
+
+
+
+  </div>
+</div>
+
+
           </div>
         </div>
       </div>
+
     </section>
 
-     <footer id="footer">
+    <footer id="footer">
       <p>Copyright WAFer, &copy; 2018</p>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
