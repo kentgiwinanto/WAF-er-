@@ -1,5 +1,6 @@
 CREATE DATABASE WAFer
 
+USE WAFer
 CREATE TABLE UserLogin(
 	STSRC CHAR(1),
     DateIN DATETIME,
@@ -51,7 +52,7 @@ CREATE TABLE UserJobPosition(
 	INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
 		VALUES ('ADMINISTRATOR999','ADMIN','A','CURRENT_TIMESTAMP','SYSTEM',NULL,NULL);
 	INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
-		VALUES ('USER111','ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
+		VALUES ('STAFF13795','STAFF','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
 
 	INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
 		VALUES (@userprofileidad,'Super','User',CURRENT_TIMESTAMP,'A','SYSTEM',CURRENT_TIMESTAMP,'ADMINISTRATOR999',NULL,NULL);
@@ -80,7 +81,7 @@ CREATE TABLE UserJobPosition(
 			VALUES (@userloginid,username,userpass,@userprofileid,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
         SET a ="User Registered";
 	END IF;
-    END
+    END;
     
     
     
@@ -93,7 +94,7 @@ CREATE TABLE UserJobPosition(
 	ELSE 
 		RETURN 0;
 	END IF;
-    END
+    END;
     
     DELIMITER $$
     
@@ -109,7 +110,10 @@ CREATE TABLE UserJobPosition(
         UserUP='ADMIN'
     WHERE 
 		UserProfileID = userprofileidup;
-        END
+        END;
+    
+    
+    
     
     DELIMITER $$
     CREATE PROCEDURE WAF_Delete_User ( userprofileiddel VARCHAR(767))
@@ -119,6 +123,9 @@ CREATE TABLE UserJobPosition(
     DELETE FROM UserLogin
     WHERE UserProfileID = userprofileiddel;
     END
+    
+    
+    
     
     
 
