@@ -10,9 +10,28 @@
     <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#dateSlider2").find('ul').hide()
+    $("#dateSlider2").click(function(){
+        $("#typeSlider2").slideToggle();
+    });
+}); 
+</script>
+<script>
+$(document).ready(function(){
+  $("#dateSlider").find('ul').hide()
+    $("#dateSlider").click(function(){
+        $("#typeSlider").slideToggle();
+    });
+}); 
+</script>
     <script type="text/javascript" src="js/fontawesome-all.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -117,32 +136,50 @@
   <li class="active"><a href="#tab_a" data-toggle="tab">Log</a></li>
   <li><a href="#tab_b" data-toggle="tab">Config</a></li>
   <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tab D <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-      <li><a href="#tab_d1" data-toggle="tab">Tab D 1</a></li>
-    <li><a href="#tab_d2" data-toggle="tab">Tab D 2</a></li>
-    </ul><!-- end of dropdown menu -->
+
   </li>
 </ul><!-- end of nav -->
-<div class="tab-content">
+
+<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;">
         <div class="tab-pane active" id="tab_a">
-            <h4>Logs</h4>
-            <p>This container is for putting Log for WAF <br><br><br><br><br><br><br><br> </p>
+            <div class="col-md-13" style="background-color: white;">
+              <h4>Logs</h4>
+              <ul id="dateSlider">
+                <li style="cursor: pointer;">
+                  12 - 03 - 2018
+                  <ul id="typeSlider">
+                    <li>
+                      XSS (2)
+                    </li>
+                    <li>
+                      SQLI (0)
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <ul id="dateSlider2">
+                <li style="cursor: pointer;">
+                  11 - 03 - 2018
+                  <ul id="typeSlider2">
+                    <li>
+                      XSS (2)
+                    </li>
+                    <li>
+                      SQLI (3)
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
         </div>
+
+
         <div class="tab-pane" id="tab_b">
             <h4>Configuration</h4>
             <p>This container is for putting rule for Configure WAF <br><br><br><br><br><br><br><br></p>
         </div>
-        <div class="tab-pane" id="tab_d1">
-            <h4>Pane D1</h4>
-            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                ac turpis egestas.</p>
-        </div>
-        <div class="tab-pane" id="tab_d2">
-            <h4>Pane D2</h4>
-            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                ac turpis egestas.</p>
-        </div>
+
 </div><!-- tab content -->
 
  

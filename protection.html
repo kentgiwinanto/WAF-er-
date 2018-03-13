@@ -104,98 +104,81 @@
  
           <div class="col-md-9" style="">
 
-<div class="panel panel-default main-color-list">
+<div class="panel panel-default main-color-list" style="border:none;">
   <div class="panel-heading">
     <h3 class="panel-title">Protection</h3>
   </div>
   <div class="panel-body"> 
-    <div class="col-md-4">
-<table style="margin:center;">
+    <div class="col-md-13">
+      <form action="#">
+<table style="margin:center;float: left;border:none;position: center;">
 <tr>
-  <th>Protection 1</th>
-  <th></th>
+  <th style="width:150px;"> </th>
+  <th style="width:350px;"> </th>
+  <th style="width:350px"> </th>
+  <th style="width:350px;"> </th>
+  <th style="width:350px"> </th>
+  <th style="width:350px;"> </th>
 </tr>
 <tr>
-  <td>RFI</td>
   <td></td>
+  <td><input type="checkbox" name="Protection" value="RFI"> RFI </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="DOS Protection"> DOS Protection </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="Session Fixation"> Session Fixation</td>
 </tr>
 <tr>
-  <td>LFI</td>
   <td></td>
+  <td><input type="checkbox" name="Protection" value="LFI"> LFI </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="Scanner Protection"> Scanner Protection </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="SQL Leak"> SQL Data Leakage </td>
 </tr>
 <tr>
-  <td>RCE</td>
   <td></td>
+  <td><input type="checkbox" name="Protection" value="RCE"> RCE </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="Protocol Enrolement"> Protocol Enrolement </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="Java Leak"> Java Data Leakage </td>
 </tr>
 <tr>
-  <td>XSS</td>
   <td></td>
+  <td><input type="checkbox" name="Protection" value="XSS"> XSS </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="Protocol Attack"> Protocol Attack </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="PHP Leak"> PHP Data Leakage </td>
 </tr>
 <tr>
-  <td>SQLI</td>
   <td></td>
+  <td><input type="checkbox" name="Protection" value="SQLI"> SQLI </td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="PHP Vulnerability"> PHP Vulnerability</td>
+  <td></td>
+  <td><input type="checkbox" name="Protection" value="IIS Leak"> IIS Data Leakage </td>
+</tr>
+<tr>
+  <td> - </td>
+  <td> - </td>
+  <td> - </td>
+  <td> - </td>
+  <td> - </td>
+  <td> - </td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td><input type="button" value="Save"></td>
 </tr>
 </table>
+</form>
 </div>
-<div class="col-md-4">
-  <table style="margin:center;">
-<tr>
-  <th>Protection 2</th>
-  <th></th>
-</tr>
-<tr>
-  <td>DOS Protection</td>
-  <td></td>
-</tr>
-<tr>
-  <td>Scanner Detection</td>
-  <td></td>
-</tr>
-<tr>
-  <td>Protocol Enrolement</td>
-  <td></td>
-</tr>
-<tr>
-  <td>Protocol Attack</td>
-  <td></td>
-</tr>
-<tr>
-  <td>PHP Vulnerability</td>
-  <td></td>
-</tr>
-</table>
-</div>
-<div class="col-md-4">
-  <table>
-  <tr>
-    <th>Protection 3</th>
-    <th></th>
-    <th></th>
-  </tr>
-  <tr>
-    <td>Session Fixation</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>SQL Data Leakage</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Java Data Leakage</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>PHP Data Leakage</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>IIS Data Leakage</td>
-    <td></td>
-  </tr>
-</table>
-</div>
-
-<p><br><br><br><br><br><br></p>
 
 
 
