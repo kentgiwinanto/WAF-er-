@@ -110,6 +110,20 @@ body {
 	text-align: center;
 }
 
+/* Header Container */
+
+#header .container .row a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+#header .container .row .dropdown ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+
+
 /*footer*/
 #footer{
   background:#333333;
