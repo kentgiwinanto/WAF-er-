@@ -9,9 +9,13 @@ function check(){
 	}
 	else if(!username.match("^[a-zA-Z0-9_]*$")){
 	 	alert("Illegal input detected");
-	}else if(password.length<=4 || password.length>=21){
+	}
+	else if (username.match(/[<>"'/&-:;.,"]/)){
+		alert("Illegal input detected");
+	}
+	else if(password.length<=4 || password.length>=21){
 		alert("Invalid Username or Password");
-	}else if(password.match(/[<>"'/&-]/)){
+	}else if(password.match(/[<>"'/&-:;.,]/)){
 		alert("Illegal input detected");
 	}else{
 		alert("success")

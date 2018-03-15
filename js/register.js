@@ -8,12 +8,17 @@ function checkregis() {
 	var staffpost = document.getElementById("staffcheck").checked;
 if (firstname =="" || lastname =="") {
 	alert("Please input Your Name ! ");
-} else if (firstname.length>=32 || lastname.length>=32)
+} else if (!firstname.match("^[a-zA-Z_]*$")){
+	alert("Name Must Alphabet");
+} else if (!lastname.match("^[a-zA-Z_]*$")){
+	alert("Name Must Alphabet");
+}
+else if (firstname.length>=32 || lastname.length>=32)
 {
 alert("First Name and Last Name must be each 32 Characters");
 } else if (password =="") {
 	alert("Password must Be Filled");
-} else if (password.match(/[<>"'/&-]/)){
+} else if (password.match(/[<>"'/&-:;.,]/)){
 	alert("Ilegal Input on Password");
 }
 else if (confirm!=password){
