@@ -18,20 +18,27 @@ CREATE TABLE UserLogin(
 
 
 CREATE TABLE UserProfile(
-	UserProfileID VARCHAR(767) PRIMARY KEY,
-    FirstName VARCHAR(32) NOT NULL,
-    LastName VARCHAR(32) NOT NULL,    
-    UserDOB DATE NOT NULL,
-    STSRC CHAR(1),
+	STSRC CHAR(1),
     DateIN DATETIME,
     UserIN VARCHAR(32),
     DateUP DATETIME,
     UserUP VARCHAR(32),
+    UserProfileID VARCHAR(767) PRIMARY KEY,
+    FirstName VARCHAR(32) NOT NULL,
+    LastName VARCHAR(32) NOT NULL,    
+    UserDOB DATE NOT NULL,
+    
     UserJobPosID VARCHAR(767) NOT NULL,
     FOREIGN KEY (UserJobPosID) REFERENCES UserJobPosition(UserJobPosID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+ALTER TABLE UserProfile MODIFY STSRC VARCHAR(1) FIRST;
+ALTER TABLE UserProfile Modify DateIN DATETIME AFTER STSRC;
+ALTER TABLE UserProfile MODIFY UserIN VARCHAR(32) AFTER DateIN;
+ALTER TABLE UserProfile MODIFY DateUP DATETIME AFTER UserIN;
+ALTER TABLE UserProfile MODIFY UserUP VARCHAR (32) AFTER DateUP;
 
+Select * from UserLogin
 
 CREATE TABLE UserJobPosition(
 	UserJobPosID VARCHAR(767) PRIMARY KEY,
@@ -69,27 +76,7 @@ CREATE TABLE SavedEncryptedLog (
     EncryptionTypeName VARCHAR(1000)
     )
     
-	TransactionID VARCHAR(767) PRIMARY KEY,
-    clientIP VARCHAR(50),
-    daytime VARCHAR(767),
-    server_id VARCHAR(767),
-	client_port VARCHAR(100),
-	host_ip VARCHAR(50),
-	host_port VARCHAR(50),
-	requestID VARCHAR(767),
-	responseID VARCHAR(767),
-	producerID VARCHAR(767),
-	STSRC VARCHAR(1),
-    DateIN DATETIME,
-    UserIN VARCHAR(32),
-    DateUP DATETIME,
-    UserUP VARCHAR(32),
-    FOREIGN KEY (requestID) REFERENCES Requests(requestID) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (responseID) REFERENCES Responses(responseID) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (producerID) REFERENCES Producer(producerID) ON UPDATE CASCADE ON DELETE CASCADE,
-    );
-    
-   
+  
   
     
     DELIMITER $$
@@ -138,15 +125,21 @@ CREATE TABLE SavedEncryptedLog (
     
     
 	DELIMITER $$
-    CREATE FUNCTION WAF_Read_Login ( uname VARCHAR(32), upass VARCHAR(32))
-    RETURNS bit
+    CREATE PROCEDURE WAF_Read_Login ( uname VARCHAR(32), upass VARCHAR(32))
     BEGIN
-    IF EXISTS(SELECT * FROM UserLogin WHERE Username=uname AND Userpass=upass) THEN
-		RETURN 1;
+    DECLARE b VARCHAR(50);
+    IF NOT EXISTS(SELECT * FROM UserLogin WHERE Username=uname AND Userpass=upass) THEN
+		SET b="Username Invalid";
 	ELSE 
-		RETURN 0;
+		SELECT UserProfile.FirstName AS FirstName, 
+        UserProfile.LastName AS LastName, 
+        UserProfile.UserProfileID AS UserProfileID, 
+        UserProfile.UserJobPosID AS UserJobPosID, 
+        UserJobPosition.UserJobName AS JobPositionName
+        FROM UserProfile, UserJobPosition, UserLogin WHERE UserLogin.Username=uname AND UserLogin.Userpass=upass;
 	END IF;
     END;
+    
     
     
     DELIMITER $$
@@ -227,4 +220,6 @@ CREATE TABLE SavedEncryptedLog (
         SET alert="Update Successful";
 	END IF;
     END;
+    
+    
     
