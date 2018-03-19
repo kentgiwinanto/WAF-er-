@@ -1,8 +1,36 @@
-CREATE DATABASE WAFer
+use WAFer;
+
+
+CREATE TABLE UserJobPosition(
+	STSRC VARCHAR(1),
+    DateIN DATETIME,
+    UserIN VARCHAR(32),
+    DateUP DATETIME,
+    UserUP VARCHAR(32),
+    UserJobPosID VARCHAR(767) PRIMARY KEY,
+    UserJobName VARCHAR(32) NOT NULL    
+    );
+    
+    
+    
+CREATE TABLE UserProfile(
+    STSRC VARCHAR(1),
+    DateIN DATETIME,
+    UserIN VARCHAR(32),
+    DateUP DATETIME,
+    UserUP VARCHAR(32),
+    UserProfileID VARCHAR(767) PRIMARY KEY,
+    FirstName VARCHAR(32) NOT NULL,
+    LastName VARCHAR(32) NOT NULL,    
+    UserDOB DATETIME NOT NULL,    
+    UserJobPosID VARCHAR(767) NOT NULL,
+    FOREIGN KEY (UserJobPosID) REFERENCES UserJobPosition(UserJobPosID) ON UPDATE CASCADE ON DELETE CASCADE
+);
+    
 
 
 CREATE TABLE UserLogin(
-	STSRC CHAR(1),
+    STSRC VARCHAR(1),
     DateIN DATETIME,
     UserIN VARCHAR(32),
     DateUP DATETIME,
@@ -16,44 +44,10 @@ CREATE TABLE UserLogin(
     
 
 
-
-CREATE TABLE UserProfile(
-	STSRC CHAR(1),
-    DateIN DATETIME,
-    UserIN VARCHAR(32),
-    DateUP DATETIME,
-    UserUP VARCHAR(32),
-    UserProfileID VARCHAR(767) PRIMARY KEY,
-    FirstName VARCHAR(32) NOT NULL,
-    LastName VARCHAR(32) NOT NULL,    
-    UserDOB DATE NOT NULL,
-    
-    UserJobPosID VARCHAR(767) NOT NULL,
-    FOREIGN KEY (UserJobPosID) REFERENCES UserJobPosition(UserJobPosID) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-ALTER TABLE UserProfile MODIFY STSRC VARCHAR(1) FIRST;
-ALTER TABLE UserProfile Modify DateIN DATETIME AFTER STSRC;
-ALTER TABLE UserProfile MODIFY UserIN VARCHAR(32) AFTER DateIN;
-ALTER TABLE UserProfile MODIFY DateUP DATETIME AFTER UserIN;
-ALTER TABLE UserProfile MODIFY UserUP VARCHAR (32) AFTER DateUP;
-
-Select * from UserLogin
-
-CREATE TABLE UserJobPosition(
-	UserJobPosID VARCHAR(767) PRIMARY KEY,
-    UserJobName VARCHAR(32) NOT NULL,
-    STSRC CHAR(1),
-    DateIN DATETIME,
-    UserIN VARCHAR(32),
-    DateUP DATETIME,
-    UserUP VARCHAR(32) 
-    );
-    
     
 
 CREATE TABLE SavedEncryptedLog (
-	STSRC VARCHAR(1),
+    STSRC VARCHAR(1),
     DateIN DATETIME,
     UserIN VARCHAR(32),
     DateUP DATETIME,
@@ -66,6 +60,8 @@ CREATE TABLE SavedEncryptedLog (
     EncryptionKey TEXT
     );
     
+   
+    
     CREATE TABLE MsEncryptionType (
     STSRC  VARCHAR(1),
     DateIN DATETIME,
@@ -74,29 +70,28 @@ CREATE TABLE SavedEncryptedLog (
     UserUP VARCHAR(32),
     EncryptionTypeID VARCHAR(1000),
     EncryptionTypeName VARCHAR(1000)
-    )
+    );
     
   
-  
     
-    DELIMITER $$
-	CREATE PROCEDURE WAF_Insert_AdminUser ()
-    BEGIN
     SET @userprofileidad:=uuid();
     SET @userloginidad:=uuid();
-	INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
-		VALUES ('ADMINISTRATOR999','ADMIN','A','CURRENT_TIMESTAMP','SYSTEM',NULL,NULL);
+   
+    INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
+        VALUES ('ADMINISTRATOR999','ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
+    INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
+        VALUES ('STAFF13795','STAFF','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
 	INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
-		VALUES ('STAFF13795','STAFF','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
+        VALUES ('BOT1','BOT','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
 
-	INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
-		VALUES (@userprofileidad,'Super','User',CURRENT_TIMESTAMP,'A','SYSTEM',CURRENT_TIMESTAMP,'ADMINISTRATOR999',NULL,NULL);
+    INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
+        VALUES (@userprofileidad,'Super','User',CURRENT_TIMESTAMP,'A','SYSTEM',CURRENT_TIMESTAMP,'ADMINISTRATOR999',NULL,NULL);
     
-	INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP,UserProfileID)
-		VALUES(@userloginidad,'SAIYAN8989','tangowaferchocolate999','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
-    END;
+    INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP,UserProfileID)
+        VALUES(@userloginidad,'SAIYAN8989','tangowaferchocolate999','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
+
     
-    CALL WAF_Insert_AdminUser();
+
     
     DELIMITER $$
     CREATE PROCEDURE WAF_Insert_Register (firstname VARCHAR(32), lastname VARCHAR(32), dob DATE, position VARCHAR(767), username VARCHAR(32), userpass VARCHAR(32))
@@ -104,17 +99,17 @@ CREATE TABLE SavedEncryptedLog (
     DECLARE a VARCHAR(20);
 
     IF EXISTS(SELECT UserLoginID FROM UserLogin WHERE Username=username) THEN
-		SET a="Username is taken";
-	ELSE 
-		SET @userloginid=uuid();
-		SET @userprofileid=uuid();  
+        SET a="Username is taken";
+    ELSE 
+        SET @userloginid=uuid();
+        SET @userprofileid=uuid();  
         SET @username= CONCAT(firstname,".",lastname);
         INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserDOB,UserJobPosID,STSRC,DateIN,UserIN,DateUP,UserUP) 
-			VALUES(@userporfileid,firstname,lastname,dob,position,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
-		INSERT INTO UserLogin(UserLoginID,Username,Userpass,UserProfileID,STSRC,DateIN,UserIN,DateUP,UserUP)
-			VALUES (@userloginid,@username,userpass,@userprofileid,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
+            VALUES(@userporfileid,firstname,lastname,dob,position,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
+        INSERT INTO UserLogin(UserLoginID,Username,Userpass,UserProfileID,STSRC,DateIN,UserIN,DateUP,UserUP)
+            VALUES (@userloginid,@username,userpass,@userprofileid,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
         SET a ="User Registered";
-	END IF;
+    END IF;
     END;
     
 
@@ -124,102 +119,52 @@ CREATE TABLE SavedEncryptedLog (
     
     
     
-	DELIMITER $$
+    DELIMITER $$
     CREATE PROCEDURE WAF_Read_Login ( uname VARCHAR(32), upass VARCHAR(32))
     BEGIN
     DECLARE b VARCHAR(50);
     IF NOT EXISTS(SELECT * FROM UserLogin WHERE Username=uname AND Userpass=upass) THEN
-		SET b="Username Invalid";
-	ELSE 
-		SELECT UserProfile.FirstName AS FirstName, 
+        SET b="Username Invalid";
+    ELSE 
+        SELECT UserProfile.FirstName AS FirstName, 
         UserProfile.LastName AS LastName, 
         UserProfile.UserProfileID AS UserProfileID, 
         UserProfile.UserJobPosID AS UserJobPosID, 
         UserJobPosition.UserJobName AS JobPositionName
         FROM UserProfile, UserJobPosition, UserLogin WHERE UserLogin.Username=uname AND UserLogin.Userpass=upass;
-	END IF;
+    END IF;
     END;
     
     
     
     DELIMITER $$
     CREATE PROCEDURE WAF_Update_UserProfile (userprofileidup VARCHAR(767), firstnameup VARCHAR(32), lastnameup VARCHAR(32), udobup DATE, posup VARCHAR(767),stsrcup VARCHAR(1))
-	BEGIN 
+    BEGIN 
     UPDATE UserProfile
     SET FirstName=firstnameup ,
-		LastName=lastnameup,
+        LastName=lastnameup,
         UserDOB=udobup,
         UserJobPosID=posup,
         STSRC=stsrcup,
         DateUP=CURRENT_TIMESTAMP,
         UserUP='ADMIN'
     WHERE 
-		UserProfileID = userprofileidup;
-        END;
-    
-    CREATE WAF_Update_UserLogin(userloginidup VARCHAR(767), 
-    
-    
-    
-    DELIMITER $$
-    CREATE PROCEDURE WAF_Delete_User ( userprofileiddel VARCHAR(767))
-    BEGIN 
-    DELETE FROM UserProfile 
-    WHERE UserProfileID = userprofileiddel;
-    DELETE FROM UserLogin
-    WHERE UserProfileID = userprofileiddel;
+        UserProfileID = userprofileidup;
     END;
     
+    
     DELIMITER $$
-    CREATE PROCEDURE WAF_Insert_Position (posid VARCHAR(767), posname VARCHAR(32))
+    CREATE PROCEDURE WAF_Insert_Log (
+		ServerIPin VARCHAR(50),
+		MessageEncryptedin TEXT,
+		EncryptionTypein VARCHAR(1000),
+		EncryptionKeyin TEXT,
+		STSRCin VARCHAR(1))
     BEGIN
-    DECLARE q VARCHAR(20);
-    IF EXISTS(select * from UserJobPosition WHERE UserJobPosID LIKE posid OR UserJobName LIKE posname)THEN
-		SET q="Jobname already registered";
-	ELSE  
-		INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP) 
-			VALUES(posid, posname,'A',CURRENT_TIMESTAMP,'ADMIN',NULL,NULL);
-	END IF;
+    SET @logidin=uuid();
+    INSERT INTO SavedEncryptedLog(STSRC,DateIN,UserIN,DateUP,UserUP,logID,Daytime,ServerIP,MessageEncrypted,EncryptionType,EncryptionKey) 
+		VALUES(STSRCin,current_timestamp,'BOT',null,null,@logidin,current_timestamp,ServerIPin,MessageEncryptedin,EncryptionTypein,EncryptionKeyin);
     END;
     
-    
-    DELIMITER $$
-    CREATE PROCEDURE WAF_Update_Position (posidup VARCHAR(767), posnameup VARCHAR(32))
-    BEGIN
-    UPDATE UserJobPosition 
-    SET UserJobName=posnameup,
-		STSRC=stsrcup,
-        DateUP=CURRENT_TIMESTAMP,
-        UserUP='ADMIN'
-    WHERE UserJobPosID=posidup;
-    END;
-    
-    DELIMITER $$
-    CREATE PROCEDURE WAF_Delete_Position (posiddel VARCHAR(767))
-    BEGIN
-    DELETE FROM UserJobPosition
-    WHERE UserJobPosID=posiddel;
-    END;
+ 
 
-    
-      
-    DELIMITER $$
-    CREATE PROCEDURE WAF_Update_UserLogin (userloginid VARCHAR(767), unameup VARCHAR(32), upassup VARCHAR(32))
-    BEGIN
-    DECLARE alert VARCHAR(32);
-    IF EXISTS (Select UserLoginID FROM UserLogin WHERE Username=unameup) THEN
-		SET alert="Username Taken";
-	ELSE 
-		UPDATE UserLogin 
-        SET Username=unameup,
-			Userpass=upassup,
-            STSRC='A',
-            DateUP=CURRENT_TIMESTAMP,
-            UserUP='ADMIN'
-		WHERE UserLoginID=userloginid;
-        SET alert="Update Successful";
-	END IF;
-    END;
-    
-    
-    
