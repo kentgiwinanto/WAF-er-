@@ -25,17 +25,35 @@ Route::get('/Home', function () {
 //Register case-sensitive
 Route::get('/Register', function()
 {
-  return view('Register');
+	return view('Register');
 });
 
 //Server case-sensitive
 Route::get('/Server', function()
 {
-  return view('Server');
+	return view('Server');
+});
+
+//Detail case-sensitive
+Route::get('/Detail', function()
+{
+	return view('Detail');
 });
 
 //Protection case-sensitive
 Route::get('/Protection', function()
 {
-  return view('Protection');
+	return view('Protection');
 });
+
+
+Route::post('/submiteRegister','RegisterController@inputData');
+
+
+
+
+
+
+
+
+

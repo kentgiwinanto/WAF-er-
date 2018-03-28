@@ -1,105 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Admin Area</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
-		<link rel="stylesheet" type="text/css" href="css/styles.css">
-		<script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script>
-			$(document).ready(function(){
-			  $("#dateSlider2").find('ul').hide()
-				$("#dateSlider2").click(function(){
-					$("#typeSlider2").slideToggle();
-				});
-			}); 
-		</script>
-		<script>
-			$(document).ready(function(){
-			  $("#dateSlider").find('ul').hide()
-				$("#dateSlider").click(function(){
-					$("#typeSlider").slideToggle();
-				});
-			}); 
-		</script>
-		<script type="text/javascript" src="js/fontawesome-all.js"></script>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script type="text/javascript">
-			// Load the Visualization API and the corechart package.
-			google.charts.load('current', {'packages':['corechart']});
-			
-			// Set a callback to run when the Google Visualization API is loaded.
-			google.charts.setOnLoadCallback(drawChart);
-			
-			// Callback that creates and populates a data table,
-			// instantiates the pie chart, passes in the data and
-			// draws it.
-			function drawChart() {
-			
-			  // Create the data table.
-			  var data = new google.visualization.DataTable();
-			  data.addColumn('string', 'Day');
-			  data.addColumn('number', 'SQLi');
-			  data.addRows([
-				['Monday', 3],
-				['Tuesday', 1],
-				['Wednesday', 4],
-				['Thursday', 4],
-				['Friday', 6],
-				['Saturday', 3],
-				['Sunday', 2]
-			  ]);
-			
-			  // Set chart options
-			  var options = {'title':'Number of Attacks',
-							 'width':815,
-							 'height':300};
-			
-			  // Instantiate and draw our chart, passing in some options.
-			  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-			  chart.draw(data, options);
-			}
-		</script>
-	</head>
-	<body>
+@extends('layout.indexPage')
+
+@section('Head')
+	<script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		  $("#dateSlider2").find('ul').hide()
+			$("#dateSlider2").click(function(){
+				$("#typeSlider2").slideToggle();
+			});
+		}); 
+	</script>
+	<script>
+		$(document).ready(function(){
+		  $("#dateSlider").find('ul').hide()
+			$("#dateSlider").click(function(){
+				$("#typeSlider").slideToggle();
+			});
+		}); 
+	</script>
+	<script type="text/javascript" src="js/fontawesome-all.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		// Load the Visualization API and the corechart package.
+		google.charts.load('current', {'packages':['corechart']});
+		
+		// Set a callback to run when the Google Visualization API is loaded.
+		google.charts.setOnLoadCallback(drawChart);
+		
+		// Callback that creates and populates a data table,
+		// instantiates the pie chart, passes in the data and
+		// draws it.
+		function drawChart() {
+		
+		  // Create the data table.
+		  var data = new google.visualization.DataTable();
+		  data.addColumn('string', 'Day');
+		  data.addColumn('number', 'SQLi');
+		  data.addRows([
+			['Monday', 3],
+			['Tuesday', 1],
+			['Wednesday', 4],
+			['Thursday', 4],
+			['Friday', 6],
+			['Saturday', 3],
+			['Sunday', 2]
+		  ]);
+		
+		  // Set chart options
+		  var options = {'title':'Number of Attacks',
+						 'width':815,
+						 'height':300};
+		
+		  // Instantiate and draw our chart, passing in some options.
+		  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		  chart.draw(data, options);
+		}
+	</script>
+@endsection
+		
+@section('Title')
+	<title>Detail | WAF Development</title>
+@endsection
+
+@section('Content')
 		<!-- HEADER Judul-->
-		<header id="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10">
-						<a href="home.html">
-							<h1>
-								<i class="fas fa-cog"></i> WAF <small>Manage System</small> 
-						</a>
-						<!-- Drop Down Profile-->
-						<div class="dropdown" style="float: right;">
-						<button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><i class="fas fa-user"></i>
-						<span class="caret"></span></button>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-						<li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#"><img src="#"></a></li>
-						<li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Name</a></li>
-						<li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Job Role</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="server.html">Server</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="protection.html">Protection</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>    
-						</ul>
-						</div> </h1>
-					</div>
-				</div>
-			</div>
-		</header>
+		@include('inc.navbar')
 		<!--BreadCrumb-->
 		<section id="breadcrumb">
 			<div class="container">
@@ -108,6 +77,7 @@
 				</ol>
 			</div>
 		</section>
+
 		<section id="main">
 			<div class="container">
 				<div class="row">
@@ -179,8 +149,6 @@
 				</div>
 			</div>
 		</section>
-		<footer id="footer">
-			<p>Copyright WAFer, &copy; 2018</p>
-		</footer>
-	</body>
-</html>
+		@include('inc.footer')
+
+@endsection

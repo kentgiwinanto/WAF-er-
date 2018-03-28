@@ -15,7 +15,7 @@ function check(){
 		alert("Illegal input detected");
 	}else{
 		alert("success")
-		open ("home.html");
+		open ("Home");
 	}
 
 }
