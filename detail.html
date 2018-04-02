@@ -32,6 +32,22 @@ $(document).ready(function(){
     });
 }); 
 </script>
+<script>
+$(document).ready(function(){
+  $("#ruleslider1").find('ul').hide()
+    $("#ruleslider1").click(function(){
+        $("#detailruleslider1").slideToggle();
+    });
+}); 
+</script>
+<script>
+$(document).ready(function(){
+  $("#ruleslider2").find('ul').hide()
+    $("#ruleslider2").click(function(){
+        $("#detailruleslider2").slideToggle();
+    });
+}); 
+</script>
     <script type="text/javascript" src="js/fontawesome-all.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -95,7 +111,7 @@ $(document).ready(function(){
       <li role="presentation" class="divider"></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="server.html">Server</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="protection.html">Protection</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="configuration.html">Config</a></li>
       <li role="presentation" class="divider"></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>    
     </ul>
@@ -134,13 +150,13 @@ $(document).ready(function(){
 
 <ul class="nav nav-tabs">
   <li class="active"><a href="#tab_a" data-toggle="tab">Log</a></li>
-  <li><a href="#tab_b" data-toggle="tab">Config</a></li>
+  <li><a href="#tab_b" data-toggle="tab">Rules</a></li>
   <li class="dropdown">
 
   </li>
 </ul><!-- end of nav -->
 
-<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;">
+<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;max-height: 200px;overflow-y: scroll;">
         <div class="tab-pane active" id="tab_a">
             <div class="col-md-13" style="background-color: white;">
               <h4>Logs</h4>
@@ -176,8 +192,49 @@ $(document).ready(function(){
 
 
         <div class="tab-pane" id="tab_b">
-            <h4>Configuration</h4>
-            <p>This container is for putting rule for Configure WAF <br><br><br><br><br><br><br><br></p>
+            <h4>Rules</h4>
+            <form action="#">
+          <table >
+            <tr>
+              <th style="width: 700px"></th>
+              <th style="width: 100px;"></th>
+            </tr>
+            <tr>
+              <td> 
+              <ul id="ruleslider1">
+                <li style="cursor: pointer;">
+                    <input type="checkbox" name="Configuration" value="SecRule1"> SecRule ARGS|REQUEST_HEADERS 
+                  <ul id="detailruleslider1">
+                    <li>
+                      SecRule ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” id:101,msg: ‘XSS Attack’,severity:ERROR,deny,status:404 </li>
+                    <li>
+                      Detail
+                    </li>
+                  </ul>
+                </li>
+              </ul></td>
+              <td><input type="button" class="fas fa-lg fa-edit" style="float: center;cursor: pointer;" value="Edit"></td>
+            </tr>
+            <tr>
+              <td><ul id="ruleslider2">
+                <li style="cursor: pointer;">
+                    <input type="checkbox" name="Configuration" value="SecRule1"> SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES 
+                  <ul id="detailruleslider2">
+                    <li>
+                      SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES "@contains () {" "phase:1,id:'2100080',block,t:none,t:utf8toUnicode,t:urlDecodeUni,t:compressWhitespace,msg:'SLR: Bash ENV Variable Injection Attack',tag:'CVE-2014-6271',tag:'http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271',tag:'https://securityblog.redhat.com/2014/09/24/bash-specially-crafted-environment-variables-code-injection-attack/'"</li>
+                    <li>
+                      Detail
+                    </li>
+                  </ul>
+                </li>
+              </ul></td>
+              <td><input type="button" class="fas fa-lg fa-edit" style="cursor: pointer;" value=""></td>
+            </tr>
+            <tr>
+              <td><input type="button" class="fas fa-lg fa-plus-circle" style="float:center;cursor: pointer;"></td>
+              <td><input type="button" class="btn btn-primary" style="float: right;" value="Save"></td>
+            </tr>
+          </table> </form>
         </div>
 
 </div><!-- tab content -->
