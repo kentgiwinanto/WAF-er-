@@ -41,7 +41,7 @@ use WAFer;
 		FOREIGN KEY (UserProfileID) REFERENCES UserProfile(UserProfileID) ON UPDATE CASCADE ON DELETE CASCADE,
 		UserLoginID VARCHAR(1024) PRIMARY KEY,
 		Username VARCHAR(32) NOT NULL,
-		Userpass VARCHAR(32) NOT NULL
+		Userpass VARCHAR(64) NOT NULL
 		);    
         
         CREATE TABLE headersRequestTransactionLog (
@@ -288,9 +288,9 @@ use WAFer;
 		FOREIGN KEY (VariableID) REFERENCES Variable(VariableID) ON UPDATE CASCADE ON DELETE CASCADE    
 	);
 
-	SET @posadmin=CONCAT('UserJobPosID_',uuid());
-	SET @posstaff=CONCAT('UserJobPosID_',uuid());
-	SET @posbot=CONCAT('UserJobPosID_',uuid());
+	SET @posadmin=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
+	SET @posstaff=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
+	SET @posbot=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
 
     INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
         VALUES (@posadmin,'ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
@@ -300,8 +300,8 @@ use WAFer;
         VALUES (@posbot,'BOT','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
 			
 
-	SET @userprofileidad=CONCAT('UserProfileID_',uuid());
-    SET @userloginidad=CONCAT('UserLoginID_',uuid());
+	SET @userprofileidad=CONCAT('UserProfileID_',Substring(uuid(),1,13));
+    SET @userloginidad=CONCAT('UserLoginID_',Substring(uuid(),1,13));
      
 
     INSERT INTO UserProfile(UserProfileID,FirstName,LastName,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
@@ -311,54 +311,52 @@ use WAFer;
         VALUES(@userloginidad,'Super.User','tangowaferchocolate999','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
 		
 
-	DELIMITER $$
-	CREATE PROCEDURE WAF_Insert_Register (
+DELIMITER $$
+CREATE PROCEDURE `WAF_Insert_Register`(
 		firstnamein VARCHAR(32),
 		lastnamein VARCHAR(32), 
 		positionin VARCHAR(900), 
 		userpassin VARCHAR(32),
 		userinin VARCHAR(32))
-    BEGIN
+BEGIN
 	-- ===================================		
 	-- Created By: Rizky Gunawan Liga
-	-- Created Date: 28 - 03 -2018
+	-- Created Date: 04 - 04 - 2018
 	-- Description: Penambahan User
 	-- ===================================    
 	DECLARE a VARCHAR(20);
     SET @username= CONCAT(firstnamein,'.',lastnamein);
+    SET @userpass= SHA2(CONCAT(@username,userpassin),256);
+    
 	
     IF EXISTS(SELECT UserLoginID FROM UserLogin WHERE Username=@username) THEN
 	        SET a='Username is taken';
     ELSE 
-		SET @userloginid=CONCAT('UserLoginID_',uuid());
-		SET @userprofileid=CONCAT('UserProfileID_',uuid());        
+		SET @userloginid=CONCAT('UserLoginID_',Substring(uuid(),1,13));
+		SET @userprofileid=CONCAT('UserProfileID_',Substring(uuid(),1,13));        
         INSERT INTO UserProfile(UserProfileID,FirstName,LastName,UserJobPosID,STSRC,DateIN,UserIN,DateUP,UserUP) 
             VALUES(@userprofileid,firstnamein,lastnamein,positionin,'A',CURRENT_TIMESTAMP,userinin,NULL,NULL);
         INSERT INTO UserLogin(UserLoginID,Username,Userpass,UserProfileID,STSRC,DateIN,UserIN,DateUP,UserUP)
-            VALUES (@userloginid,@username,userpassin,@userprofileid,'A',CURRENT_TIMESTAMP,userinin,NULL,NULL);
+            VALUES (@userloginid,@username,@userpass,@userprofileid,'A',CURRENT_TIMESTAMP,userinin,NULL,NULL);
         SET a ='User Registered'; 
     END IF;
-	END;
-    
-   
-	
+	END$$
+DELIMITER ;
 
-	 
-	DELIMITER $$
-  CREATE PROCEDURE WAF_Read_Login ( uname VARCHAR(32), upass VARCHAR(32))
-    BEGIN
+DELIMITER $$
+CREATE PROCEDURE `WAF_Read_Login`( uname VARCHAR(32), upass VARCHAR(32))
+BEGIN
 -- ======================================================
 -- Created By : Rizky Gunawan Liga   
--- Date Created: 26 March 2018
+-- Date Created: 04 April 2018
 -- Description: buat show user data/ read data user 
 -- ======================================================
     DECLARE b VARCHAR(50);
-    IF NOT EXISTS(SELECT * FROM UserLogin WHERE Username=uname AND Userpass=upass) THEN
-        SET b='Username Invalid';
-    ELSE 
-    
-    SET @uname=uname;
-    SET @upass=upass;
+	SET @uname=uname;
+    SET @upass=SHA2(CONCAT(@uname,upass),256);
+    IF NOT EXISTS(SELECT * FROM UserLogin WHERE Username=@uname AND Userpass=@upass) THEN
+        SET b='Username or Password Invalid';
+    ELSE     
         SELECT a.FirstName, 
         a.LastName, 
         a.UserProfileID, 
@@ -369,12 +367,13 @@ use WAFer;
         JOIN UserLogin c ON c.UserProfileID=a.UserProfileID
         WHERE c.Username=@uname AND c.Userpass=@upass;
     END IF;
-    END;
+    END$$
+DELIMITER ;
   
 
 
      DELIMITER $$
-	 CREATE PROCEDURE WAF_Insert_Log    (
+	 CREATE PROCEDURE `WAF_Insert_Log`    (
 	 EncryptionTypeIDin VARCHAR(1024),    
 	 ServerIDin VARCHAR(1024),    
 	 userinin VARCHAR(32),
@@ -387,16 +386,16 @@ use WAFer;
 -- Description: SP untuk MASUKIN LOG DARI XML
 -- ================================================
      SET @xmlstring=xmlstring;  
-	 SET @waflogsid=CONCAT('WAF_LogsID_',uuid());    
-	 SET @transactionlogid=CONCAT('TransactionLogID_',uuid());    
-	 SET @requestid=CONCAT('RequestTransactionLogID_',uuid());    
-	 SET @requestheaderid=CONCAT('headersRequestTransactionID_',uuid());    
-	 SET @responseid=concat('ResponseTransactionLogID_',uuid());    
-	 SET @responseheaderid=CONCAT('headersResponseTransactionLog_',uuid());    
-	 SET @producerid=CONCAT('ProducerTransactionLogID_',uuid());    
-	 SET @messageid=CONCAT('MessageTransactionLogID_',uuid());    
-	 SET @messagelogdetailid=CONCAT('MessageTransactionLogDetailID_',uuid());    
-	 SET @tagmessageid=CONCAT('TagsMessageID_',uuid());    
+	 SET @waflogsid=CONCAT('WAF_LogsID_',Substring(uuid(),1,13));    
+	 SET @transactionlogid=CONCAT('TransactionLogID_',Substring(uuid(),1,13));    
+	 SET @requestid=CONCAT('RequestTransactionLogID_',Substring(uuid(),1,13));    
+	 SET @requestheaderid=CONCAT('headersRequestTransactionID_',Substring(uuid(),1,13));    
+	 SET @responseid=concat('ResponseTransactionLogID_',Substring(uuid(),1,13));    
+	 SET @responseheaderid=CONCAT('headersResponseTransactionLog_',Substring(uuid(),1,13));    
+	 SET @producerid=CONCAT('ProducerTransactionLogID_',Substring(uuid(),1,13));    
+	 SET @messageid=CONCAT('MessageTransactionLogID_',Substring(uuid(),1,13));    
+	 SET @messagelogdetailid=CONCAT('MessageTransactionLogDetailID_',Substring(uuid(),1,13));    
+	 SET @tagmessageid=CONCAT('TagsMessageID_',Substring(uuid(),1,13));    
 	 
 	 INSERT INTO ProducerTransactionLog(    
 	 Stsrc,    
@@ -515,7 +514,7 @@ use WAFer;
      SET @COUNTTAG = (SELECT EXTRACTVALUE(@xmlstring,'COUNT(//XML/DetailMessage[1]/Tags[1]/elements)'));
      SET @i=1;
      WHILE (@i <= @COUNTTAG) DO
-     SET @tagmessagedetailid=CONCAT('TagsMessageTransactionDetailLogID_',uuid());    
+     SET @tagmessagedetailid=CONCAT('TagsMessageTransactionDetailLogID_',Substring(uuid(),1,13));    
      INSERT INTO TagsMessageTransactionDetailLog(    
 	 Stsrc,    
 	 UserIn,    
@@ -543,7 +542,7 @@ use WAFer;
      SET @COUNTMES = (SELECT EXTRACTVALUE(@xmlstring,'COUNT(//XML/DetailMessage)'));
      SET @j:=1;
      WHILE(@j <= @COUNTMES)DO
-     SET @detailmessageid=CONCAT('DetailMessageTransactionDetailLogID_',uuid());
+     SET @detailmessageid=CONCAT('DetailMessageTransactionDetailLogID_',Substring(uuid(),1,13));
      	 INSERT INTO DetailMessageTransactionDetailLog(    
 	 Stsrc,    
 	 UserIn,    
@@ -678,12 +677,13 @@ use WAFer;
 	 @EncryptionTypeID,    
 	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/EncryptionKey')as 'EncryptionKey',    
 	 @transactionlogid;  
-	 END;
+	 END$$
+     DELIMITER;
 	
 
 
 	DELIMITER $$
-	CREATE PROCEDURE WAF_Read_Logs()
+	CREATE PROCEDURE `WAF_Read_Logs`()
 	BEGIN
 -- ============================================================
 -- Created By: Rizky Gunawan Liga
@@ -752,10 +752,11 @@ use WAFer;
 		JOIN MessageTransactionLogDetail k ON k.MessageTransactionLogDetailID=h.MessageTransactionLogDetailID
 		JOIN DetailMessageTransactionDetailLog l ON  l.DetailMessageTransactionDetailLogID=k.DetailMessageTransactionDetailLogID
 		JOIN TagsMessageTransactionDetailLog m ON m.TagsMessageTransactionDetailLogID=l.TagsMessageTransactionDetailLogID;
-		END;
-	
+		END$$;
+		DELIMITER;
+        
     DELIMITER $$
-    CREATE PROCEDURE WAF_Insert_ServerList (
+    CREATE PROCEDURE `WAF_Insert_ServerList` (
 		userinin VARCHAR (32),
 		servernamein VARCHAR (64),
 		ipin VARCHAR (16),
@@ -773,16 +774,17 @@ use WAFer;
         IF EXISTS (SELECT IP FROM ServerList WHERE IP=ipin)
         THEN SET a ='IP Already Exists';
         ELSE
-        SET @serverid =CONCAT('ServerID_',uuid());
+        SET @serverid =CONCAT('ServerID_',Substring(uuid(),1,13));
         INSERT INTO ServerList (ServerID,ServerName,IP,PortsOpen,Domain,Stsrc,UserIn,DateIn,UserUp,Dateup)
         VALUES (@serverid,servernamein,ipin,portsopenin,domainin,'A',userin,CURRENT_TIMESTAMP,NULL,NULL);
         SET a='Server Registered';
         END IF;
-        END;
+        END$$
+        DELIMITER;
         
         
 	DELIMITER $$
-    CREATE PROCEDURE WAF_Read_ServerList ()
+    CREATE PROCEDURE `WAF_Read_ServerList` ()
 	BEGIN
 	    /*--=======================================
 	--Created By    : Albert Sudirwan
@@ -792,11 +794,12 @@ use WAFer;
     */
     
        SELECT ServerID,ServerName,IP,PortsOpen,Domain FROM ServerList; 
-	END;
+	END$$
+    DELIMITER;
     
         
 	DELIMITER $$
-	CREATE PROCEDURE WAF_Insert_EncryptionType( 
+	CREATE PROCEDURE `WAF_Insert_EncryptionType`( 
 		EncryptionTypeNamein VARCHAR(1024),
 		UserIn VARCHAR(32))
 	BEGIN
@@ -806,10 +809,11 @@ use WAFer;
 	-- DESCRIPTION : PENAMBAHAN WAF_Insert_EncryptionType
 	-- ===================================================
 
-		SET @EncryptionTypeId=CONCAT('EncryptionTypeID_',uuid());
+		SET @EncryptionTypeId=CONCAT('EncryptionTypeID_',Substring(uuid(),1,13));
 		INSERT INTO EncryptionType(Stsrc,UserIn,DateIn,UserUp,DateUp,EncryptionTypeID,EncryptionTypeName)
 			VALUES('A',UserIn,Current_Timestamp,NULL,Null,@EncryptionTypeId,EncryptionTypeNamein);
-	END;
+	END$$
+    DELIMITER;
     
 
     DELIMITER $$
@@ -827,10 +831,11 @@ use WAFer;
 	-- CREATED DATE : 29 MARCH 2018
 	-- DESCRIPTION  : PENAMBAHAN CONFIG
 	-- ================================
-    SET @configid = CONCAT('ConfigID_',uuid());
+    SET @configid = CONCAT('ConfigID_',Substring(uuid(),1,13));
     INSERT INTO Config (Stsrc,UserIn,DateIn,ConfigID,ConfigName,Description,Syntax,DefaultValue,Scope,Version)
         SELECT * FROM(SELECT 'A',userinin,CURRENT_TIMESTAMP,@configid,confignamein,descriptionin,syntaxin,defaultvaluein,scopein,versionin)AS TMP WHERE NOT EXISTS(SELECT ConfigName FROM Config WHERE ConfigName=confignamein)LIMIT 1;
-    END;
+    END$$
+    DELIMITER;
 
 
 	DELIMITER $$
@@ -846,7 +851,7 @@ use WAFer;
 	-- CREATED DATE : 29 MARCH 2018
 	-- DESCRIPTION 	: PENAMBAHAN SECRULES
 	-- ==================================
-		SET @secrulesid=CONCAT('SecRulesID_',uuid());
+		SET @secrulesid=CONCAT('SecRulesID_',Substring(uuid(),1,13));
 		SET @variableid= (SELECT VariableID FROM Variable WHERE VariableName=variablenamein);
 		INSERT INTO SecRules (Stsrc,UserIn,DateIn,SecRulesID,SecRulesName,VariableID)
 		SELECT * FROM (SELECT 'A',userinin,CURRENT_TIMESTAMP,@secrulesid,secrulesnamein,@variableid) as temp WHERE NOT EXISTS(SELECT SecRulesName FROM SecRules WHERE SecRulesName=secrulesnamein)LIMIT 1;
@@ -866,7 +871,7 @@ use WAFer;
 	-- DESCRIPTION  : PENAMBAHAN VARIABLE
 	-- ==================================
 
-		SET @variableid=CONCAT('VariableID_',uuid());
+		SET @variableid=CONCAT('VariableID_',Substring(uuid(),1,13));
 		INSERT INTO Variable (Stsrc,UserIn,DateIn,VariableID,VariableName,Description)
 			SELECT * FROM(SELECT 'A',userin,CURRENT_TIMESTAMP,@variableid,variablenamein,descriptionin)AS tmp WHERE NOT EXISTS(SELECT VariableName FROM Variable WHERE VariableName=variablenamein)LIMIT 1;
 	 
@@ -911,9 +916,9 @@ use WAFer;
 	END $$
 	DELIMITER ;
     
-
+	
     
-    CALL WAF_Insert_Variable('asdad','asdadas','asdada');
+    
 	CALL WAF_Insert_Variable('Admin','ARGS','ARGS is a collection and can be used on its own (means all arguments including the POST Payload), with a static parameter (matches arguments with that name), or with a regular expression (matches all arguments with name that matches the regular expression). To look at only the query string or body arguments, see the ARGS_GET and ARGS_POST collections.');
 	CALL WAF_Insert_Variable('Admin','ARGS_Combined_Size','Contains the combined size of all request parameters. Files are excluded from the calculation. This variable can be useful, for example, to create a rule to ensure that the total size of the argument data is below a certain threshold.');
 	CALL WAF_Insert_Variable('Admin','ARGS_GET','ARGS_GET is similar to ARGS, but contains only query string parameters.');
