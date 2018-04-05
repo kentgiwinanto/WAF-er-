@@ -15,7 +15,9 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/fontawesome-all.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js/container.js"></script>
     <script type="text/javascript">
+      var nomor =1;
 
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
@@ -106,7 +108,13 @@
        
 <!--Container Content-->
  
-          <div class="col-md-9" style="padding-left: 0px;">
+          <div class="col-md-9" style="padding-left: 0px;max-height: 400px;overflow-y: scroll;" id="servercontainer">
+    <div class="col-md-4" >
+      <div class="well" id="addservercont"onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="addserver();" style="cursor: pointer;background-color: 
+      #999999;border-radius: 8px;padding-top: 0px; padding-left: 3px;">
+        <h2 style="padding:5px 1px 1px 1px; margin-top: 0px; margin-left: 110px;">  <br><i class="fas fa-plus"></i> </h2>
+      </div>
+    </div>
 
  <div class="col-md-4">
       <div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail.html';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
@@ -114,19 +122,13 @@
       </div>
     </div>
 
- <div class="col-md-4">
+ <div class="col-md-4" style="display: none;" id="servercont">
       <div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail.html';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
-        <h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Server <br><br><small style="float: right;"> <i class="fas fa-server"></i> Server B</small> </h2>
+        <h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Server <br><br><small style="float: right;"> <i class="fas fa-server"></i> New Server</small> </h2>
       </div>
     </div>
 
 
-    <div class="col-md-4" >
-      <div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail.html';" style="cursor: pointer;background-color: 
-      #ffffff;border-radius: 8px;padding-top: 0px; padding-left: 3px;">
-        <h2 style="padding:5px 10px 1px 1px; margin-top: 0px;"> Server <br><br><small style="float: right;"><i class="fas fa-server"></i> Server C</small> </h2>
-      </div>
-    </div>
 
 
 

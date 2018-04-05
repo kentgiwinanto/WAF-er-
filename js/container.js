@@ -9,9 +9,14 @@ function addcont1 () {
 	
 }
 
-
 // function addcont2 () {
 // 	console.log(attr('testong'));
 // 	$('#smallcontainer1').clone().appendTo("#container3").removeAttr('id').attr('id','smallcontainer'+nomor).css('display','')
 // }
+
+
+function addserver() {
+	$('#servercont').clone().appendTo('#servercontainer').removeAttr('id').attr('id','servercont'+nomor).css('display','');
+	nomor = nomor+1;
+}
 
