@@ -308,7 +308,7 @@ use WAFer;
         VALUES (@userprofileidad,'Super','User','A','SYSTEM',CURRENT_TIMESTAMP,@posadmin,NULL,NULL);
     
     INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP,UserProfileID)
-        VALUES(@userloginidad,'Super.User','tangowaferchocolate999','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
+        VALUES(@userloginidad,'Super.User',SHA2('tangowaferchocolate999',256),'A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
 		
 
 DELIMITER $$
@@ -835,7 +835,7 @@ DELIMITER ;
     INSERT INTO Config (Stsrc,UserIn,DateIn,ConfigID,ConfigName,Description,Syntax,DefaultValue,Scope,Version)
         SELECT * FROM(SELECT 'A',userinin,CURRENT_TIMESTAMP,@configid,confignamein,descriptionin,syntaxin,defaultvaluein,scopein,versionin)AS TMP WHERE NOT EXISTS(SELECT ConfigName FROM Config WHERE ConfigName=confignamein)LIMIT 1;
     END$$
-    DELIMITER;
+    DELIMITER ;
 
 
 	DELIMITER $$
