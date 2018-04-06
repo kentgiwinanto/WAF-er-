@@ -298,19 +298,7 @@ use WAFer;
         VALUES (@posstaff,'STAFF','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
 	INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
         VALUES (@posbot,'BOT','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
-			
-
-	SET @userprofileidad=CONCAT('UserProfileID_',Substring(uuid(),1,13));
-    SET @userloginidad=CONCAT('UserLoginID_',Substring(uuid(),1,13));
-     
-
-    INSERT INTO UserProfile(UserProfileID,FirstName,LastName,STSRC,UserIN,DateIN,UserJobPosID,DateUP,UserUP)
-        VALUES (@userprofileidad,'Super','User','A','SYSTEM',CURRENT_TIMESTAMP,@posadmin,NULL,NULL);
-    
-    INSERT INTO UserLogin(UserLoginID,Username,Userpass,STSRC,DateIN,UserIN,DateUP,UserUP,UserProfileID)
-        VALUES(@userloginidad,'Super.User',SHA2('tangowaferchocolate999',256),'A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL,@userprofileidad);
-		
-
+		    
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_Register`(
 		firstnamein VARCHAR(32),
@@ -916,10 +904,9 @@ DELIMITER ;
 	END $$
 	DELIMITER ;
     
-	
-    
-    
-	CALL WAF_Insert_Variable('Admin','ARGS','ARGS is a collection and can be used on its own (means all arguments including the POST Payload), with a static parameter (matches arguments with that name), or with a regular expression (matches all arguments with name that matches the regular expression). To look at only the query string or body arguments, see the ARGS_GET and ARGS_POST collections.');
+    CALL WAF_Insert_Register('123','123',@posadmin,'123','System');
+	CALL WAF_Insert_Register('Super','User',@posadmin,'tangowaferchocolate999','SYSTEM');
+    CALL WAF_Insert_Variable('Admin','ARGS','ARGS is a collection and can be used on its own (means all arguments including the POST Payload), with a static parameter (matches arguments with that name), or with a regular expression (matches all arguments with name that matches the regular expression). To look at only the query string or body arguments, see the ARGS_GET and ARGS_POST collections.');
 	CALL WAF_Insert_Variable('Admin','ARGS_Combined_Size','Contains the combined size of all request parameters. Files are excluded from the calculation. This variable can be useful, for example, to create a rule to ensure that the total size of the argument data is below a certain threshold.');
 	CALL WAF_Insert_Variable('Admin','ARGS_GET','ARGS_GET is similar to ARGS, but contains only query string parameters.');
 	CALL WAF_Insert_Variable('Admin','ARGS_GET_NAMES','ARGS_GET_NAMES is similar to ARGS_NAMES, but contains only the names of query string parameters.');
