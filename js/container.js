@@ -20,3 +20,5 @@ function addserver() {
 	nomor = nomor+1;
 }
 
+
+
