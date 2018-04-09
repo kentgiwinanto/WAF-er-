@@ -206,10 +206,12 @@ $(document).ready(function(){
                     <input type="checkbox" name="Configuration" value="SecRule1"> SecRule ARGS|REQUEST_HEADERS 
                   <ul id="detailruleslider1">
                     <li>
-                      SecRule ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” id:101,msg: ‘XSS Attack’,severity:ERROR,deny,status:404 </li>
-                    <li>
-                      Detail
-                    </li>
+                      SecRule : </li>
+                    <li>ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” id:101,msg: ‘XSS Attack’,</li>
+                    <li>severity:ERROR,</li>
+                    <li>deny,</li>
+                    <li>status:404</li>
+             
                   </ul>
                 </li>
               </ul></td>
