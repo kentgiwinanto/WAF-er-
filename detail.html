@@ -203,11 +203,12 @@ $(document).ready(function(){
               <td> 
               <ul id="ruleslider1">
                 <li style="cursor: pointer;">
-                    <input type="checkbox" name="Configuration" value="SecRule1"> SecRule ARGS|REQUEST_HEADERS 
+                    <input type="checkbox" name="Configuration" value="SecRule1"> Sample Rules 1 
                   <ul id="detailruleslider1">
                     <li>
-                      SecRule : </li>
-                    <li>ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” id:101,msg: ‘XSS Attack’,</li>
+                      SecRule :ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” </li>
+                    <li>id:101,</li>
+                    <li> msg:‘XSS Attack’,</li>
                     <li>severity:ERROR,</li>
                     <li>deny,</li>
                     <li>status:404</li>
@@ -217,7 +218,7 @@ $(document).ready(function(){
               </ul></td>
               <td><input type="button" class="fas fa-lg fa-edit" style="float: center;cursor: pointer;" value="Edit"></td>
             </tr>
-            <tr>
+<!--             <tr>
               <td><ul id="ruleslider2">
                 <li style="cursor: pointer;">
                     <input type="checkbox" name="Configuration" value="SecRule1"> SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES 
@@ -231,7 +232,7 @@ $(document).ready(function(){
                 </li>
               </ul></td>
               <td><input type="button" class="fas fa-lg fa-edit" style="cursor: pointer;" value=""></td>
-            </tr>
+            </tr> -->
             <tr>
               <td><input type="button" class="fas fa-lg fa-plus-circle" style="float:center;cursor: pointer;"></td>
               <td><input type="button" class="btn btn-primary" style="float: right;" value="Save"></td>
