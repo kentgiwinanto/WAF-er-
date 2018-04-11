@@ -5,6 +5,10 @@ function addcont1 () {
 		var tempnomor = $(this).attr('nomor');
 	    $('#smallcontainer1').clone().appendTo("#container"+tempnomor).removeAttr('id').attr('id','smallcontainer'+tempnomor).css('display','');
 	});
+	$("#addtextfield"+nomor).click(function(){
+		var tempnomor = $(this).attr('nomor');
+		$('#textfield1').clone().appendTo("#container"+tempnomor).removeAttr('id').attr('id','smallcontainer'+tempnomor).css('display','');
+	});
 	nomor = nomor + 1;
 	
 }
