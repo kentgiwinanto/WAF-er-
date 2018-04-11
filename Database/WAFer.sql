@@ -364,15 +364,15 @@ DELIMITER ;
   
 
 
-     DELIMITER $$
-	 CREATE PROCEDURE `WAF_Insert_Log`    (
+    DELIMITER $$
+CREATE PROCEDURE `WAF_Insert_Log`(
 	 EncryptionTypeIDin VARCHAR(1024),    
 	 ServerIDin VARCHAR(1024), 
      Attackin VARCHAR(64),
 	 userinin VARCHAR(32),
      xmlstring VARCHAR(65531)
-	   )   
-	 BEGIN    
+	   )
+BEGIN    
 -- ================================================
 -- Created By: Rizky Khonan Kentgi
 -- Date Created: 27 - 03 - 2018
@@ -401,7 +401,7 @@ DELIMITER ;
 	 Connector,    
 	 SecRules_engine,    
 	 Components)    
-	 SELECT 'A',@userin,CURRENT_TIMESTAMP,null,null,@producerid,    
+	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@producerid,    
 	 ExtractValue(@xmlstring,'//XML/Producer[1]/ModSecurity') as 'ModSecurity',    
 	 ExtractValue(@xmlstring,'//XML/Producer[1]/Connector') as 'Connector',     
 	 ExtractValue(@xmlstring,'//XML/Producer[1]/SecRules_engine') as 'SecRules_engine',   
@@ -425,7 +425,7 @@ DELIMITER ;
 	 Accept_encoding,    
 	 Cookie    
 	 )    
-	 SELECT 'A',@userin,CURRENT_TIMESTAMP,null,null,@requestheaderid,    
+	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@requestheaderid,    
 	 Extractvalue(@xmlstring,'//XML/RequestDetails[1]/Cache_Control') as 'Cache_Control',    
 	 Extractvalue(@xmlstring,'//XML/RequestDetails[1]/Origin') as 'Origin',    
 	 Extractvalue(@xmlstring,'//XML/RequestDetails[1]/User_Agent') as 'User_agent',    
@@ -449,7 +449,7 @@ DELIMITER ;
 	 )    
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 current_timestamp,    
 	 @requestid,    
 	 ExtractValue(@xmlstring,'//XML/RequestLog[1]/Method') as 'Method',    
@@ -472,7 +472,7 @@ DELIMITER ;
 	 content_type,    
 	 connection    
 	 )    
-	 SELECT 'A',@userin,CURRENT_TIMESTAMP,null,null,@responseheaderid,    
+	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@responseheaderid,    
 	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Server') as 'Server',    
 	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Date') as 'Date',    
 	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Content_Length') as 'Content_Length',    
@@ -493,7 +493,7 @@ DELIMITER ;
 	 )    
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 current_timestamp,    
 	 null,    
 	 null,    
@@ -518,7 +518,7 @@ DELIMITER ;
 	 )
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 current_timestamp,    
 	 null,    
 	 null,    
@@ -556,7 +556,7 @@ DELIMITER ;
 	 )    
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 current_timestamp,    
 	 null,    
 	 null,    
@@ -586,7 +586,7 @@ DELIMITER ;
 	 )    
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 current_timestamp,    
 	 @messagelogdetailid,    
 	 ExtractValue(@xmlstring,'//XML/MessageName[1]/Message') as 'Message',    
@@ -602,7 +602,7 @@ DELIMITER ;
 	 )    
 	 VALUES (    
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 current_timestamp,    
 	 @messageid,    
 	 @messagelogdetailid    
@@ -628,7 +628,7 @@ DELIMITER ;
 	 )    
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 CURRENT_TIMESTAMP,    
 	 @transactionlogid,    
 	 ExtractValue(@xmlstring,'//XML/TransactionLog[1]/TimeStamp') as 'TimeStamp',    
@@ -658,7 +658,7 @@ DELIMITER ;
 	 )    
 	 SELECT     
 	 'A',    
-	 @userin,    
+	 userinin,    
 	 CURRENT_TIMESTAMP,    
 	 null,    
 	 null,    
@@ -668,10 +668,10 @@ DELIMITER ;
 	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/AllMessages')as 'LogFile',    
 	 EncryptionTypeIDin,    
 	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/EncryptionKey')as 'EncryptionKey',    
-	 @transactionlogid,
-     Attackin;  
+	 @transactionlogid
+     ,Attackin;  
 	 END$$
-     DELIMITER;
+DELIMITER ;
 	
 
 
@@ -748,14 +748,14 @@ BEGIN
 		END$$
 DELIMITER ;
         
-    DELIMITER $$
-    CREATE PROCEDURE `WAF_Insert_ServerList` (
+DELIMITER $$
+CREATE PROCEDURE `WAF_Insert_ServerList`(
 		userinin VARCHAR (32),
 		servernamein VARCHAR (64),
 		ipin VARCHAR (16),
 		portsopenin VARCHAR (8),
 		domainin VARCHAR (32))
-        BEGIN 
+BEGIN 
         /*--=======================================
 	--Created By    : Albert Sudirwan
 	--Created Date  : 26 March 2018
@@ -769,11 +769,11 @@ DELIMITER ;
         ELSE
         SET @serverid =CONCAT('ServerID_',Substring(uuid(),1,13));
         INSERT INTO ServerList (ServerID,ServerName,IP,PortsOpen,Domain,Stsrc,UserIn,DateIn,UserUp,Dateup)
-        VALUES (@serverid,servernamein,ipin,portsopenin,domainin,'A',userin,CURRENT_TIMESTAMP,NULL,NULL);
+        VALUES (@serverid,servernamein,ipin,portsopenin,domainin,'A',userinin,CURRENT_TIMESTAMP,NULL,NULL);
         SET a='Server Registered';
         END IF;
         END$$
-        DELIMITER;
+DELIMITER ;
         
         
 	DELIMITER $$
