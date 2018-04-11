@@ -58,7 +58,6 @@ use WAFer;
 		Content_Length VARCHAR (8),
 		Connection VARCHAR (64),
 		Host VARCHAR (64),
-		Referer VARCHAR (64),
 		Accept_encoding VARCHAR (128),
 		Cookie VARCHAR (1024));
 	
@@ -288,16 +287,21 @@ use WAFer;
 		FOREIGN KEY (VariableID) REFERENCES Variable(VariableID) ON UPDATE CASCADE ON DELETE CASCADE    
 	);
 
-	SET @posadmin=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
-	SET @posstaff=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
-	SET @posbot=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
+	DELIMITER $$
+	CREATE PROCEDURE `WAF_Initiate_Position`()
+	BEGIN
+		SET @posadmin=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
+		SET @posstaff=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
+		SET @posbot=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
 
-    INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
-        VALUES (@posadmin,'ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
-    INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
-        VALUES (@posstaff,'STAFF','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
-	INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
-        VALUES (@posbot,'BOT','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
+		INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
+			VALUES (@posadmin,'ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
+		INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
+			VALUES (@posstaff,'STAFF','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);   
+		INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
+			VALUES (@posbot,'BOT','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
+	END$$
+	DELIMITER ;
 		    
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_Register`(
@@ -345,8 +349,7 @@ BEGIN
     IF NOT EXISTS(SELECT * FROM UserLogin WHERE Username=@uname AND Userpass=@upass) THEN
         SET b='Username or Password Invalid';
     ELSE     
-        SELECT a.FirstName, 
-        a.LastName, 
+        SELECT CONCAT(a.FirstName,' ',a.LastName) as 'FullName', 
         a.UserProfileID, 
         a.UserJobPosID, 
         b.UserJobName
@@ -357,13 +360,15 @@ BEGIN
     END IF;
     END$$
 DELIMITER ;
+
   
 
 
      DELIMITER $$
 	 CREATE PROCEDURE `WAF_Insert_Log`    (
 	 EncryptionTypeIDin VARCHAR(1024),    
-	 ServerIDin VARCHAR(1024),    
+	 ServerIDin VARCHAR(1024), 
+     Attackin VARCHAR(64),
 	 userinin VARCHAR(32),
      xmlstring VARCHAR(65531)
 	   )   
@@ -417,7 +422,6 @@ DELIMITER ;
 	 Content_Length,    
 	 Connection,    
 	 Host,    
-	 Referer,    
 	 Accept_encoding,    
 	 Cookie    
 	 )    
@@ -429,7 +433,6 @@ DELIMITER ;
 	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Content_Length') as 'Content_Length',    
 	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Connection') as 'Connection',    
 	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Host') as 'Host',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Referer') as 'Referer',    
 	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Accept_encoding') as 'Accept_encoding',    
 	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Cookie') as 'Cookie' ;  
 	     
@@ -650,7 +653,8 @@ DELIMITER ;
 	 LogFile,    
 	 EncryptionTypeID,    
 	 EncryptionKey,    
-	 TransactionLogID    
+	 TransactionLogID,
+     AttackType
 	 )    
 	 SELECT     
 	 'A',    
@@ -660,19 +664,20 @@ DELIMITER ;
 	 null,    
 	 @waflogsid,    
 	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/TimeStampLog')as 'TimeStampLog',    
-	 @ServerID,    
+	 ServerIDin,    
 	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/AllMessages')as 'LogFile',    
-	 @EncryptionTypeID,    
+	 EncryptionTypeIDin,    
 	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/EncryptionKey')as 'EncryptionKey',    
-	 @transactionlogid;  
+	 @transactionlogid,
+     Attackin;  
 	 END$$
      DELIMITER;
 	
 
 
 	DELIMITER $$
-	CREATE PROCEDURE `WAF_Read_Logs`()
-	BEGIN
+CREATE PROCEDURE `WAF_Read_Logs`()
+BEGIN
 -- ============================================================
 -- Created By: Rizky Gunawan Liga
 -- Date Created: 23-03-2018
@@ -683,6 +688,7 @@ DELIMITER ;
 		a.TimeStampLog,
 		a.LogFile,
 		a.EncryptionKey,
+        a.AttackType,
 		b.ServerName,
 		d.EncryptionTypeName,
 		c.TimeStamp,
@@ -699,7 +705,6 @@ DELIMITER ;
 		i.Content_Length,
 		i.Connection,
 		i.Host,
-		i.Referer,
 		i.Accept_encoding,
 		i.Cookie,
 		f.HTTP_code,
@@ -740,8 +745,8 @@ DELIMITER ;
 		JOIN MessageTransactionLogDetail k ON k.MessageTransactionLogDetailID=h.MessageTransactionLogDetailID
 		JOIN DetailMessageTransactionDetailLog l ON  l.DetailMessageTransactionDetailLogID=k.DetailMessageTransactionDetailLogID
 		JOIN TagsMessageTransactionDetailLog m ON m.TagsMessageTransactionDetailLogID=l.TagsMessageTransactionDetailLogID;
-		END$$;
-		DELIMITER;
+		END$$
+DELIMITER ;
         
     DELIMITER $$
     CREATE PROCEDURE `WAF_Insert_ServerList` (
@@ -891,6 +896,21 @@ DELIMITER ;
 		SELECT VariableID,VariableName,Description FROM Variable;
 	END $$
 	DELIMITER ;
+    
+    DELIMITER $$ 
+    CREATE PROCEDURE `WAF_Read_Position`()
+    BEGIN
+    -- ============================================================
+	-- Created By: Rizky Gunawan Liga
+	-- Date Created: 09-04-2018
+	-- Description: Create procedure untuk baca JobPosition
+	-- ============================================================
+    SELECT UserJobPosID,UserJobName FROM UserJobPosition WHERE STSRC='A';
+    
+    END $$
+    DELIMITER ;
+    
+
 
 	DELIMITER $$
 	CREATE PROCEDURE `WAF_Read_SecRules`()
@@ -904,6 +924,8 @@ DELIMITER ;
 	END $$
 	DELIMITER ;
     
+    
+    CALL WAF_Initiate_Position();
     CALL WAF_Insert_Register('123','123',@posadmin,'123','System');
 	CALL WAF_Insert_Register('Super','User',@posadmin,'tangowaferchocolate999','SYSTEM');
     CALL WAF_Insert_Variable('Admin','ARGS','ARGS is a collection and can be used on its own (means all arguments including the POST Payload), with a static parameter (matches arguments with that name), or with a regular expression (matches all arguments with name that matches the regular expression). To look at only the query string or body arguments, see the ARGS_GET and ARGS_POST collections.');
