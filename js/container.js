@@ -1,6 +1,10 @@
+var nomor = 2; 
+var digit = 1;
+
 function addcont1 () {
 	$('#container1').clone().appendTo('#container').removeAttr('id').attr('id','container'+nomor).attr('testong',nomor).css('display','');
-	$('#container'+nomor).children('#addsmallcontainer1').removeAttr('id').attr('id','addsmallcontainer'+nomor).attr('nomor',nomor);
+	$('#container'+nomor).children('.dropdown').children('.dropdown-menu').children().children('#addsmallcontainer1').removeAttr('id').attr('id','addsmallcontainer'+nomor).attr('nomor',nomor);
+	$('#container'+nomor).children('.dropdown').children('.dropdown-menu').children().children('#addtextfield1').removeAttr('id').attr('id','addtextfield'+nomor).attr('nomor',nomor);
 	$("#addsmallcontainer"+nomor).click(function(){
 		var tempnomor = $(this).attr('nomor');
 	    $('#smallcontainer1').clone().appendTo("#container"+tempnomor).removeAttr('id').attr('id','smallcontainer'+tempnomor).css('display','');
@@ -20,8 +24,8 @@ function addcont1 () {
 
 
 function addserver() {
-	$('#servercont').clone().appendTo('#servercontainer').removeAttr('id').attr('id','servercont'+nomor).css('display','');
-	nomor = nomor+1;
+	$('#servercont').clone().appendTo('#servercontainer').removeAttr('id').attr('id','servercont'+digit).css('display','');
+	digit = digit+1;
 }
 
 

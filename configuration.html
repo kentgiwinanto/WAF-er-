@@ -1,133 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Area</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
-        <link rel="stylesheet" type="text/css" href="css/styles.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/fontawesome-all.js"></script>
-        <script type="text/javascript" src="js/container.js"></script>
-        <script type="text/javascript">
-            var nomor = 2; 
-        </script>
-    </head>
-    <body>
-        <!--Header Judul-->
-        <header id="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10">
-                        <a href="home.html">
-                            <h1>
-                                <i class="fas fa-cog"></i> WAF <small>Manage System</small> 
-                        </a>
-                        <div class="dropdown" style="float: right;">
-                        <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><i class="fas fa-user"></i>
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#"><img src="#"></a></li>
-                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Name</a></li>
-                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Job Role</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="server.html">Server</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="configuration.html">Config</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>    
-                        </ul>
-                        </div> </h1>
-                    </div>
-                </div>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Admin Area</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
+      <link rel="stylesheet" type="text/css" href="css/styles.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="js/fontawesome-all.js"></script>
+      <script type="text/javascript" src="js/container.js"></script>
+   </head>
+   <body>
+      <!--Header Judul-->
+      <header id="header">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-10">
+                  <a href="home.html">
+                     <h1>
+                        <i class="fas fa-cog"></i> WAF <small>Manage System</small> 
+                  </a>
+                  <div class="dropdown" style="float: right;">
+                  <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><i class="fas fa-user"></i>
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                  <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#"><img src="#"></a></li>
+                  <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Name</a></li>
+                  <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Job Role</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="server.html">Server</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="configuration.html">Config</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>    
+                  </ul>
+                  </div> </h1>
+               </div>
             </div>
-        </header>
-        <!--BreadCrumb-->
-        <section id="breadcrumb">
-            <div class="container">
-                <ol class="breadcrumb">
-                    <li class="active"> Breadcrumb </li>
-                </ol>
-            </div>
-        </section>
-        <section id="main">
-            <div class="container">
-                <div class="row">
-                    <!--Container COntent -->
-                    <div class="col-md-9" style="">
-                        <div class="panel panel-default main-color-list" style="border:none;">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Configuration</h3>
-                            </div>
-                            <div class="panel-body" style="max-height: 300px;overflow-y: scroll;">
-                                <div class="col-md-13">
-                                    <div class="col-md-13" id="container">
-                                    
-                                        <div class="well col-md-13 well-centered clearfix" id="container1" style="display: none;">
+         </div>
+      </header>
+      <!--BreadCrumb-->
+      <section id="breadcrumb">
+         <div class="container">
+            <ol class="breadcrumb">
+               <li class="active"> Breadcrumb </li>
+            </ol>
+         </div>
+      </section>
+      <section id="main">
+         <div class="container">
+            <div class="row">
+               <!--Container COntent -->
+               <div class="col-md-9" style="">
+                  <div class="panel panel-default main-color-list" style="border:none;">
+                     <div class="panel-heading">
+                        <h3 class="panel-title">Configuration</h3>
+                     </div>
+                     <div class="panel-body" style="max-height: 300px;overflow-y: scroll;">
+                        <div class="col-md-13">
+                           <div class="col-md-13" id="container">
+                              <div class="well col-md-13 well-centered clearfix" id="container1" style="display: none;">
+                                 
+                                 <div class="" id="smallcontainer1" style="display: none;">
+                                 <div class="btn-group" >
 
-                                            <div class="btn-group" id="smallcontainer1" style="display: none;">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Config <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">SecEngine A</a></li>
-                                                    <li><a href="#">SecEngine B</a></li>
-                                                    <li><a href="#">SecEngine C</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="btn-group" id="textfield1" style="display: none;">
-                                                <input type="text" name="textfield">
-                                            </div>
-                                            <!-- <div class="fas fa-plus fa-lg" id="addsmallcontainer1"  onclick="addcont2 ();"></div> -->
+                                     
+									      <select id="action" class="btn btn-default" >
+									         <option value="a">SecEngine A</option>
+									         <option value="b">SecEngine B</option>
+									      </select>
 
-                                          <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" id="menu2" type="button" data-toggle="dropdown"><i class="fas fa-plus fa-lg"></i>
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
-                       
-                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" id="addsmallcontainer1" href="#">Dropdown</a></li>
-                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" id="addtextfield1" href="#">TextField</a></li>
- 
-                        </ul>
-                        </div> 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-13" id="addcontainer1" onclick="addcont1 ();">
-                                        <div class="well well-centered clearfix"  style="background-color:#999999;cursor: pointer;border-radius: 8px; padding-left: 3px;margin-left: 0px;">
-                                            <div class="col-md-3">
-                                            </div>
-                                            <div class="col-md-3" id="container2" style="">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="fas fa-plus fa-lg"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2" style="float: right;padding-right: 0px;"> <button type="button" class="btn btn-lg btn-block">Save</button></div>
-
-                            </div>
+                                    	<input type="text" name="textDropdown" id="dropdowntxt">
+                                   		 
+                                  </div></div>
+                                 <div class="" id="textfield1" style="display: none;">
+                                    <input type="text" name="textfield1"> 
+                                 </div>
+                                 <!-- <div class="fas fa-plus fa-lg" id="addsmallcontainer1"  onclick="addcont2 ();"></div> -->
+                                 <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" id="menu" type="button" data-toggle="dropdown"><i class="fas fa-plus fa-lg"></i>
+                                    <span class="caret"></span></button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+                                       <li role="presentation"><a style="text-align: center;cursor: pointer;" role="menuitem" tabindex="-1" id="addsmallcontainer1">Dropdown</a></li>
+                                       <li role="presentation"><a style="text-align: center; cursor: pointer;" role="menuitem" tabindex="-1" id="addtextfield1">TextField</a></li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-13" id="addcontainer1" onclick="addcont1 ();">
+                              <div class="well well-centered clearfix"  style="background-color:#999999;cursor: pointer;border-radius: 8px; padding-left: 3px;margin-left: 0px;">
+                                 <div class="col-md-3">
+                                 </div>
+                                 <div class="col-md-3" id="container2" style="">
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="fas fa-plus fa-lg"></div>
+                                 </div>
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                    <!--COntainer Recent-->
-                    <div class="col-md-3">
-                        <div class="panel panel-default main-color-list" style="border:none;">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Recent</h3>
-                            </div>
-                            <div class="panel-body">
-                                <p><br><br><br><br><br><br></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <div class="col-md-2" style="float: right;padding-right: 0px;"> <button type="button" class="btn btn-lg btn-block">Save</button></div>
+                     </div>
+                  </div>
+               </div>
+               <!--COntainer Recent-->
+               <div class="col-md-3">
+                  <div class="panel panel-default main-color-list" style="border:none;">
+                     <div class="panel-heading">
+                        <h3 class="panel-title">Recent</h3>
+                     </div>
+                     <div class="panel-body">
+                        <p><br><br><br><br><br><br></p>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </section>
-        <footer id="footer">
-            <p>Copyright WAFer, &copy; 2018</p>
-        </footer>
-    </body>
+         </div>
+      </section>
+      <footer id="footer">
+         <p>Copyright WAFer, &copy; 2018</p>
+      </footer>
+   </body>
 </html>
