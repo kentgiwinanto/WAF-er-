@@ -32,5 +32,9 @@ function addserver() {
 		document.getElementById("errortxt").innerHTML="Domain must less than 32 Characters !";
 	} else {
 		document.getElementById("errortxt").innerHTML="Success, ServerAdded !"
+		$('#custom7').on('change', function(){
+   this.value = this.checked ? 1 : 0;
+   // alert(this.value);
+	}).change();
 	}
 }
