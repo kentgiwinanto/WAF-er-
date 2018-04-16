@@ -11,36 +11,43 @@
 |
 */
 
-Route::get('/login',function(){
-	return view('login');
+Route::get('/Login', function () {
+    return view('login');
 });
 
-Route::get('/addServer',function(){
-	return view('addserver');
+
+Route::get('/Addserver', function () {
+    return view('addserver');
 });
 
-Route::get('/configuration',function(){
-	return view('configuration');
+
+Route::get('/Configuration', function () {
+    return view('configuration');
 });
 
-Route::get('/detail',function(){
-	return view('detail');
+
+Route::get('/Detail', function () {
+    return view('detail');
 });
 
-Route::get('/home',function(){
-	return view('home');
+
+Route::get('/Home', function () {
+    return view('home');
 });
 
-Route::get('/server',function(){
-	return view('server');
+
+Route::get('/Register', function () {
+    return view('register');
 });
 
-Route::get('/register',function(){
-	return view('register');
+
+Route::get('/Server', function () {
+    return view('server');
 });
 
-Route::get('/Hello', function(){
-	return view('testong');
-});
 
-Route::post('/doLogin', 'testongController@Request');
+Route::get('/', function () {
+    return view('welcome');
+});
+	
+Route::post('/doLogin','testongController@Request');

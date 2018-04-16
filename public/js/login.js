@@ -17,7 +17,7 @@ function check(){
 		document.getElementById("errortxt").innerHTML="Invalid Username and Password";
 	}else{
 		document.getElementById("errortxt").innerHTML=""
-		open ("home");
+		open ("home.html");
 	}
 
 }

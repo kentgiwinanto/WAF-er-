@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class testongController extends Controller
 {
-    public function Request(Request $request){
+    public function Request() {
     	return 'Sukses';
     }
 }

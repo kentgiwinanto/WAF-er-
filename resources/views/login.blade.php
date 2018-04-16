@@ -1,19 +1,18 @@
-@extends('layout.indexPage')
+	 @extends('layout.index')
+    @section('Title')
+    <title>Login</title>
+    @endsection
 
-@section('Title')
-	<title>Admin Login</title>
-@endsection
+    @section('HeadCSS')
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+    @endsection
 
-@section('HeadCSS')
-	<link rel="stylesheet" type="text/css" href="css/register.css">
-@endsection
+    @section('HeadJS')
+    <script type="text/javascript" src="js/login.js"></script>
+    @endsection
 
-@section('HeadJS')
-	<script type="text/javascript" src="js/login.js"></script>
-@endsection
-
-@section('Content')
-	<div class="container">
+    @section('Contain')
+		<div class="container">
 			<div class="row main">
 				<div class="panel-heading">
 	               <div class="panel-title text-center">
@@ -22,8 +21,11 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form id ="FormLogin" class="form-horizontal" method="post" action="/doLogin">
-						{{ csrf_field() }}
+					<form id="FormLogin" class="form-horizontal" method="post" action="/doLogin">
+						{{csrf_field()}}
+
+						
+
 						<div class="form-group">
 							<label for="username" class="cols-sm-2 control-label">Username</label>
 							<div class="cols-sm-10">
@@ -60,4 +62,4 @@
 		</div>
 
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-@endsection
+	@endsection
