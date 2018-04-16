@@ -39,4 +39,8 @@ Route::get('/register',function(){
 	return view('register');
 });
 
+Route::get('/Hello', function(){
+	return view('testong');
+});
+
 Route::post('/doLogin', 'testongController@Request');
