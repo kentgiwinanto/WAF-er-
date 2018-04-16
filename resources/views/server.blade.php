@@ -25,11 +25,7 @@
 								<h2 style="padding:5px 1px 1px 1px; margin-top: 0px; margin-left: 110px;">  <br><label><i class="fas fa-plus"></i></label> </h2>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail';" style="cursor: pointer;border-radius: 8px;background-color: #41ea4c;padding-top: 0px;padding-left: 5%;">
-								<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;"> <label style="">Server</label>  <br><label style="font-size: 15px;">(192.168.1.101)</label><br><small style="float: right;"> 32 ms </small> </h2>
-							</div>
-						</div>
+						@include('php.showServerList')
 						<div class="col-md-4">
 							<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail';" style="cursor: pointer;border-radius: 8px;background-color: #f67c7c;padding-top: 0px;padding-left: 5%;">
 								<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;"> <label>Server</label>  <br><label style="font-size: 15px;">(Error)</label><br><small style="float: right;"> ? ms </small> </h2>
