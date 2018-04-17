@@ -365,7 +365,7 @@ DELIMITER ;
 
 
     DELIMITER $$
-CREATE PROCEDURE `WAF_Insert_Log`(
+CREATE  PROCEDURE `WAF_Insert_Log`(
 	 EncryptionTypeIDin VARCHAR(1024),    
 	 ServerIDin VARCHAR(1024), 
      Attackin VARCHAR(64),
@@ -388,8 +388,8 @@ BEGIN
 	 SET @producerid=CONCAT('ProducerTransactionLogID_',Substring(uuid(),1,13));    
 	 SET @messageid=CONCAT('MessageTransactionLogID_',Substring(uuid(),1,13));    
 	 SET @messagelogdetailid=CONCAT('MessageTransactionLogDetailID_',Substring(uuid(),1,13));    
-	 SET @tagmessageid=CONCAT('TagsMessageID_',Substring(uuid(),1,13));    
 	 
+     
 	 INSERT INTO ProducerTransactionLog(    
 	 Stsrc,    
 	 UserIn,    
@@ -402,11 +402,11 @@ BEGIN
 	 SecRules_engine,    
 	 Components)    
 	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@producerid,    
-	 ExtractValue(@xmlstring,'//XML/Producer[1]/ModSecurity') as 'ModSecurity',    
-	 ExtractValue(@xmlstring,'//XML/Producer[1]/Connector') as 'Connector',     
-	 ExtractValue(@xmlstring,'//XML/Producer[1]/SecRules_engine') as 'SecRules_engine',   
-	 ExtractValue(@xmlstring,'//XML/Producer[1]/Components') as 'Components';  
-	 
+	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/modsecurity') as 'ModSecurity',    
+	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/connector') as 'Connector',     
+	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/secrules_engine') as 'SecRules_engine',   
+	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/components') as 'Components';  
+	
      
 	 INSERT INTO headersRequestTransactionLog(    
 	 Stsrc,    
@@ -423,19 +423,30 @@ BEGIN
 	 Connection,    
 	 Host,    
 	 Accept_encoding,    
-	 Cookie    
-	 )    
+	 Cookie,
+     Referer,
+     Accept_Language,
+     Accept,
+     DNT,
+     Upgrade_Insecure_Request)    
 	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@requestheaderid,    
-	 Extractvalue(@xmlstring,'//XML/RequestDetails[1]/Cache_Control') as 'Cache_Control',    
-	 Extractvalue(@xmlstring,'//XML/RequestDetails[1]/Origin') as 'Origin',    
-	 Extractvalue(@xmlstring,'//XML/RequestDetails[1]/User_Agent') as 'User_agent',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Content_Type') as 'Content_Type',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Content_Length') as 'Content_Length',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Connection') as 'Connection',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Host') as 'Host',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Accept_encoding') as 'Accept_encoding',    
-	 ExtractValue(@xmlstring,'//XML/RequestDetails[1]/Cookie') as 'Cookie' ;  
-	     
+	 Extractvalue(@xmlstring,'//XML/transaction/request/headers[1]/Cache-Control') as 'Cache_Control',    
+	 Extractvalue(@xmlstring,'//XML/transaction/request/headers[1]/Origin') as 'Origin',    
+	 Extractvalue(@xmlstring,'//XML/transaction/request/headers[1]/User-Agent') as 'User_agent',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Content-Type') as 'Content_Type',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Content-Length') as 'Content_Length',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Connection') as 'Connection',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Host') as 'Host',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Accept-Encoding') as 'Accept_encoding', 
+     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Cookie') as 'Cookie',
+	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Referer') as 'Referer',
+     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Accept-Language') as 'Accept_Language',
+     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Accept') as 'Accept',
+     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/DNT') as 'DNT',
+     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Upgrade-Insecure-Request') as 'Upgrade_Insecure_Request';  
+	 
+     
+
      
 	 INSERT INTO RequestTransactionLog(    
 	 Stsrc,    
@@ -452,9 +463,9 @@ BEGIN
 	 userinin,    
 	 current_timestamp,    
 	 @requestid,    
-	 ExtractValue(@xmlstring,'//XML/RequestLog[1]/Method') as 'Method',    
-	 ExtractValue(@xmlstring,'//XML/RequestLog[1]/HTTP_Version') as 'HTTP_Version',    
-	 ExtractValue(@xmlstring,'//XML/RequestLog[1]/Uri') as 'Uri',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request[1]/method') as 'Method',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request[1]/http_version') as 'HTTP_Version',    
+	 ExtractValue(@xmlstring,'//XML/transaction/request[1]/uri') as 'Uri',    
 	 @requestheaderid;    
 	    
      
@@ -473,11 +484,11 @@ BEGIN
 	 connection    
 	 )    
 	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@responseheaderid,    
-	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Server') as 'Server',    
-	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Date') as 'Date',    
-	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Content_Length') as 'Content_Length',    
-	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Content_Type') as 'Content_Type',    
-	  ExtractValue(@xmlstring,'//XML/ResponseDetails[1]/Connection') as 'Connection';    
+	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Server') as 'Server',    
+	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Date') as 'Date',    
+	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Content-Length') as 'Content_Length',    
+	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Content-Type') as 'Content_Type',    
+	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Connection') as 'Connection';    
 	  
     
      
@@ -498,14 +509,20 @@ BEGIN
 	 null,    
 	 null,    
 	 @responseid,    
-	 ExtractValue(@xmlstring,'//XML/ResponseLog[1]/HTTP_code') as HTTP_code,    
+	 ExtractValue(@xmlstring,'//XML/transaction/response[1]/http_code') as HTTP_code,    
 	 @responseheaderid;    
-	  
      
-     SET @COUNTTAG = (SELECT EXTRACTVALUE(@xmlstring,'COUNT(//XML/DetailMessage[1]/Tags[1]/elements)'));
-     SET @i=1;
-     WHILE (@i <= @COUNTTAG) DO
-     SET @tagmessagedetailid=CONCAT('TagsMessageTransactionDetailLogID_',Substring(uuid(),1,13));    
+     
+	 SET @COUNTMES = (SELECT EXTRACTVALUE(@xmlstring,'COUNT(//XML/transaction[1]/messages)'));
+     SET @h:=1;
+     SET @j:=1;
+     WHILE(@h <= @COUNTMES)DO
+	 SET @tagmessageid=CONCAT('TagsMessageID_',Substring(uuid(),1,13));    
+	 SET @COUNTDET = (SELECT EXTRACTVALUE(@xmlstring,CONCAT('COUNT(//XML/transaction[1]/messages[',@h,']/details)')));
+     SET @COUNTTAG = (SELECT EXTRACTVALUE(@xmlstring,CONCAT('COUNT(//XML/transaction[1]/messages[',@h,']/details[',@j,']/tags)')));
+     SET @i:=1;
+	 WHILE (@i <= @COUNTTAG) DO
+     SET @tagmessagedetailid=CONCAT('TagsMessageTransactionDetailLogID_',Substring(uuid(),1,13));  
      INSERT INTO TagsMessageTransactionDetailLog(    
 	 Stsrc,    
 	 UserIn,    
@@ -524,16 +541,10 @@ BEGIN
 	 null,    
 	 @tagmessagedetailid,    
 	 @tagmessageid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[1]/Tags[1]/elements[',@i,']')) as 'Message';
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/tags[',@i,']')) as 'Message';
      SET @i=@i+1;
      END WHILE;
-     
-     
-     
-     SET @COUNTMES = (SELECT EXTRACTVALUE(@xmlstring,'COUNT(//XML/DetailMessage)'));
-     SET @j:=1;
-     WHILE(@j <= @COUNTMES)DO
-     SET @detailmessageid=CONCAT('DetailMessageTransactionDetailLogID_',Substring(uuid(),1,13));
+      SET @detailmessageid=CONCAT('DetailMessageTransactionDetailLogID_',Substring(uuid(),1,13));
      	 INSERT INTO DetailMessageTransactionDetailLog(    
 	 Stsrc,    
 	 UserIn,    
@@ -561,22 +572,21 @@ BEGIN
 	 null,    
 	 null,    
 	 @detailmessageid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/Match')) as 'Match',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/Reference'))as 'Reference',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/RuleID'))as 'RuleID',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/File'))as 'DetailMessageTransactionDetailFile',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/LineNumber'))as 'LineNumber',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/Data'))as 'Data',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/Severity'))as 'Severity',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/ver'))as 'ver',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/rev'))as 'rev',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/match')) as 'Match',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/reference'))as 'Reference',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/ruleId'))as 'RuleID',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/file'))as 'DetailMessageTransactionDetailFile',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/lineNumber'))as 'LineNumber',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/data'))as 'Data',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/severity'))as 'Severity',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/ver'))as 'ver',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/rev'))as 'rev',    
 	 @tagmessagedetailid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/Maturity'))as 'Maturity',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/DetailMessage[',@j,']/Accuracy'))as 'Accuracy';
-	 SET @j= @j+1;
-     END WHILE;
-     
-	 INSERT INTO MessageTransactionLogDetail(    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/maturity'))as 'Maturity',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/accuracy'))as 'Accuracy';
+	     
+	 SET @messagelogdetailid=CONCAT('MessageTransactionLogDetailID_',Substring(uuid(),1,13));    
+     INSERT INTO MessageTransactionLogDetail(    
 	 Stsrc,    
 	 UserIn,    
 	 DateIn,    
@@ -589,9 +599,11 @@ BEGIN
 	 userinin,    
 	 current_timestamp,    
 	 @messagelogdetailid,    
-	 ExtractValue(@xmlstring,'//XML/MessageName[1]/Message') as 'Message',    
+	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/message')) as 'Message',    
 	 @detailmessageid;
-    
+     SET @h= @h+1;
+     END WHILE;
+   
      
 	 INSERT INTO MessageTransactionLog(    
 	 Stsrc,    
@@ -618,7 +630,8 @@ BEGIN
 	 TransactionLogID,    
 	 TimeStamp,    
 	 Host_IP,    
-	 Host_Port,    
+	 Host_Port, 
+     Client_IP,
 	 Client_Port,    
 	 RequestTransactionLogID,    
 	 ResponseTransactionLogID,    
@@ -631,16 +644,17 @@ BEGIN
 	 userinin,    
 	 CURRENT_TIMESTAMP,    
 	 @transactionlogid,    
-	 ExtractValue(@xmlstring,'//XML/TransactionLog[1]/TimeStamp') as 'TimeStamp',    
-	 ExtractValue(@xmlstring,'//XML/TransactionLog[1]/Host_IP')as 'Host_IP',    
-	 ExtractValue(@xmlstring,'//XML/TransactionLog[1]/Host_Port')as 'Host_Port',    
-	 ExtractValue(@xmlstring,'//XML/TransactionLog[1]/Client_Port')as 'Client_Port',    
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/time_Stamp') as 'TimeStamp',    
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/host_ip')as 'Host_IP',    
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/host_port')as 'Host_Port',
+     ExtractValue(@xmlstring,'//XML/transaction[1]/client_ip')as 'Client_IP',
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/client_port')as 'Client_Port',    
 	 @requestid,    
 	 @responseid,    
 	 @producerid,    
 	 @messageid,    
-	 ExtractValue(@xmlstring,'//XML/TransactionLog[1]/LogID')as 'LogID';    
-      
+	 ExtractValue(@xmlstring,'//XML/transaction/LogID')as 'id';    
+
 	 INSERT INTO WAF_Logs(    
 	 Stsrc,    
 	 UserIn,    
@@ -663,11 +677,11 @@ BEGIN
 	 null,    
 	 null,    
 	 @waflogsid,    
-	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/TimeStampLog')as 'TimeStampLog',    
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/time_stamp')as 'TimeStampLog',    
 	 ServerIDin,    
-	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/AllMessages')as 'LogFile',    
+	 @xmlstring,    
 	 EncryptionTypeIDin,    
-	 ExtractValue(@xmlstring,'//XML/WAF_Logs[1]/EncryptionKey')as 'EncryptionKey',    
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/encryptioney')as 'EncryptionKey',    
 	 @transactionlogid
      ,Attackin;  
 	 END$$
@@ -675,8 +689,8 @@ DELIMITER ;
 	
 
 
-	DELIMITER $$
-CREATE PROCEDURE `WAF_Read_Logs`()
+DELIMITER $$
+CREATE  PROCEDURE `WAF_Read_Logs`()
 BEGIN
 -- ============================================================
 -- Created By: Rizky Gunawan Liga
@@ -691,6 +705,7 @@ BEGIN
         a.AttackType,
 		b.ServerName,
 		d.EncryptionTypeName,
+        c.Client_IP,
 		c.TimeStamp,
 		c.Host_IP,
 		c.Host_Port,
@@ -707,6 +722,11 @@ BEGIN
 		i.Host,
 		i.Accept_encoding,
 		i.Cookie,
+        i.Referer,
+        i.Accept_Language,
+        i.Accept,
+        i.DNT,
+        i.Upgrade_Insecure_Request,
 		f.HTTP_code,
 		j.server,
 		j.date,
@@ -747,6 +767,7 @@ BEGIN
 		JOIN TagsMessageTransactionDetailLog m ON m.TagsMessageTransactionDetailLogID=l.TagsMessageTransactionDetailLogID;
 		END$$
 DELIMITER ;
+
         
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_ServerList`(
