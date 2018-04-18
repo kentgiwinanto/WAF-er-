@@ -364,11 +364,10 @@ DELIMITER ;
   
 
 
-    DELIMITER $$
-CREATE  PROCEDURE `WAF_Insert_Log`(
+   DELIMITER $$
+CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Insert_Log`(
 	 EncryptionTypeIDin VARCHAR(1024),    
-	 ServerIDin VARCHAR(1024), 
-     Attackin VARCHAR(64),
+	 Attackin VARCHAR(64),
 	 userinin VARCHAR(32),
      xmlstring VARCHAR(65531)
 	   )
@@ -648,14 +647,14 @@ BEGIN
 	 ExtractValue(@xmlstring,'//XML/transaction[1]/host_ip')as 'Host_IP',    
 	 ExtractValue(@xmlstring,'//XML/transaction[1]/host_port')as 'Host_Port',
      ExtractValue(@xmlstring,'//XML/transaction[1]/client_ip')as 'Client_IP',
-     ExtractValue(@xmlstring,'//XML/transaction[1]/client_port')as 'Client_Port',    
+	 ExtractValue(@xmlstring,'//XML/transaction[1]/client_port')as 'Client_Port',    
 	 @requestid,    
 	 @responseid,    
 	 @producerid,    
 	 @messageid,    
 	 ExtractValue(@xmlstring,'//XML/transaction/LogID')as 'id';    
 
-	 INSERT INTO WAF_Logs(    
+	  INSERT INTO WAF_Logs(    
 	 Stsrc,    
 	 UserIn,    
 	 DateIn,    
@@ -686,6 +685,7 @@ BEGIN
      ,Attackin;  
 	 END$$
 DELIMITER ;
+
 	
 
 
