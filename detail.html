@@ -9,14 +9,51 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+<!-- new Script and CSS -->
+        <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="js/datatables.min.js"></script>
+    <script type="text/javascript" src="js/query.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+
     <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
+
+<!-- SCRIPT YANG HARUS MATI -->
+
+<!--     <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+ <script>
+ $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+    switch ( d ) {
+        case 'Low':    return 1;
+        case 'Medium': return 2;
+        case 'High':   return 3;
+    }
+    return 0;
+};
+ 
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "columnDefs": [ {
+            "type": "salary-grade",
+            "targets": -1
+        } ]
+    } );
+} );
+
+</script>
+
+
+<!-- <script>
+
+
 $(document).ready(function(){
   $("#dateSlider2").find('ul').hide()
     $("#dateSlider2").click(function(){
@@ -31,7 +68,7 @@ $(document).ready(function(){
         $("#typeSlider").slideToggle();
     });
 }); 
-</script>
+</script> -->
 <script>
 $(document).ready(function(){
   $("#ruleslider1").find('ul').hide()
@@ -49,7 +86,7 @@ $(document).ready(function(){
 }); 
 </script>
     <script type="text/javascript" src="js/fontawesome-all.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js/loader.js"></script>
     <script type="text/javascript">
 
       // Load the Visualization API and the corechart package.
@@ -91,6 +128,14 @@ $(document).ready(function(){
    
   </head>
   <body>
+<!-- POP UP MENU  -->
+ <div style="display: none;" id="modal">
+          <h2>Detail Log</h2>
+          <tr>
+            <td><!-- INI ISINYA ATRIBUT LOG -->Ini isinya nanti log mentah , jadinya ini cuman contoh aja kalo tulisannya bisa nampung sepanjang ini atau ga, jujur gw ga tau harus masukin apa , normalnya orang bakal taro ipsum atau sejenisnya tapi yaudah gw males copy lagi , jadi gw ketik manual aja , supaya tau limit dari pop up windows ini aja sih. Sekian terima kasih dah di baca , sebenernya ga usah dibaca juga gapapa. </td>
+            <td><!-- INI ISINYA VALUE LOG --></td>
+          </tr>
+        </div>
 
 <!-- HEADER Judul-->
     <header id="header">
@@ -142,7 +187,7 @@ $(document).ready(function(){
 
  <div class="col-md-12" style="padding-left: 0px">
       <div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
-        <h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Server <br><br><small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small> </h2>
+        <h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Server <br> <div id="chart_div" style="margin: center;border-radius: 18px;"></div><small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small> </h2>
       </div>
     </div>
 
@@ -156,57 +201,102 @@ $(document).ready(function(){
   </li>
 </ul><!-- end of nav -->
 
-<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;max-height: 200px;overflow-y: scroll;">
+<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
         <div class="tab-pane active" id="tab_a">
             <div class="col-md-13" style="background-color: white;">
-              <h4>Logs</h4>
-              <ul id="dateSlider">
-                <li style="cursor: pointer;">
-                  12 - 03 - 2018
-                  <ul id="typeSlider">
-                    <li>
-                      <table border="solid 1px">
-                        <tr>
-                          <th style="width: 340px"></th>
-                          <th style="width:340px"></th>
-                        </tr>
-                        <tr>
-                          <td>WAF_LogsID</td>
-                          <td>WAF_LogsID_1237c939-3baa</td>
-                        </tr>
-                        <tr>
-                          <td>TimeStampLog</td>
-                          <td> 2002-05-30 09:00:00</td>
-                        </tr>
-                      </table>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+              <h4>Error Logs</h4>
+               
 
-              <ul id="dateSlider2">
-                <li style="cursor: pointer;">
-                  11 - 03 - 2018
-                  <ul id="typeSlider2">
-                    <li>
-                      <table border="solid 1px">
-                        <tr>
-                          <th style="width: 340px"></th>
-                          <th style="width:340px"></th>
-                        </tr>
-                        <tr>
-                          <td>WAF_LogsID</td>
-                          <td>WAF_LogsID_1237c939-3baa</td>
-                        </tr>
-                        <tr>
-                          <td>TimeStampLog</td>
-                          <td> 2002-05-30 09:00:00</td>
-                        </tr>
-                      </table>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+
+               <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date/Time</th>
+                <th>Event Name</th>
+                <th>Type Attack</th>
+                <th>IP Source</th>
+                <th>Destination</th>
+                <th>Risk</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>LOG001</td>
+                <td>Fri Apr 13 00:53:24 2018</td>
+                <td>SQL Injection Detected Via lbinject</td>
+                <td>SQLi</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>High</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG002</td>
+                <td>Fri Apr 13 11:32:54 2018</td>
+                <td>XSS Attack Attempt</td>
+                <td>XSS</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>Low</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG003</td>
+                <td>Fri Apr 12 21:53:13 2018</td>
+                <td>Brute Force Attack</td>
+                <td>Brute Force</td>
+                <td>192.168.1.106</td>
+                <td>0.0.0.0</td>
+                <td>Low</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG004</td>
+                <td>Fri Apr 12 17:11:03 2018</td>
+                <td>SQL Injection Detected Via lbinject</td>
+                <td>SQLi</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>High</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG005</td>
+                <td>Fri Apr 11 03:21:30 2018</td>
+                <td>XSS Attack Via WAF</td>
+                <td>XSS</td>
+                <td>192.168.1.112</td>
+                <td>0.0.0.0</td>
+                <td>Medium</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG006</td>
+                <td>Fri Apr 13 18:23:31 2018</td>
+                <td>SQL Injection Attempt</td>
+                <td>SQLi</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>Low</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Date/Time</th>
+                <th>Event Name</th>
+                <th>Type Attack</th>
+                <th>IP Source</th>
+                <th>Destination</th>
+                <th>Risk</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
             </div>
         </div>
 
@@ -277,7 +367,7 @@ $(document).ready(function(){
     <h3 class="panel-title">Recent</h3>
   </div>
   <div class="panel-body">
-    <p style="text-align: center"><br><br>Coming Soon!<br><br><br><br></p>
+<p><br><br><br><br><br><br></p>
 
 
 
@@ -292,7 +382,7 @@ $(document).ready(function(){
 
     </section>
 
-    <footer id="footer">
+    <footer id="footer" style="position: static;">
       <p>Copyright WAFer, &copy; 2018</p>
     </footer>
 
