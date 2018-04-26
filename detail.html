@@ -40,7 +40,7 @@
 };
  
 $(document).ready(function() {
-    $('#example').DataTable( {
+    $('#seclog').DataTable( {
         "columnDefs": [ {
             "type": "salary-grade",
             "targets": -1
@@ -49,7 +49,26 @@ $(document).ready(function() {
 } );
 
 </script>
+<script>
+ $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+    switch ( d ) {
+        case 'Low':    return 1;
+        case 'Medium': return 2;
+        case 'High':   return 3;
+    }
+    return 0;
+};
+ 
+$(document).ready(function() {
+    $('#accesslog').DataTable( {
+        "columnDefs": [ {
+            "type": "salary-grade",
+            "targets": -1
+        } ]
+    } );
+} );
 
+</script>
 
 <!-- <script>
 
@@ -116,7 +135,7 @@ $(document).ready(function(){
 
         // Set chart options
         var options = {'title':'Number of Attacks',
-                       'width':815,
+                       'width':1015,
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
@@ -183,7 +202,7 @@ $(document).ready(function(){
        
 <!--Container Content-->
  
-          <div class="col-md-9">
+          <div class="col-md-12">
 
  <div class="col-md-12" style="padding-left: 0px">
       <div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
@@ -194,8 +213,10 @@ $(document).ready(function(){
 <!--Container Content Log and Config-->
 
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#tab_a" data-toggle="tab">Log</a></li>
-  <li><a href="#tab_b" data-toggle="tab">Rules</a></li>
+  <li class="active"><a href="#tab_a" data-toggle="tab">Security Log</a></li>
+  <li><a href="#tab_b" data-toggle="tab">Access Log</a></li>
+  <li><a href="#tab_c" data-toggle="tab">Rules</a></li>
+  <li><a href="#tab_d" data-toggle="tab">Setting</a></li>
   <li class="dropdown">
 
   </li>
@@ -204,11 +225,11 @@ $(document).ready(function(){
 <div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
         <div class="tab-pane active" id="tab_a">
             <div class="col-md-13" style="background-color: white;">
-              <h4>Error Logs</h4>
+              <h4>Security Logs</h4>
                
 
 
-               <table id="example" class="display" style="width:100%">
+               <table id="seclog" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -300,10 +321,112 @@ $(document).ready(function(){
             </div>
         </div>
 
+<!-- 
+Access Log -->
 
         <div class="tab-pane" id="tab_b">
+            <div class="col-md-13" style="background-color: white;">
+              <h4>Access Logs</h4>
+               
+
+
+               <table id="accesslog" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>TimeStamp</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Request</th>
+                <th>Request Body</th>
+                <th>Status</th>
+                <th>Body Bytes Sent</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>26 Apr 2018:01:32:07</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>35 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>20 Apr 2018:11:42:32</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Post</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>24 Apr 2018:15:21:01</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>57 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>26 Apr 2018:07:11:01</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>24 Apr 2018:12:12:21</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Post</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>            </tr>
+            <tr>
+                <td>26 Apr 2018:01:42:01</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>TimeStamp</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Request</th>
+                <th>Request Body</th>
+                <th>Status</th>
+                <th>Body Bytes Sent</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+            </div>
+        </div>
+
+
+        <div class="tab-pane" id="tab_c">
             <h4>Rules</h4>
-            <form action="#">
+
+            Coming Soon ~
+<!--             <form action="#">
           <table >
             <tr>
               <th style="width: 700px"></th>
@@ -328,7 +451,7 @@ $(document).ready(function(){
               </ul></td>
               <td><input type="button" class="fas fa-lg fa-edit" style="float: center;cursor: pointer;" value="Edit"></td>
             </tr>
-<!--             <tr>
+            <tr>
               <td><ul id="ruleslider2">
                 <li style="cursor: pointer;">
                     <input type="checkbox" name="Configuration" value="SecRule1"> SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES 
@@ -342,12 +465,95 @@ $(document).ready(function(){
                 </li>
               </ul></td>
               <td><input type="button" class="fas fa-lg fa-edit" style="cursor: pointer;" value=""></td>
-            </tr> -->
+            </tr>
             <tr>
               <td><input type="button" class="fas fa-lg fa-plus-circle" style="float:center;cursor: pointer;"></td>
               <td><input type="button" class="btn btn-primary" style="float: right;" value="Save"></td>
             </tr>
-          </table> </form>
+          </table> </form> -->
+        </div>
+
+         <div class="tab-pane" id="tab_d">
+            <h4>Setting</h4>
+        <form action="#">
+          <table>
+            <table >
+              <tr>
+                <th style="width: 550px"></th>
+                <th style="width: 550px"></th>
+              </tr>
+              <tr>
+                <td style="width: 300px;">
+            <div class="form-group">
+              <label for="password" class="cols-sm-2 control-label">Server Name</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-server fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="servername" id="servernametxt"  placeholder="Enter Server Name"/>
+                </div>
+              </div>
+            </div></td>
+                <td style="width: 300px;">
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">IP</label>
+              <div class="">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="ip" id="iptxt"  placeholder="Enter Server IP Address"/>
+                </div>
+              </div>
+            </div></td>
+              </tr>
+              <tr>
+                <td style="width: 300px;">
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">PortsOpen</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-code-branch fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="portsopen" id="portsopentxt"  placeholder="PortsOpen"/>
+                </div>
+              </div>
+            </div></td>
+                <td style="width:300px;">
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">Domain</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="domain" id="domaintxt"  placeholder="Enter Server Domain"/>
+                </div>
+              </div>
+            </div></td>
+              </tr>
+              <tr>
+                <td><div class="form-group btn-group">
+                                   <input type="checkbox" name="custom7" value="1" id="custom7" checked="checked"> 
+                                   <label for="custom7">Enable ModSecurity?</label>
+                                    </div> 
+                                </td>
+                <td>
+                        <div class="form-group">
+                            <label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+                        </div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+
+                </td>
+              </tr>   
+            </table>
+          </table>
+        </form>
+            <div class="col-md-8">
+                    
+                  <button type="button" class="btn btn-lg" style="float:left;" onclick="addserver();">Delete</button>
+           </div>
+             <div class="col-md-"3 style="float: right;">
+                <button type="button" class="btn btn-lg" onclick="addserver();">Cancel</button>
+                <button type="button" class="btn btn-lg" onclick="addserver();">Update</button>                       
+            </div>
         </div>
 
 </div><!-- tab content -->
@@ -359,24 +565,8 @@ $(document).ready(function(){
 <!--Container Recent-->
 
 
- <div class="col-md-3">
 
 
-      <div class="panel panel-default main-color-list" style="border :none;">
-  <div class="panel-heading">
-    <h3 class="panel-title">Recent</h3>
-  </div>
-  <div class="panel-body">
-<p><br><br><br><br><br><br></p>
-
-
-
-
-  </div>
-</div>
-
-
-          </div>
         </div>
       </div>
 
