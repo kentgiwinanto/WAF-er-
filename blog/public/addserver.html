@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Add Server</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/fontawesome-all.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="js/container.js"></script>
+	    <script type="text/javascript" src="js/addserver.js"></script>
+        <script type="text/javascript">
+            var nomor = 2;
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', {'packages':['corechart']});
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function drawChart() {
+
+              // Create the data table.
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Day');
+              data.addColumn('number', 'SQLi');
+              data.addRows([
+                ['Monday', 3],
+                ['Tuesday', 1],
+                ['Wednesday', 4],
+                ['Thursday', 4],
+                ['Friday', 6],
+                ['Saturday', 3],
+                ['Sunday', 2]
+              ]);
+
+              // Set chart options
+              var options = {'title':'Number of Attacks',
+                             'width':815,
+                             'height':300};
+
+              // Instantiate and draw our chart, passing in some options.
+              var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+              chart.draw(data, options);
+            }
+        </script>
+    </head>
+    <body>
+        <!--Header Judul-->
+        <header id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <a href="home.html">
+                            <h1>
+                                <i class="fas fa-cog"></i> WAF <small>Manage System</small>
+                        </a>
+                        <div class="dropdown" style="float: right;">
+                        <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"><i class="fas fa-user"></i>
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#"><img src="#"></a></li>
+                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Name</a></li>
+                        <li role="presentation"><a style="text-align: center;" role="menuitem" tabindex="-1" href="#">Job Role</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="server.html">Server</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="configuration.html">Config</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>
+                        </ul>
+                        </div> </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--BreadCrumb-->
+        <section id="breadcrumb">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="active"> Breadcrumb </li>
+                </ol>
+            </div>
+        </section>
+        <section id="main">
+            <div class="container">
+                <div class="row">
+                    <!--Container COntent -->
+                    <div class="col-md-9" style="max-height: 400px;">
+
+                    	<div class="panel panel-default main-color-list" style="border:none;">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Add Server</h3>
+                            </div>
+                            <div class="panel-body" style="max-height: 300px;overflow-y: scroll;">
+
+                    	<form class="form" method="post" action="#">
+
+						<table >
+							<tr>
+								<th style="width: 400px"></th>
+								<th style="width: 400px"></th>
+							</tr>
+							<tr>
+								<td style="width: 300px;">
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">Server Name</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-server fa-lg" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="servername" id="servernametxt"  placeholder="Enter Server Name"/>
+								</div>
+							</div>
+						</div></td>
+								<td style="width: 300px;">
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">IP</label>
+							<div class="">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="ip" id="iptxt"  placeholder="Enter Server IP Address"/>
+								</div>
+							</div>
+						</div></td>
+							</tr>
+							<tr>
+								<td style="width: 300px;">
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">PortsOpen</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-code-branch fa-lg" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="portsopen" id="portsopentxt"  placeholder="Input PortsOpen"/>
+								</div>
+							</div>
+						</div></td>
+								<td style="width:300px;">
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Domain</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="domain" id="domaintxt"  placeholder="Enter Server Domain"/>
+								</div>
+							</div>
+						</div></td>
+							</tr>
+							<tr>
+								<td><div class="form-group btn-group">
+                                   <input type="checkbox" name="custom7" value="1" id="custom7" checked="checked">
+                                   <label for="custom7">Enable ModSecurity?</label>
+                                    </div>
+                                </td>
+								<td>
+                        <div class="form-group">
+                            <label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+                        </div></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+						<button type="button" class="btn btn-primary btn-lg" style="background-color;float:right;" onclick="addserver();">Add Server</button></td>
+							</tr>
+						</table>
+
+					</form>
+                    <div class="btn-group" style="float: right;"> <button type="button" class="btn btn-lg" style="background-color: #ffffff;float:left;" onclick="">Cancel
+                                </button> </div>
+				</div>
+			</div>
+                    </div>
+                    <!--COntainer Recent-->
+                    <div class="col-md-3">
+                        <div class="panel panel-default main-color-list" style="border:none;">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Recent</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><br><br><br><br><br><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer id="footer">
+            <p>Copyright WAFer, &copy; 2018</p>
+        </footer>
+    </body>
+</html>
