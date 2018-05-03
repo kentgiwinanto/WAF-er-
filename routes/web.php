@@ -8,13 +8,13 @@ Route::get('/Admin','AdminController@index');
 
 //Regis
 Route::get('/Register', function () {
-    return view('Register');
+    return view('register');
   });
 Route::post('/Register', 'RegisterController@store');
 
 //Login
 Route::get('/Login', function () {
-    return view('Login');
+    return view('login');
   });
 Route::post('/Login', 'LoginController@dologin');
 
@@ -25,19 +25,19 @@ Route::group(['middleware' => 'checkuser'], function(){
 
     //Home
     Route::get('/Home', function () {
-        return view('Home', compact('username', 'UserJobName'));
+        return view('home', compact('username', 'UserJobName'));
     });
 
     //Server
     Route::get('/Server', function()
     {
-    	return view('Server');
+    	return view('server');
     });
 
     //addServer
     Route::get('/AddServer', function()
     {
-    	return view('AddServer');
+    	return view('addServer');
     });
     Route::post('/AddServer', 'AddServerController@add');
 
@@ -45,13 +45,13 @@ Route::group(['middleware' => 'checkuser'], function(){
     //Detail case-sensitive
     Route::get('/Detail', function()
     {
-    	return view('Detail');
+    	return view('detail');
     });
 
     //Config
     Route::get('/Configuration', function()
     {
-    	return view('Configuration');
+    	return view('configuration');
     });
     Route::post('/Configuration', 'ConfigController@add');
 

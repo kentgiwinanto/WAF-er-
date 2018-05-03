@@ -3,127 +3,168 @@
 @section('Title')
 	<title>Detail | WAFer Development</title>
 
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link rel="stylesheet" type="text/css" href="css/datatables.min.css">
-	<!-- new Script and CSS -->
-			<link rel="stylesheet" type="text/css" href="css/datatables.min.css">
-			<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
-	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="js/datatables.min.js"></script>
-	<script type="text/javascript" src="js/query.dataTables.min.js"></script>
-	<script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+<!-- new Script and CSS -->
+        <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="js/datatables.min.js"></script>
+    <script type="text/javascript" src="js/query.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
 
-	<script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+    <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-	<!-- SCRIPT YANG HARUS MATI -->
+<!-- SCRIPT YANG HARUS MATI -->
 
-	<!--     <script type="text/javascript" src="js/jquery.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-	<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-
-	<script>
-	$.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
-	switch ( d ) {
-			case 'Low':    return 1;
-			case 'Medium': return 2;
-			case 'High':   return 3;
-	}
-	return 0;
-	};
-
-	$(document).ready(function() {
-	$('#example').DataTable( {
-			"columnDefs": [ {
-					"type": "salary-grade",
-					"targets": -1
-			} ]
-	} );
-	} );
-
-	</script>
+<!--     <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
 
-	<!-- <script>
+<!-- Script Untuk DataTables  -->
+
+ <script>
+ $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+    switch ( d ) {
+        case 'Low':    return 1;
+        case 'Medium': return 2;
+        case 'High':   return 3;
+    }
+    return 0;
+};
+ 
+$(document).ready(function() {
+    $('#detaillog').DataTable( {
+        "columnDefs": [ {
+            "type": "salary-grade",
+            "targets": -1
+        } ]
+    } );
+} );
+
+</script>
+
+ <script>
+ $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+    switch ( d ) {
+        case 'Low':    return 1;
+        case 'Medium': return 2;
+        case 'High':   return 3;
+    }
+    return 0;
+};
+ 
+$(document).ready(function() {
+    $('#seclog').DataTable( {
+        "columnDefs": [ {
+            "type": "salary-grade",
+            "targets": -1
+        } ]
+    } );
+} );
+
+</script>
+<script>
+ $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+    switch ( d ) {
+        case 'Low':    return 1;
+        case 'Medium': return 2;
+        case 'High':   return 3;
+    }
+    return 0;
+};
+ 
+$(document).ready(function() {
+    $('#accesslog').DataTable( {
+        "columnDefs": [ {
+            "type": "salary-grade",
+            "targets": -1
+        } ]
+    } );
+} );
+
+</script>
 
 
-	$(document).ready(function(){
-	$("#dateSlider2").find('ul').hide()
-	$("#dateSlider2").click(function(){
-			$("#typeSlider2").slideToggle();
-	});
-	});
-	</script>
-	<script>
-	$(document).ready(function(){
-	$("#dateSlider").find('ul').hide()
-	$("#dateSlider").click(function(){
-			$("#typeSlider").slideToggle();
-	});
-	});
-	</script> -->
-	<script>
-	$(document).ready(function(){
-	$("#ruleslider1").find('ul').hide()
-	$("#ruleslider1").click(function(){
-			$("#detailruleslider1").slideToggle();
-	});
-	});
-	</script>
-	<script>
-	$(document).ready(function(){
-	$("#ruleslider2").find('ul').hide()
-	$("#ruleslider2").click(function(){
-			$("#detailruleslider2").slideToggle();
-	});
-	});
-	</script>
-	<script type="text/javascript" src="js/fontawesome-all.js"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-
-		// Load the Visualization API and the corechart package.
-		google.charts.load('current', {'packages':['corechart']});
-
-		// Set a callback to run when the Google Visualization API is loaded.
-		google.charts.setOnLoadCallback(drawChart);
-
-		// Callback that creates and populates a data table,
-		// instantiates the pie chart, passes in the data and
-		// draws it.
-		function drawChart() {
-
-			// Create the data table.
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Day');
-			data.addColumn('number', 'SQLi');
-			data.addRows([
-				['Monday', 3],
-				['Tuesday', 1],
-				['Wednesday', 4],
-				['Thursday', 4],
-				['Friday', 6],
-				['Saturday', 3],
-				['Sunday', 2]
-			]);
-
-			// Set chart options
-			var options = {'title':'Number of Attacks',
-										 'width':815,
-										 'height':300};
-
-			// Instantiate and draw our chart, passing in some options.
-			var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-			chart.draw(data, options);
-		}
-	</script>
+<script>
 
 
+$(document).ready(function(){
+  $("#tagslider2").find('ul').hide()
+    $("#tagslider2").click(function(){
+        $("#detailtagslider2").slideToggle();
+    });
+}); 
+</script>
+<script>
+$(document).ready(function(){
+  $("#tagslider1").find('ul').hide()
+    $("#tagslider1").click(function(){
+        $("#detailtagslider1").slideToggle();
+    });
+}); 
+</script> 
+<script>
+$(document).ready(function(){
+  $("#ruleslider1").find('ul').hide()
+    $("#ruleslider1").click(function(){
+        $("#detailruleslider1").slideToggle();
+    });
+}); 
+</script>
+<script>
+$(document).ready(function(){
+  $("#ruleslider2").find('ul').hide()
+    $("#ruleslider2").click(function(){
+        $("#detailruleslider2").slideToggle();
+    });
+}); 
+</script>
+    <script type="text/javascript" src="js/fontawesome-all.js"></script>
+    <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript">
 
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'SQLi');
+        data.addRows([
+          ['Monday', 3],
+          ['Tuesday', 1],
+          ['Wednesday', 4],
+          ['Thursday', 4],
+          ['Friday', 6],
+          ['Saturday', 3],
+          ['Sunday', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Number of Attacks',
+                       'width':1015,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
 @endsection
 
 <!-- @section('HeadJS') -->
@@ -133,200 +174,490 @@
 
 @section('Content')
 		<!-- POP UP MENU  -->
-		<div style="display: none;" id="modal">
-			<h2>Detail Log</h2>
-			<tr>
-				<td><!-- INI ISINYA ATRIBUT LOG -->Ini isinya nanti log mentah , jadinya ini cuman contoh aja kalo tulisannya bisa nampung sepanjang ini atau ga, jujur gw ga tau harus masukin apa , normalnya orang bakal taro ipsum atau sejenisnya tapi yaudah gw males copy lagi , jadi gw ketik manual aja , supaya tau limit dari pop up windows ini aja sih. Sekian terima kasih dah di baca , sebenernya ga usah dibaca juga gapapa. </td>
-				<td><!-- INI ISINYA VALUE LOG --></td>
-			</tr>
-		</div>
+				<div style="display: none;" id="modal">
+				          <h2>Detail Log</h2>
+				          <tr>
+				            <td><!--Container Content Log and Config-->
 
+				<ul class="nav nav-tabs">
+				  <li class="active"><a href="#tab_e" data-toggle="tab">Table Log</a></li>
+				  <li><a href="#tab_f" data-toggle="tab">JSON Log</a></li>
+				  <li class="dropdown">
+
+				  </li>
+				</ul><!-- end of nav -->
+
+			<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
+
+						<!-- SECTION DETAIL TABLE MESSAGE LOG POP UP -->
+
+		    	<div class="tab-pane active" id="tab_e">
+		            <div class="col-md-13" style="background-color: white;">
+		              <h4>Security Logs</h4>
+               <table id="detaillog" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th>Match</th>
+                <th>Ref</th>
+                <th>RuleID</th>
+                <th>File</th>
+                <th>LineNumber</th>
+                <th>Data</th>
+                <th>Severity</th>
+                <th>Version</th>
+                <th>Rev</th>
+                <th>Tags</th>
+                <th>Maturity</th>
+                <th>Accuracy</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>XSS Attack Detected Via Libinjected</td>
+                <td>Detected XSS Using libinjection</td>
+                <td style="word-wrap: break-word;">"v8,38t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls"</td>
+                <td>941100</td>
+                <td>/etc/nginx/owasp-modsecurity-crs/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf</td>
+                <td>17</td>
+                <td>"Matched Data: \" //\" found within ARGS:p: \" //\"</td>
+                <td>2</td>
+                <td>OWASP_CRS/3.0.0</td>
+                <td>2</td>
+                <td>
+                	<ul id="tagslider1">
+               		 <li style="cursor: pointer;">
+                    Tags 
+                 	 <ul id="detailtagslider1">
+                    <li>
+                      Tag 1 </li>
+                    <li>Tag 2</li>
+                  </ul>
+                </li>
+              </ul>
+                </td>
+                <td>2</td>
+                <td>9</td>
+            </tr>
+                <td>XSS Attack Detected Via Libinjected</td>
+                <td>Detected XSS Using libinjection</td>
+                <td style="word-wrap: break-word;">"v8,38t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls"</td>
+                <td>941100</td>
+                <td>/etc/nginx/owasp-modsecurity-crs/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf</td>
+                <td>17</td>
+                <td>"Matched Data: \" //\" found within ARGS:p: \" //\"</td>
+                <td>2</td>
+                <td>OWASP_CRS/3.0.0</td>
+                <td>2</td>
+                <td>
+                	<ul id="tagslider2">
+               		 <li style="cursor: pointer;">
+                    Tags 
+                 	 <ul id="detailtagslider2">
+                    <li>
+                      Tag 1 </li>
+                    <li>TAGTAGATAGATAGATAGAT 2 AW</li>
+                  </ul>
+                </li>
+              </ul>
+                </td>
+                <td>2</td>
+                <td>9</td>
+        </tbody>
+    </table>
+            </div>
+        </div>
+				        <!-- END DETAIL MESSAGE TABLE LOG -->
+
+						<!-- JSON LOG SECTION -->
+
+            <div class="tab-pane" id="tab_f">
+            <div class="col-md-13" style="background-color: white;">
+              <h4>JSON Logs</h4>
+               <div class="container">
+			  
+			    <div class="form-group">  
+			      <textarea disabled="" class="form-control" rows="5" id="jsonlog"></textarea>
+			    </div>
+			  
+			</div>
+
+            </div>
+        </div>
+
+				        <!-- END JSON LOG SECTION -->
+</div>
+ </td>
+            <td></td>
+          </tr>
+        </div>
 
 		@include('inc.navbar')
+
 		<!--BreadCrumb-->
-		<section id="breadcrumb">
-			<div class="container">
-				<ol class="breadcrumb">
-					<li class="active"> Breadcrumb </li>
-				</ol>
-			</div>
-		</section>
-		<section id="main">
-			<div class="container">
-				<div class="row">
-					<!--Container Content-->
-					<div class="col-md-9">
-						<div class="col-md-12" style="padding-left: 0px">
-							<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
-								<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Server <br><br><small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small> </h2>
-							</div>
-						</div>
-						<!--Container Content Log and Config-->
-						<ul class="nav nav-tabs">
-						  <li class="active"><a href="#tab_a" data-toggle="tab">Log</a></li>
-						  <li><a href="#tab_b" data-toggle="tab">Rules</a></li>
-						  <li class="dropdown">
+		 <section id="breadcrumb">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="active"> Breadcrumb </li>
+        </ol>
+      </div>
+    </section>
 
-						  </li>
-						</ul><!-- end of nav -->
+    <section id="main">
+      <div class="container">
+        <div class="row">
+       
+<!--Container Content-->
+ 
+          <div class="col-md-12">
 
-						<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
-						        <div class="tab-pane active" id="tab_a">
-						            <div class="col-md-13" style="background-color: white;">
-						              <h4>Error Logs</h4>
+ <div class="col-md-12" style="padding-left: 0px">
+      <div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
+        <h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Server <br> <div id="chart_div" style="margin: center;border-radius: 18px;"></div><small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small> </h2>
+      </div>
+    </div>
 
+<!--Container Content Log and Config-->
 
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#tab_a" data-toggle="tab">Security Log</a></li>
+  <li><a href="#tab_b" data-toggle="tab">Access Log</a></li>
+  <li><a href="#tab_c" data-toggle="tab">Rules</a></li>
+  <li><a href="#tab_d" data-toggle="tab">Setting</a></li>
+  <li class="dropdown">
 
-						               <table id="example" class="display" style="width:100%">
-														 <thead>
-				 						            <tr>
-				 						                <th>ID</th>
-				 						                <th>Date/Time</th>
-				 						                <th>Event Name</th>
-				 						                <th>Type Attack</th>
-				 						                <th>IP Source</th>
-				 						                <th>Destination</th>
-				 						                <th>Risk</th>
-				 						                <th></th>
+  </li>
+</ul><!-- end of nav -->
 
-				 						            </tr>
-				 						        </thead>
-														@include('php.showLogsNew')
-														<tfoot>
-										            <tr>
-										                <th>ID</th>
-										                <th>Date/Time</th>
-										                <th>Event Name</th>
-										                <th>Type Attack</th>
-										                <th>IP Source</th>
-										                <th>Destination</th>
-										                <th>Risk</th>
-										                <th></th>
-										            </tr>
-										        </tfoot>
-										    </table>
+<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
+        <div class="tab-pane active" id="tab_a">
 
-						        <!-- <tbody>
-						            <tr>
-						                <td>Fri Apr 13 00:53:24 2018</td>
-						                <td>SQL Injection Detected Via lbinject</td>
-						                <td>SQLi</td>
-						                <td>192.168.1.105</td>
-						                <td>0.0.0.0</td>
-						                <td>High</td>
-						            </tr>
-						            <tr>
-						                <td>Fri Apr 13 11:32:54 2018</td>
-						                <td>XSS Attack Attempt</td>
-						                <td>XSS</td>
-						                <td>192.168.1.105</td>
-						                <td>0.0.0.0</td>
-						                <td>Low</td>
-						            </tr>
-						            <tr>
-						                <td>Fri Apr 12 21:53:13 2018</td>
-						                <td>Brute Force Attack</td>
-						                <td>Brute Force</td>
-						                <td>192.168.1.106</td>
-						                <td>0.0.0.0</td>
-						                <td>Low</td>
-						            </tr>
-						            <tr>
-						                <td>Fri Apr 12 17:11:03 2018</td>
-						                <td>SQL Injection Detected Via lbinject</td>
-						                <td>SQLi</td>
-						                <td>192.168.1.105</td>
-						                <td>0.0.0.0</td>
-						                <td>High</td>
-						            </tr>
-						            <tr>
-						                <td>Fri Apr 11 03:21:30 2018</td>
-						                <td>XSS Attack Via WAF</td>
-						                <td>XSS</td>
-						                <td>192.168.1.112</td>
-						                <td>0.0.0.0</td>
-						                <td>Medium</td>
-						            </tr>
-						            <tr>
-						                <td>Fri Apr 13 18:23:31 2018</td>
-						                <td>SQL Injection Attempt</td>
-						                <td>SQLi</td>
-						                <td>192.168.1.105</td>
-						                <td>0.0.0.0</td>
-						                <td>Low</td>
-						            </tr>
-						        </tbody> -->
-						        <!-- <tfoot>
-						            <tr>
-						                <th>Date/Time</th>
-						                <th>Event Name</th>
-						                <th>Type Attack</th>
-						                <th>IP Source</th>
-						                <th>Destination</th>
-						                <th>Risk</th>
-						            </tr>
-						        </tfoot>
-						    </table> -->
-						            </div>
-						        </div>
+        	<!-- SECTION SECURITY LOG -->
+
+            <div class="col-md-13" style="background-color: white;">
+              <h4>Security Logs</h4>
+               
 
 
-						        <div class="tab-pane" id="tab_b">
-						            <h4>Rules</h4>
-						            <form action="#">
-						          <table >
-						            <tr>
-						              <th style="width: 700px"></th>
-						              <th style="width: 100px;"></th>
-						            </tr>
-						            <tr>
-						              <td>
-						              <ul id="ruleslider1">
-						                <li style="cursor: pointer;">
-						                    <input type="checkbox" name="Configuration" value="SecRule1"> Sample Rules 1
-						                  <ul id="detailruleslider1">
-						                    <li>
-						                      SecRule :ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” </li>
-						                    <li>id:101,</li>
-						                    <li> msg:‘XSS Attack’,</li>
-						                    <li>severity:ERROR,</li>
-						                    <li>deny,</li>
-						                    <li>status:404</li>
+               <table id="seclog" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date/Time</th>
+                <th>Event Name</th>
+                <th>Type Attack</th>
+                <th>IP Source</th>
+                <th>Destination</th>
+                <th>Risk</th>
+                <th></th>
 
-						                  </ul>
-						                </li>
-						              </ul></td>
-						              <td><input type="button" class="fas fa-lg fa-edit" style="float: center;cursor: pointer;" value="Edit"></td>
-						            </tr>
-										<!--             <tr>
-											<td><ul id="ruleslider2">
-											  <li style="cursor: pointer;">
-												  <input type="checkbox" name="Configuration" value="SecRule1"> SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES
-												<ul id="detailruleslider2">
-												  <li>
-													SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES "@contains () {" "phase:1,id:'2100080',block,t:none,t:utf8toUnicode,t:urlDecodeUni,t:compressWhitespace,msg:'SLR: Bash ENV Variable Injection Attack',tag:'CVE-2014-6271',tag:'http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271',tag:'https://securityblog.redhat.com/2014/09/24/bash-specially-crafted-environment-variables-code-injection-attack/'"</li>
-												  <li>
-													Detail
-												  </li>
-												</ul>
-											  </li>
-											</ul></td>
-											<td><input type="button" class="fas fa-lg fa-edit" style="cursor: pointer;" value=""></td>
-											</tr> -->
-										<tr>
-											<td><input type="button" class="fas fa-lg fa-plus-circle" style="float:center;cursor: pointer;"></td>
-											<td><input type="button" class="btn btn-primary" style="float: right;" value="Save"></td>
-										</tr>
-									</table>
-								</form>
-							</div>
-						</div>
-						<!-- tab content -->
-					</div>
-					@include('inc.sidebar')
-				</div>
-			</div>
-		</section>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>LOG001</td>
+                <td>Fri Apr 13 00:53:24 2018</td>
+                <td>SQL Injection Detected Via lbinject</td>
+                <td>SQLi</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>High</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG002</td>
+                <td>Fri Apr 13 11:32:54 2018</td>
+                <td>XSS Attack Attempt</td>
+                <td>XSS</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>Low</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG003</td>
+                <td>Fri Apr 12 21:53:13 2018</td>
+                <td>Brute Force Attack</td>
+                <td>Brute Force</td>
+                <td>192.168.1.106</td>
+                <td>0.0.0.0</td>
+                <td>Low</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG004</td>
+                <td>Fri Apr 12 17:11:03 2018</td>
+                <td>SQL Injection Detected Via lbinject</td>
+                <td>SQLi</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>High</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG005</td>
+                <td>Fri Apr 11 03:21:30 2018</td>
+                <td>XSS Attack Via WAF</td>
+                <td>XSS</td>
+                <td>192.168.1.112</td>
+                <td>0.0.0.0</td>
+                <td>Medium</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>LOG006</td>
+                <td>Fri Apr 13 18:23:31 2018</td>
+                <td>SQL Injection Attempt</td>
+                <td>SQLi</td>
+                <td>192.168.1.105</td>
+                <td>0.0.0.0</td>
+                <td>Low</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+        </tbody>
+    </table>
+            </div>
+        </div>
+
+<!-- 
+Access Log -->
+
+        <div class="tab-pane" id="tab_b">
+            <div class="col-md-13" style="background-color: white;">
+              <h4>Access Logs</h4>
+               
+
+
+               <table id="accesslog" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>TimeStamp</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Request</th>
+                <th>Request Body</th>
+                <th>Status</th>
+                <th>Body Bytes Sent</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>26 Apr 2018:01:32:07</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>35 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>20 Apr 2018:11:42:32</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Post</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>24 Apr 2018:15:21:01</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>57 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>26 Apr 2018:07:11:01</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+            <tr>
+                <td>24 Apr 2018:12:12:21</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Post</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>            </tr>
+            <tr>
+                <td>26 Apr 2018:01:42:01</td>
+                <td>192.168.1.103</td>
+                <td>192.168.1.105:9112</td>
+                <td>Get</td>
+                <td>Parameter1=Value1&Parameter2=Value2</td>
+                <td>200</td>
+                <td>45 Bytes</td>
+                <td><a data-fancybox data-src="#modal" href="javascript:;" class="btn btn-primary"><div class="fas fa-list"></div></a></td>
+            </tr>
+        </tbody>
+    </table>
+            </div>
+        </div>
+
+
+        <div class="tab-pane" id="tab_c">
+            <h4>Rules</h4>
+
+            Coming Soon ~
+<!--             <form action="#">
+          <table >
+            <tr>
+              <th style="width: 700px"></th>
+              <th style="width: 100px;"></th>
+            </tr>
+            <tr>
+              <td> 
+              <ul id="ruleslider1">
+                <li style="cursor: pointer;">
+                    <input type="checkbox" name="Configuration" value="SecRule1"> Sample Rules 1 
+                  <ul id="detailruleslider1">
+                    <li>
+                      SecRule :ARGS|REQUEST_HEADERS “@rx &lt;script&gt;” </li>
+                    <li>id:101,</li>
+                    <li> msg:‘XSS Attack’,</li>
+                    <li>severity:ERROR,</li>
+                    <li>deny,</li>
+                    <li>status:404</li>
+             
+                  </ul>
+                </li>
+              </ul></td>
+              <td><input type="button" class="fas fa-lg fa-edit" style="float: center;cursor: pointer;" value="Edit"></td>
+            </tr>
+            <tr>
+              <td><ul id="ruleslider2">
+                <li style="cursor: pointer;">
+                    <input type="checkbox" name="Configuration" value="SecRule1"> SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES 
+                  <ul id="detailruleslider2">
+                    <li>
+                      SecRule REQUEST_LINE|REQUEST_HEADERS|REQUEST_HEADERS_NAMES "@contains () {" "phase:1,id:'2100080',block,t:none,t:utf8toUnicode,t:urlDecodeUni,t:compressWhitespace,msg:'SLR: Bash ENV Variable Injection Attack',tag:'CVE-2014-6271',tag:'http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271',tag:'https://securityblog.redhat.com/2014/09/24/bash-specially-crafted-environment-variables-code-injection-attack/'"</li>
+                    <li>
+                      Detail
+                    </li>
+                  </ul>
+                </li>
+              </ul></td>
+              <td><input type="button" class="fas fa-lg fa-edit" style="cursor: pointer;" value=""></td>
+            </tr>
+            <tr>
+              <td><input type="button" class="fas fa-lg fa-plus-circle" style="float:center;cursor: pointer;"></td>
+              <td><input type="button" class="btn btn-primary" style="float: right;" value="Save"></td>
+            </tr>
+          </table> </form> -->
+        </div>
+
+         <div class="tab-pane" id="tab_d">
+            <h4>Setting</h4>
+        <form action="#">
+          <table>
+            <table >
+              <tr>
+                <th style="width: 550px"></th>
+                <th style="width: 550px"></th>
+              </tr>
+              <tr>
+                <td style="width: 300px;">
+            <div class="form-group">
+              <label for="password" class="cols-sm-2 control-label">Server Name</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-server fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="servername" id="servernametxt"  placeholder="Enter Server Name"/>
+                </div>
+              </div>
+            </div></td>
+                <td style="width: 300px;">
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">IP</label>
+              <div class="">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="ip" id="iptxt"  placeholder="Enter Server IP Address"/>
+                </div>
+              </div>
+            </div></td>
+              </tr>
+              <tr>
+                <td style="width: 300px;">
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">PortsOpen</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-code-branch fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="portsopen" id="portsopentxt"  placeholder="PortsOpen"/>
+                </div>
+              </div>
+            </div></td>
+                <td style="width:300px;">
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">Domain</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-upload fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="domain" id="domaintxt"  placeholder="Enter Server Domain"/>
+                </div>
+              </div>
+            </div></td>
+              </tr>
+              <tr>
+                <td><div class="form-group btn-group">
+                                   <input type="checkbox" name="custom7" value="1" id="custom7" checked="checked"> 
+                                   <label for="custom7">Enable ModSecurity?</label>
+                                    </div> 
+                                </td>
+                <td>
+                        <div class="form-group">
+                            <label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+                        </div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+
+                </td>
+              </tr>   
+            </table>
+          </table>
+        </form>
+            <div class="col-md-8">
+                    
+                  <button type="button" class="btn btn-lg" style="float:left;" onclick="addserver();">Delete</button>
+           </div>
+             <div class="col-md-"3 style="float: right;">
+                <button type="button" class="btn btn-lg" onclick="addserver();">Cancel</button>
+                <button type="button" class="btn btn-lg" onclick="addserver();">Update</button>                       
+            </div>
+        </div>
+
+</div><!-- tab content -->
+
+ 
+          </div>
+
+
+<!--Container Recent-->
+
+
+
+
+        </div>
+      </div>
+
+    </section>
 		<!-- footer -->
 		<!-- @include('inc.footer') -->
 		<footer id="footer" style="position:static;" >
