@@ -59,7 +59,13 @@ use WAFer;
 		Connection VARCHAR (64),
 		Host VARCHAR (64),
 		Accept_encoding VARCHAR (128),
-		Cookie VARCHAR (1024));
+		Cookie VARCHAR (1024),
+        Referer VARCHAR(1000),
+        Accept_Language VARCHAR (1000),
+        Accept VARCHAR (1000),
+        DNT VARCHAR(1000),
+        Upgrade_Insecure_Request VARCHAR(1000)
+        );
 	
 	
 	CREATE TABLE RequestTransactionLog (
@@ -87,7 +93,8 @@ use WAFer;
 		ServerName VARCHAR (64),
 		IP VARCHAR (16),
 		PortsOpen VARCHAR (8),
-		Domain VARCHAR (32)
+		Domain VARCHAR (32),
+        ModSecurity CHAR(1)
 	);    
 	
 	CREATE TABLE HeadersResponseTransactionLog (
@@ -98,7 +105,7 @@ use WAFer;
 		DateUp DATETIME,
 		HeadersResponseTransactionLogID VARCHAR(1024) PRIMARY KEY,
 		server VARCHAR(64),
-		date DATETIME,
+		date VARCHAR(50),
 		content_length VARCHAR(8),
 		content_type VARCHAR(64),
 		connection VARCHAR(64)
@@ -212,7 +219,7 @@ use WAFer;
 		DateUp DATETIME,
 		TransactionLogID VARCHAR (1024) PRIMARY KEY,
 		LogId VARCHAR (64),
-		TimeStamp DATETIME,
+		TimeStamp VARCHAR(50),
 		Host_IP VARCHAR (24),
 		Host_Port VARCHAR (6),
 		Client_Port VARCHAR (6),
@@ -235,7 +242,7 @@ use WAFer;
 		UserUp VARCHAR (32),
 		DateUp DATETIME,
 		WAF_LogsID VARCHAR (1024) PRIMARY KEY,
-		TimeStampLog DATETIME,
+		TimeStampLog VARCHAR(50),
 		ServerID VARCHAR (1024),
 		FOREIGN KEY (ServerID) REFERENCES ServerList(ServerID) ON UPDATE CASCADE ON DELETE CASCADE,
 		LogFile TEXT,
@@ -288,8 +295,8 @@ use WAFer;
 	);
 
 	DELIMITER $$
-	CREATE PROCEDURE `WAF_Initiate_Position`()
-	BEGIN
+CREATE  PROCEDURE `WAF_Initiate_Position`()
+BEGIN
 		SET @posadmin=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
 		SET @posstaff=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
 		SET @posbot=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
@@ -301,7 +308,8 @@ use WAFer;
 		INSERT INTO UserJobPosition(UserJobPosID,UserJobName,STSRC,DateIN,UserIN,DateUP,UserUP)
 			VALUES (@posbot,'BOT','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
 	END$$
-	DELIMITER ;
+DELIMITER ;
+
 		    
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_Register`(
@@ -690,7 +698,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE  PROCEDURE `WAF_Read_Logs`()
+CREATE PROCEDURE `WAF_Read_Logs`()
 BEGIN
 -- ============================================================
 -- Created By: Rizky Gunawan Liga
@@ -698,8 +706,8 @@ BEGIN
 -- Description: Create procedure untuk baca Log dr smua table
 -- ============================================================
 	SELECT 
-		a.WAF_LogsID,
 		a.TimeStampLog,
+		a.WAF_LogsID,		
 		a.LogFile,
 		a.EncryptionKey,
         a.AttackType,
@@ -764,7 +772,8 @@ BEGIN
 		JOIN HeadersResponseTransactionLog j ON j.HeadersResponseTransactionLogID=f.HeadersResponseTransactionLogID
 		JOIN MessageTransactionLogDetail k ON k.MessageTransactionLogDetailID=h.MessageTransactionLogDetailID
 		JOIN DetailMessageTransactionDetailLog l ON  l.DetailMessageTransactionDetailLogID=k.DetailMessageTransactionDetailLogID
-		JOIN TagsMessageTransactionDetailLog m ON m.TagsMessageTransactionDetailLogID=l.TagsMessageTransactionDetailLogID;
+		JOIN TagsMessageTransactionDetailLog m ON m.TagsMessageTransactionDetailLogID=l.TagsMessageTransactionDetailLogID
+        ORDER BY a.TimeStampLog DESC;
 		END$$
 DELIMITER ;
 
@@ -944,6 +953,66 @@ DELIMITER ;
 		SELECT SecRulesID,SecRulesName FROM SecRules;
 	END $$
 	DELIMITER ;
+    
+    DELIMITER $$
+    CREATE PROCEDURE `WAF_Read_LogExist`(
+    logidin VARCHAR(1024)
+    )
+    BEGIN
+		-- ===================================		
+		-- Created By: Rizky Gunawan Liga
+		-- Created Date: 03 - 05 - 2018
+		-- Description: Check if Log exists
+		-- ===================================
+    DECLARE logstat VARCHAR(1);
+    IF EXISTS(SELECT LogId FROM TransactionLog WHERE LogId=logidin) THEN
+		SET logstat='1';
+	ELSE 
+		SET logstat='0';
+    END IF;
+    END$$
+    DELIMITER ;
+    
+		DELIMITER $$
+	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_AttackSummary`()
+	BEGIN
+		-- ===================================		
+		-- Created By: Rizky Gunawan Liga
+		-- Created Date: 16 - 04 - 2018
+		-- Description: Get Attack Count
+		-- ===================================    
+
+
+	SELECT AttackType,COUNT(*) as 'Attack Count' from WAF_Logs Group BY AttackType;
+
+	END$$
+	DELIMITER ;
+
+	DELIMITER $$
+	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_GetServerDetail`(
+			ServerIDIN VARCHAR(256)
+	)
+	BEGIN
+		-- ===================================		
+		-- Created By: Kentgi Tomo Winanto
+		-- Created Date: 03 - 05 - 2018
+		-- Description: Get Server Detail
+		-- ===================================    
+		SELECT
+		ServerID,
+		ServerName,
+		IP,
+		PortsOpen,
+		Domain,
+		Modsecurity
+		FROM
+		ServerList
+		WHERE ServerID = ServerIDIN
+		;
+		END$$
+	DELIMITER ;
+
+	
     
     
     CALL WAF_Initiate_Position();
