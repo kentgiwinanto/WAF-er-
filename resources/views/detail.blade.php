@@ -2,97 +2,41 @@
 
 @section('Title')
 	<title>Detail | WAFer Development</title>
-
+<!-- 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/datatables.min.css"> -->
 <!-- new Script and CSS -->
-        <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+        <!-- 
         <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
-    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="js/datatables.min.js"></script>
-    <script type="text/javascript" src="js/query.dataTables.min.js"></script>
-    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
 
+
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+
+    <script type="text/javascript" src="js/datatables.min.js"></script>
+     -->
+<!-- 
     <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> -->
 
 <!-- SCRIPT YANG HARUS MATI -->
-
-<!--     <script type="text/javascript" src="js/jquery.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- 
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-
 
 <!-- Script Untuk DataTables  -->
 
- <script>
- $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
-    switch ( d ) {
-        case 'Low':    return 1;
-        case 'Medium': return 2;
-        case 'High':   return 3;
-    }
-    return 0;
-};
- 
-$(document).ready(function() {
-    $('#detaillog').DataTable( {
-        "columnDefs": [ {
-            "type": "salary-grade",
-            "targets": -1
-        } ]
-    } );
-} );
+    <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/datatables.min.css"><script>
 
-</script>
+// <!-- Script Untuk Slider  -->
 
- <script>
- $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
-    switch ( d ) {
-        case 'Low':    return 1;
-        case 'Medium': return 2;
-        case 'High':   return 3;
-    }
-    return 0;
-};
- 
-$(document).ready(function() {
-    $('#seclog').DataTable( {
-        "columnDefs": [ {
-            "type": "salary-grade",
-            "targets": -1
-        } ]
-    } );
-} );
-
-</script>
-<script>
- $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
-    switch ( d ) {
-        case 'Low':    return 1;
-        case 'Medium': return 2;
-        case 'High':   return 3;
-    }
-    return 0;
-};
- 
-$(document).ready(function() {
-    $('#accesslog').DataTable( {
-        "columnDefs": [ {
-            "type": "salary-grade",
-            "targets": -1
-        } ]
-    } );
-} );
-
-</script>
-
-
-<script>
 
 
 $(document).ready(function(){
@@ -167,10 +111,10 @@ $(document).ready(function(){
     </script>
 @endsection
 
-<!-- @section('HeadJS') -->
+@section('HeadJS')
 
 
-<!-- @endsection -->
+@endsection
 
 @section('Content')
 		<!-- POP UP MENU  -->
@@ -663,4 +607,9 @@ Access Log -->
 		<footer id="footer" style="position:static;" >
 		 <p>Copyright WAFer, &copy; 2018</p>
 		</footer>
+        <script type="text/javascript">
+            $('#detaillog').DataTable();
+            $('#seclog').DataTable();
+            $('#accesslog').DataTable();
+        </script>
 @endsection
