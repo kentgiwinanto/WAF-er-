@@ -48,6 +48,14 @@ Route::group(['middleware' => 'checkuser'], function(){
     	return view('detail');
     });
 
+    //Detail case-sensitive
+    Route::get('/Detail/{serverID}', function($serverID)
+    {
+        // return $serverID;
+        // return view('Detail')->with('serverID',$serverID);
+        return redirect('Detail')->with('serverID',$serverID);
+    });
+
     //Config
     Route::get('/Configuration', function()
     {
