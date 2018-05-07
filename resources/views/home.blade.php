@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="row">
 				<!--Container Content -->
-				<div class="col-md-9" style="padding-left: 0px;">
+				<div class="col-md-12" style="padding-left: 0px;">
 					<div class="col-md-6">
 						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='Server'; " style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;margin-left: 0px;">
 							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">  Servers <br><br><small style="float: right;"> <i class="fas fa-server"></i><?php echo " ".$ResultDB." Servers" ?></small> </h2>
@@ -43,7 +43,7 @@
 						<div id="chart_div" style="margin: center;border-radius: 18px;"></div>
 					</div>
 				</div>
-				@include('inc.sidebar')
+			 <!-- Tempat Buat Naro SideBar -->
 			</div>
 		</div>
 	</section>
@@ -75,7 +75,7 @@
 		
 			// Set chart options
 			var options = {'title':'Number of Attacks',
-					  'width':830,
+					  'width':1130,
 					  'height':300};
 		
 			// Instantiate and draw our chart, passing in some options.

@@ -2,6 +2,7 @@
 
 @section('Title')
 	<title>Configuration | WAFer Development</title>
+      <script type="text/javascript" src="js/container.js"></script>
 @endsection
 
 @section('Content')
@@ -19,7 +20,7 @@
 		<div class="container">
 			<div class="row">
 				<!--Container COntent -->
-				<div class="col-md-9" style="">
+				<div class="col-md-12" style="">
 
 					<div class="panel panel-default main-color-list" style="border:none;">
 						<div class="panel-heading">
@@ -71,7 +72,7 @@
 					</form>
 					</div>
 				</div>
-				@include('inc.sidebar')
+				 <!-- Tempat Naro SideBar -->
 			</div>
 		</div>
 	</section>

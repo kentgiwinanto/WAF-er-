@@ -28,8 +28,8 @@
 				<div class="row">
 					<!--Container Content-->
 					
-					<div class="col-md-9" style="padding-left: 0px;max-height: 400px;overflow-y: scroll;" id="servercontainer">
-						<div class="col-md-4" ><a href="AddServer">
+					<div class="col-md-12" style="padding-left: 0px;max-height: 400px;overflow-y: scroll;" id="servercontainer">
+						<div class="col-md-3" ><a href="AddServer">
 							<div class="well" id="addservercont"onmouseover="style.color='grey'" onmouseout="style.color=''" style="cursor: pointer;background-color: 
 								#999999;border-radius: 8px;padding-top: 0px; padding-left: 3px;">
 								<h2 style="padding:5px 1px 1px 1px; margin-top: 0px; margin-left: 110px;">  <br><label><i class="fas fa-plus"></i></label> </h2>
@@ -57,7 +57,7 @@
 							</div>
 						</div> -->
 					</div>
-					@include('inc.sidebar')
+				 <!-- Tempat Naro SideBar -->
 				</div>
 			</div>
 		</section>

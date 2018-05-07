@@ -20,7 +20,7 @@
 	foreach ($Result as $key => $value) {
 		$PingResult = pingServer($value->IP,$value->PortsOpen);
 ?>
-		<div class='col-md-4' onclick="location.href=<?php echo "'Detail/".$value->ServerID."'" ?>;" >
+		<div class='col-md-3' onclick="location.href=<?php echo "'Detail/".$value->ServerID."'" ?>;" >
 			<div class='well' style='cursor: pointer;border-radius: 8px;background-color:<?php echo ($PingResult != -1 ? '#41ea4c' : '#f67c7c'); ?> ;padding-top: 0px;padding-left: 5%;'>
 				<h2 style='cursor: pointer;padding:5px 10px 1px 1px; margin-top: 0px;'>
 				<label style="cursor: pointer;"> <?php echo $value->ServerName ?> </label><br>
