@@ -9,14 +9,9 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
-        <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css">
         @yield('HeadJS')
-
-        <script type="text/javascript" src="js/datatables.min.js"></script>
-        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
-
+        <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/fontawesome-all.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

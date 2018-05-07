@@ -10,7 +10,8 @@
 	<section id="breadcrumb">
 		<div class="container">
 			<ol class="breadcrumb">
-				<li class="active"> Breadcrumb </li>
+				<li><a href="/Home">Home</a></li>
+				<li class="active">Configuration</li>
 			</ol>
 		</div>
 	</section>

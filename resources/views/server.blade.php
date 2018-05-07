@@ -12,7 +12,8 @@
 		<section id="breadcrumb">
 			<div class="container">
 				<ol class="breadcrumb">
-					<li class="active"> Breadcrumb </li>
+					<li><a href="/Home">Home</a></li>
+					<li class="active">Server</li>
 				</ol>
 				 <!-- Kalau ada return message -->
 				@if(session()->has('message'))
