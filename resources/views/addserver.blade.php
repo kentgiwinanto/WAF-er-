@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row">
                 <!--Container COntent -->
-                <div class="col-md-9" style="max-height: 400px;">
+                <div class="col-md-12" style="max-height: 400px;">
                     <div class="panel panel-default main-color-list" style="border:none;">
                         <div class="panel-heading">
                             <h3 class="panel-title">Add Server</h3>
@@ -33,8 +33,8 @@
                                 {{ csrf_field() }}
                                 <table >
                                     <tr>
-                                        <th style="width: 400px"></th>
-                                        <th style="width: 400px"></th>
+                                        <th style="width: 550px"></th>
+                                        <th style="width: 550px"></th>
                                     </tr>
                                     <tr>
                                         <td style="width: 300px;">
@@ -100,7 +100,7 @@
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <input type="submit" class="btn btn-primary btn-lg" style="background-color;float:right;" value="Submit" />
+                                            <input type="submit" class="btn btn-primary btn-lg" style="background-color;float:right;" onclick="return addserver()" value="Submit" />
                                         </td>
                                     </tr>
                                 </table>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                @include('inc.sidebar')
+         <!-- Tempat Buat Naro SideBar -->
             </div>
         </div>
     </section>

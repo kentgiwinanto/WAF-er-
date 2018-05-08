@@ -37,7 +37,7 @@ Route::group(['middleware' => 'checkuser'], function(){
     //addServer
     Route::get('/AddServer', function()
     {
-    	return view('addServer');
+    	return view('addserver');
     });
     Route::post('/AddServer', 'AddServerController@add');
 

@@ -36,5 +36,7 @@ function addserver() {
    this.value = this.checked ? 1 : 0;
    // alert(this.value);
 	}).change();
+	return true;
 	}
+	return false;
 }
