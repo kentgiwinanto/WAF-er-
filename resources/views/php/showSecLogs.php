@@ -1,6 +1,7 @@
 <?php
     $ResultDomain = $ResultDB->Domain;
-    $Result = file_get_contents("http://192.168.43.134:9112/GetLogs.php");
+    $ResultArray = [];
+    $Result = file_get_contents("http://172.16.55.169:9112/GetLogs.php");
     $Result = unserialize($Result);
     foreach ($Result as $att => $val) {
         $val = json_decode($val);

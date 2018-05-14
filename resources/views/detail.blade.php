@@ -185,27 +185,26 @@
 						<!-- 
 							Access Log -->
 						<div class="tab-pane" id="tab_b">
-							<div class="col-md-13" style="background-color: white;">
-								<h4>Access Logs</h4>
-								<table id="accesslog" class="display" style="width:100%">
-									<thead>
-										<tr>
-											<th>TimeStamp</th>
-											<th>From</th>
-											<th>To</th>
-											<th>Request</th>
-											<th>Request Body</th>
-											<th>Status</th>
-											<th>Body Bytes Sent</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										@include('php.showAccessLog')
-									</tbody>
-								</table>
-							</div>
+						<div class="col-md-13" style="background-color: white;">
+							<h4>Access Logs</h4>
+							<table id="accesslog" class="display" style="width:100%">
+								<thead>
+									<tr>
+										<th>TimeStamp</th>
+										<th>From</th>
+										<th>To</th>
+										<th>Request</th>
+										<th>Request Body</th>
+										<th>Status</th>
+										<th>User Agent</th>
+									</tr>
+								</thead>
+								<tbody>
+									@include('php.showAccessLog')
+								</tbody>
+							</table>
 						</div>
+					</div>
 						<div class="tab-pane" id="tab_c">
 							<h4>Rules</h4>
 							Coming Soon ~

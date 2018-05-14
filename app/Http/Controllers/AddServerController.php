@@ -15,12 +15,14 @@ class AddServerController extends BaseController
 
     public function add(Request $request)
     {
-      $servername = $request->input('servername');
-      $ip = $request->input('ip');
-      $portsopen = $request->input('portsopen');
-      $domain = $request->input('domain');
-      $userinin = session()->get('UserProfileID');
-      $modsec = $request->input('modsecurity') == true ? '1':'0';
+      $servername = $ip = $portsopen = $domain = $userinin = $modsec = "";
+
+      $servername = $request->input("servername");
+      $ip = $request->input("ip");
+      $portsopen = $request->input("portsopen");
+      $domain = $request->input("domain");
+      $userinin = session()->get("UserProfileID");
+      $modsec = $request->input("modsecurity") == true ? "1":"0";
 
       //store sp db
       $store = DB::select("CALL WAF_Insert_ServerList(
@@ -30,66 +32,34 @@ class AddServerController extends BaseController
         echo $store[0]->MessageReturn;
       }
       else{
-        $url = 'http://192.168.43.134:9112/addServer.php';
+        $url = "http://172.16.55.169:9112/addServer.php";
         $data = array(
-          'ServerName' => $servername,
-          'IP' => $ip,
-          'Port' => $portsopen,
-          'Domain' => $domain,
-          'ModSecurity' => $modsec
+          "ServerName" => $servername,
+          "IP" => $ip,
+          "Port" => $portsopen,
+          "Domain" => $domain,
+          "ModSecurity" => $modsec
         );
 
         // use key 'http' even if you send the request to https://...
         $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data)
+            "http" => array(
+                "header"  => "Content-type: application/x-www-form-urlencoded\r\n",
+                "method"  => "POST",
+                "content" => http_build_query($data)
             )
         );
 
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
-        return redirect('Server')->with('message', json_decode($result)->Message);
+        return redirect("Server")->with("message", json_decode($result)->Message);
       }
-
-      
-
-      // if(($result == 0) || count($store) == 0)
-      // {
-      //   echo "Add Server Failed Wrong Data Passed<br/>";
-      //   echo "inserted :".$userinin." ".$servername." ".$ip." ".$portsopen." ".$domain." ".$modsec;
-      //   //return redirect('/Server');
-      // }else{
-      //   echo "Add Server Successfull<br/>";
-      //   print_r($request->input()->all());
-
-      //   //return redirect('/AddServer');
-      //    return back()->withErrors([
-      //      'message' => 'Please check your credentials and try again.'
-      //    ]);
-      // }
-
-      // if(count($store) == 0){
-      //   echo "Add Server Failed Wrong Data Passed<br/>";
-      //   echo "inserted :".$userinin;
-      //   return redirect('/Server');
-      
-      // }else{
-      //   echo "Add Server Successfull<br/>";
-      //   print_r($request->input()->all());
-      
-      //   //return redirect('/AddServer');
-      //    return back()->withErrors([
-      //      'message' => 'Please check your credentials and try again.'
-      //    ]);
-      // }
 
     }
 
     public function cancel()
     {
-      return redirect('/Server');
+      return redirect("/Server");
     }
 
 }
