@@ -1,6 +1,5 @@
 <?php
     foreach ($ResultLogServer->ResultSecLog as $att => $val) {
-        if($val->transaction->request->headers->Host == $ResultLogServer->ServerDetail->Domain){
              echo "<form action='/detail'><tr>
                 <td>".$val->transaction->id."</td>
                 <td>".$val->transaction->time_stamp."</td>
@@ -12,6 +11,5 @@
                 <!-- <td>High</td> -->
                 <td><a data-fancybox data-src='#modal' ValueLogID='".$val->transaction->id."' class='btn btn-primary FancyBoxButtonPopUp'><div class='fas fa-list'></div></a></td>
             </tr></form>";
-        }
     }
 ?>

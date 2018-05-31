@@ -141,13 +141,33 @@
 				<!--Container Content-->
 				<div class="col-md-12">
 					<div class="col-md-12" style="padding-left: 0px">
+					<div class="col-md-4" style="padding-left: 0px">
 						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
 							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">
 								Server <br>
-								<div id="chart_div" style="margin: center;border-radius: 18px;"></div>
+								<div id="chart_div1" style="margin: center;border-radius: 18px;"></div>
 								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small>
 							</h2>
 						</div>
+					</div>
+					<div class="col-md-4" style="padding-left: 0px">
+						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
+							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">
+								Server <br>
+								<div id="chart_div2" style="margin: center;border-radius: 18px;"></div>
+								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small>
+							</h2>
+						</div>
+					</div>
+					<div class="col-md-4" style="padding-left: 0px">
+						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
+							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">
+								Server <br>
+								<div id="chart_div3" style="margin: center;border-radius: 18px;"></div>
+								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small>
+							</h2>
+						</div>
+					</div>
 					</div>
 					<!--Container Content Log and Config-->
 					<ul class="nav nav-tabs">
@@ -304,6 +324,100 @@
 			</div>
 		</div>
 	</section>
+
+<!-- SCRIPT GOOGLE CHART 1-3 -->
+
+	<script type="text/javascript">
+ google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Attack', 'Attack/Day'],
+          ['SQLi',     11],
+          ['XSS',      2],
+          ['DDOS',  2],
+          ['RFI', 2],
+          ['Brute Force',    7]
+        ]);
+
+        var options = {
+          title: 'Security Log',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+      }
+	</script>
+
+	<script type="text/javascript">
+		 google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Day', 'SQLI', 'XSS'],
+          ['Monday',  2,      4],
+          ['Tuesday',  3,      2],
+          ['Wednesday',  4,     0],
+          ['Thursday',  1,      2],
+          ['Friday',  5,       9],
+          ['Saturday',  6,       9],
+          ['Sunday',  10,       5]
+        ]);
+
+        var options = {
+          title: 'Attack Summary',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+
+        chart.draw(data, options);
+      }
+	</script>
+
+	<script type="text/javascript">
+		// Load the Visualization API and the corechart package.
+		google.charts.load('current', {'packages':['corechart']});
+
+		// Set a callback to run when the Google Visualization API is loaded.
+		google.charts.setOnLoadCallback(drawChart);
+
+		// Callback that creates and populates a data table,
+		// instantiates the pie chart, passes in the data and
+		// draws it.
+		function drawChart() {
+
+		  // Create the data table.
+		  var data = new google.visualization.DataTable();
+		  data.addColumn('string', 'Day');
+		  data.addColumn('number', 'SQLi');
+		  data.addRows([
+			['Monday', 3],
+			['Tuesday', 1],
+			['Wednesday', 4],
+			['Thursday', 4],
+			['Friday', 6],
+			['Saturday', 3],
+			['Sunday', 2]
+		  ]);
+
+		  // Set chart options
+		  var options = {'title':'Number of Attacks',
+						 'width':300,
+						 'height':200};
+
+		  // Instantiate and draw our chart, passing in some options.
+		  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+		  chart.draw(data, options);
+		}
+	</script>
+
+	<!-- END SCRIPT OF GOOGLE CHART 1-3 -->
+
+
 	<!-- footer -->
 	<footer id="footer" style="position:static;" >
 		<p>Copyright WAFer, &copy; 2018</p>
