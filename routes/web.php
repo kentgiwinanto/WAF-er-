@@ -37,7 +37,7 @@ Route::group(['middleware' => 'checkuser'], function(){
     //addServer
     Route::get('/AddServer', function()
     {
-    	return view('addserver');
+    	return view('addServer');
     });
     Route::post('/AddServer', 'AddServerController@add');
 
@@ -65,18 +65,11 @@ Route::group(['middleware' => 'checkuser'], function(){
 
     //Logout
     Route::get('/Logout','LoginController@logout');
+
+    Route::get('/pdf', function()
+    {
+        return view('pdf');
+    });
+
+    Route::get('/genPDF','PDFController@downloadPDF');
 });
-
-
-
-
-Route::get('/read', function()
-{
-   $data = DB::select("CALL WAF_Read_Logs()");
-   $object = json_encode($data, TRUE);
-
-   return $object;
- });
-
- Route::get('/Testong','GetLogs@getLog');
-  Route::get('/Testing','ShowLogServer@showlog');

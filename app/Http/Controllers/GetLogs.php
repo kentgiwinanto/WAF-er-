@@ -12,7 +12,7 @@ class GetLogs extends Controller
 
   function arrescape(&$element, $index)
   {
-    $element = str_replace(array("'", "\"", "&quot;","`"), '', $element);
+    $element = str_replace(array("'", "\"", "&quot;","`","%3C","%3E","<",">"), '', $element);
     return $element;
   }
   public function getLog()

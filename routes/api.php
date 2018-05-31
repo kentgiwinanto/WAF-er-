@@ -23,3 +23,6 @@ Route::get('/testDB',function(){
 	 echo "connected successfully to database ".DB::connection()->getDatabaseName();
 	}
 });
+
+Route::post('/detail', 'ShowLogsController@GetLogsByID');
+  

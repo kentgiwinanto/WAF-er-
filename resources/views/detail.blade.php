@@ -1,127 +1,107 @@
-@if(session()->has('serverID'))
+	@if(session()->has('serverID'))
 
 	<?php
 		$ServerID = Session::get("serverID");
 		$ResultDB = DB::select("CALL WAF_Read_GetServerDetail('$ServerID')")[0];
 	?>
-	
+
 	@extends('layout.indexPage')
 
 	@section('Title')
 	<title>Detail | WAFer Development</title>
+	<script type="text/javascript" src="js/detailPage.js"></script>
+	<script type="text/javascript" src="js/addserver.js"></script>
 	@endsection
 
 	@section('Content')
 	<!-- POP UP MENU  -->
 	<div style="display: none;" id="modal">
-		<h2>Detail Log</h2>
-		<tr>
-			<td>
-				<!--Container Content Log and Config-->
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#tab_e" data-toggle="tab">Table Log</a></li>
-					<li><a href="#tab_f" data-toggle="tab">JSON Log</a></li>
-					<li class="dropdown">
-					</li>
-				</ul>
-				<!-- end of nav -->
-				<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
-					<!-- SECTION DETAIL TABLE MESSAGE LOG POP UP -->
-					<div class="tab-pane active" id="tab_e">
-						<div class="col-md-13" style="background-color: white;">
-							<h4>Security Logs</h4>
-							<table id="detaillog" class="display" style="width:100%">
-								<thead>
-									<tr>
-										<th>Message</th>
-										<th>Match</th>
-										<th>Ref</th>
-										<th>RuleID</th>
-										<th>File</th>
-										<th>LineNumber</th>
-										<th>Data</th>
-										<th>Severity</th>
-										<th>Version</th>
-										<th>Rev</th>
-										<th>Tags</th>
-										<th>Maturity</th>
-										<th>Accuracy</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>XSS Attack Detected Via Libinjected</td>
-										<td>Detected XSS Using libinjection</td>
-										<td style="word-wrap: break-word;">"v8,38t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls"</td>
-										<td>941100</td>
-										<td>/etc/nginx/owasp-modsecurity-crs/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf</td>
-										<td>17</td>
-										<td>"Matched Data: \" //\" found within ARGS:p: \" //\"</td>
-										<td>2</td>
-										<td>OWASP_CRS/3.0.0</td>
-										<td>2</td>
-										<td>
-											<ul id="tagslider1">
-												<li style="cursor: pointer;">
-													Tags 
-													<ul id="detailtagslider1">
-														<li>
-															Tag 1 
-														</li>
-														<li>Tag 2</li>
-													</ul>
-												</li>
-											</ul>
-										</td>
-										<td>2</td>
-										<td>9</td>
-									</tr>
-									<td>XSS Attack Detected Via Libinjected</td>
-									<td>Detected XSS Using libinjection</td>
-									<td style="word-wrap: break-word;">"v8,38t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls"</td>
-									<td>941100</td>
-									<td>/etc/nginx/owasp-modsecurity-crs/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf</td>
-									<td>17</td>
-									<td>"Matched Data: \" //\" found within ARGS:p: \" //\"</td>
-									<td>2</td>
-									<td>OWASP_CRS/3.0.0</td>
-									<td>2</td>
-									<td>
-										<ul id="tagslider2">
-											<li style="cursor: pointer;">
-												Tags 
-												<ul id="detailtagslider2">
-													<li>
-														Tag 1 
+		<span id="fancyboxSecLog">
+			<h2>Detail Log</h2>
+			<tr>
+				<td>
+					<!--Container Content Log and Config-->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab_e" data-toggle="tab">Table Log</a></li>
+						<li><a href="#tab_f" data-toggle="tab">JSON Log</a></li>
+						<li class="dropdown">
+						</li>
+					</ul>
+					<!-- end of nav -->
+					<div class="tab-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
+						<!-- SECTION DETAIL TABLE MESSAGE LOG POP UP -->
+						<div class="tab-pane active" id="tab_e">
+							<div class="col-md-13" style="background-color: white;">
+								<h4>Security Logs</h4>
+								<table id="detaillog" class="display" style="width:100%">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Message</th>
+											<th>Match</th>
+											<th>Ref</th>
+											<th>RuleID</th>
+											<th>File</th>
+											<th>LineNumber</th>
+											<th>Data</th>
+											<th>Severity</th>
+											<th>Version</th>
+											<th>Rev</th>
+											<th>Tags</th>
+											<th>Maturity</th>
+											<th>Accuracy</th>
+										</tr>
+									</thead>
+									<tbody id="PopUpSecLog">
+									</tbody>
+									<tbody style="display:none">
+										<tr id="PopUpSecLogTemplate">
+											<td class="iID"></td>
+											<td class="iMessage"></td>
+											<td class="iMatch"></td>
+											<td class="iReference"></td>
+											<td class="iRuleID" style="text-align:center"></td>
+											<td class="iFile"></td>
+											<td class="iLineNumber" style="text-align:center"></td>
+											<td class="iData"></td>
+											<td class="iSeverity" style="text-align:center"></td>
+											<td class="iVer"></td>
+											<td class="iRev"></td>
+											<td>
+												<ul class='tagslider'>
+													<li style='cursor: pointer;'>
+														Tags
+														<ul class='detailtagslider'>
+															<li>tagsss1</li>
+														</ul>
 													</li>
-													<li>TAGTAGATAGATAGATAGAT 2 AW</li>
 												</ul>
-											</li>
-										</ul>
-									</td>
-									<td>2</td>
-									<td>9</td>
-								</tbody>
-							</table>
+											</td>
+											<td class="iMaturity" style="text-align:center"></td>
+											<td class="iAccuracy" style="text-align:center"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</div>
-					<!-- END DETAIL MESSAGE TABLE LOG -->
-					<!-- JSON LOG SECTION -->
-					<div class="tab-pane" id="tab_f">
-						<div class="col-md-13" style="background-color: white;">
-							<h4>JSON Logs</h4>
-							<div class="container">
-								<div class="form-group">  
-									<textarea disabled="" class="form-control" rows="5" id="jsonlog"></textarea>
+						<!-- END DETAIL MESSAGE TABLE LOG -->
+						<!-- JSON LOG SECTION -->
+						<div class="tab-pane" id="tab_f">
+							<div class="col-md-13" style="background-color: white;">
+								<h4>JSON Logs</h4>
+								<div class="container">
+									<div class="form-group">
+										<textarea disabled="" class="form-control" rows="20" id="jsonlog"></textarea>
+									</div>
 								</div>
 							</div>
 						</div>
+						<!-- END JSON LOG SECTION -->
 					</div>
-					<!-- END JSON LOG SECTION -->
-				</div>
-			</td>
-			<td></td>
-		</tr>
+				</td>
+				<td></td>
+			</tr>
+		</span>
 	</div>
 	@include('inc.navbar')
 	<!--BreadCrumb-->
@@ -139,12 +119,30 @@
 			<div class="row">
 				<!--Container Content-->
 				<div class="col-md-12">
-					<div class="col-md-12" style="padding-left: 0px">
+					<div class="col-md-4" style="padding-left: 0px">
 						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
 							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">
-								Server <br> 
-								<div id="chart_div" style="margin: center;border-radius: 18px;"></div>
-								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small> 
+								Server <br>
+								<div id="chart_div1" style="margin: center;border-radius: 18px;"></div>
+								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small>
+							</h2>
+						</div>
+					</div>
+					<div class="col-md-4" style="padding-left: 0px">
+						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
+							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">
+								Server <br>
+								<div id="chart_div2" style="margin: center;border-radius: 18px;"></div>
+								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small>
+							</h2>
+						</div>
+					</div>
+					<div class="col-md-4" style="padding-left: 0px">
+						<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='#';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px; padding-left: 3px;">
+							<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;">
+								Server <br>
+								<div id="chart_div3" style="margin: center;border-radius: 18px;"></div>
+								<small style="float: right;"> <i class="fas fa-server"></i> Detail Server</small>
 							</h2>
 						</div>
 					</div>
@@ -182,7 +180,7 @@
 								</table>
 							</div>
 						</div>
-						<!-- 
+						<!--
 							Access Log -->
 						<div class="tab-pane" id="tab_b">
 							<div class="col-md-13" style="background-color: white;">
@@ -190,14 +188,20 @@
 								<table id="accesslog" class="display" style="width:100%">
 									<thead>
 										<tr>
-											<th>TimeStamp</th>
-											<th>From</th>
-											<th>To</th>
-											<th>Request</th>
-											<th>Request Body</th>
-											<th>Status</th>
-											<th>Body Bytes Sent</th>
-											<th></th>
+											 <th>TimeStamp</th>
+                                             <th>From</th>
+                                             <th>Remote User</th>
+                                             <th>To</th>
+                                             <th>Server Name</th>
+           								     <th>Server Protocol</th>
+           									 <th>Request</th>
+           								     <th>Request_URI</th>
+           									 <th>Request Body</th>
+           									 <th>Status</th>
+           									 <th>Body Bytes Sent</th>
+            								 <th>Request Time</th>
+           									 <th>HTTP Referrer</th>
+           									 <th>HTTP User Agent</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -270,7 +274,7 @@
 										<tr>
 											<td>
 												<div class="form-group btn-group">
-													<input type="checkbox" name="custom7" value="1" id="custom7" checked="checked"> 
+													<input type="checkbox" name="custom7" value="1" id="custom7" checked="checked">
 													<label for="custom7">Enable ModSecurity?</label>
 												</div>
 											</td>
@@ -293,7 +297,7 @@
 							</div>
 							<div class="col-md-"3 style="float: right;">
 								<button type="button" class="btn btn-lg" onclick="addserver();">Cancel</button>
-								<button type="button" class="btn btn-lg" onclick="addserver();">Update</button>                       
+								<button type="button" class="btn btn-lg" onclick="addserver();">Update</button>
 							</div>
 						</div>
 					</div>
@@ -303,55 +307,72 @@
 			</div>
 		</div>
 	</section>
+
+<!-- SCRIPT GOOGLE CHART 1-3 -->
+
 	<script type="text/javascript">
-		$('#detaillog').DataTable();
-		$('#seclog').DataTable();
-		$('#accesslog').DataTable();
+ google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Attack', 'Attack/Day'],
+          ['SQLi',     11],
+          ['XSS',      2],
+          ['DDOS',  2],
+          ['RFI', 2],
+          ['Brute Force',    7]
+        ]);
+
+        var options = {
+          title: 'Security Log',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+      }
 	</script>
-	<script>
-		$(document).ready(function(){
-		  $("#tagslider2").find('ul').hide()
-			$("#tagslider2").click(function(){
-				$("#detailtagslider2").slideToggle();
-			});
-		}); 
+
+	<script type="text/javascript">
+		 google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Day', 'SQLI', 'XSS'],
+          ['Monday',  2,      4],
+          ['Tuesday',  3,      2],
+          ['Wednesday',  4,     0],
+          ['Thursday',  1,      2],
+          ['Friday',  5,       9],
+          ['Saturday',  6,       9],
+          ['Sunday',  10,       5]
+        ]);
+
+        var options = {
+          title: 'Attack Summary',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+
+        chart.draw(data, options);
+      }
 	</script>
-	<script>
-		$(document).ready(function(){
-		  $("#tagslider1").find('ul').hide()
-			$("#tagslider1").click(function(){
-				$("#detailtagslider1").slideToggle();
-			});
-		}); 
-	</script> 
-	<script>
-		$(document).ready(function(){
-		  $("#ruleslider1").find('ul').hide()
-			$("#ruleslider1").click(function(){
-				$("#detailruleslider1").slideToggle();
-			});
-		}); 
-	</script>
-	<script>
-		$(document).ready(function(){
-		  $("#ruleslider2").find('ul').hide()
-			$("#ruleslider2").click(function(){
-				$("#detailruleslider2").slideToggle();
-			});
-		}); 
-	</script>
+
 	<script type="text/javascript">
 		// Load the Visualization API and the corechart package.
 		google.charts.load('current', {'packages':['corechart']});
-		
+
 		// Set a callback to run when the Google Visualization API is loaded.
 		google.charts.setOnLoadCallback(drawChart);
-		
+
 		// Callback that creates and populates a data table,
 		// instantiates the pie chart, passes in the data and
 		// draws it.
 		function drawChart() {
-		
+
 		  // Create the data table.
 		  var data = new google.visualization.DataTable();
 		  data.addColumn('string', 'Day');
@@ -365,17 +386,20 @@
 			['Saturday', 3],
 			['Sunday', 2]
 		  ]);
-		
+
 		  // Set chart options
 		  var options = {'title':'Number of Attacks',
-						 'width':1015,
-						 'height':300};
-		
+						 'width':300,
+						 'height':200};
+
 		  // Instantiate and draw our chart, passing in some options.
-		  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
 		  chart.draw(data, options);
 		}
 	</script>
+
+	<!-- END SCRIPT OF GOOGLE CHART 1-3 -->
+
 	<!-- footer -->
 	<footer id="footer" style="position:static;" >
 		<p>Copyright WAFer, &copy; 2018</p>

@@ -2,8 +2,6 @@
 
 @section('Title')
 	<title> Server | WAFer Development</title>
-	<script type="text/javascript" src="js/knockout-3.4.2.js"></script>
-
 @endsection
 
 @section('Content')
@@ -36,26 +34,6 @@
 							</div></a>
 						</div> 
 						@include('php.showServerList')
-
-						<!-- Kalau Gagal Ngeping -->
-						<!-- <div class="col-md-4">
-							<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail';" style="cursor: pointer;border-radius: 8px;background-color: #f67c7c;padding-top: 0px;padding-left: 5%;">
-								<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;"> <label>Server</label>  <br><label style="font-size: 15px;">(Error)</label><br><small style="float: right;"> ? ms </small> </h2>
-							</div>
-						</div> -->
-
-						<!-- Kalau Lagi Ngeping -->
-						<!-- <div class="col-md-4" id="servercont">
-							<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px;padding-left: 5%;">
-								<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;"> <label>Server</label>  <br><label style="font-size: 15px;">(IP Address:port)</label><br><small style="float: right;"> Loading... </small> </h2>
-							</div>
-						</div> -->
-
-						<!-- <div class="col-md-4" style="display: none;" id="servercont">
-							<div class="well" onmouseover="style.color='grey'" onmouseout="style.color=''" onclick="location.href='detail';" style="cursor: pointer;border-radius: 8px;background-color: #ffffff;padding-top: 0px;padding-left: 5%;">
-								<h2 style="padding:5px 10px 1px 1px; margin-top: 0px;"> <label>Server</label>  <br><label style="font-size: 15px;">(192.168.1.105)</label><br><small style="float: right;"> Loading... </small> </h2>
-							</div>
-						</div> -->
 					</div>
 				 <!-- Tempat Naro SideBar -->
 				</div>
