@@ -33,43 +33,57 @@
   </tr>
 </table>
 <br><br>
-<table style="border: solid;">
+<table style="border: solid 2px;border-color: #ff8100; ">
   <tr>
-    <td><img src="images/chart2.png" style="width: 540px"></td>
+    <th colspan="2" style="border: solid 2px;border-collapse: collapse;padding: 12px;float: center;border-color: #ff8100;"><img src="images/chart2.png" style="width: 660px;height: 200px"></th>
   </tr>
   <tr>
-    <td><img src="images/chart1.png" style="width: 270px"></td>
-    <td><img src="images/chart3.png" style="width: 270px"></td>
+    <td style="width: 330px;border: solid 2px;border-collapse: collapse;padding: 12px;border-color: #ff8100;"><img src="images/chart1.png"  style="width: 330px;height: 200px"></td>
+    <td style="width: 330px;border: solid 2px;border-collapse: collapse;padding: 12px;border-color: #ff8100;"><img src="images/chart3.png"  style="width: 330px;height: 200px"></td>
   </tr>
 </table>
 <br>
 <br>
-<table id="detaillog" class="display" style="width:100%">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Message</th>  
-      <th>Match</th>
-      <th>Ref</th>
-      <th>RuleID</th>
-      <th>File</th>
-      <th>LineNumber</th>
-      <th>Data</th>
-      <th>Severity</th>
-      <th>Version</th>
-      <th>Rev</th>
-      <th>Tags</th>
-      <th>Maturity</th>
-      <th>Accuracy</th>
-    </tr>
-    <tbody>
-      <tr>
-        <td>
-          
-        </td>
-      </tr>
-    </tbody>
-</table>
 
+<table style="border: solid 2px;border-color: #ff8100;">
+  <tr>
+    <th colspan="5" style="background-color:#ff8100;float: center;">.</th>
+  </tr>
+  <tr>
+    <td style="border: solid 2px;border-color: #ff8100;width: 50px">No.</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 175px">Site Name</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Attempt</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Access</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 175px">Fav.UserAgent</td>
+  </tr>
+  <tr>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+  </tr>
+  <tr>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+  </tr>
+  <tr>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+  </tr>
+  <tr>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
+  </tr>
+</table>
 </body>
 </html>
