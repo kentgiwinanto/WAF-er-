@@ -4,7 +4,7 @@
     $Result = unserialize($Result);
     foreach ($Result as $att => $val) {
         $val = json_decode($val);
-        if($val->transaction->request->headers->Host == strtolower($ResultDomain)){
+       //if($val->transaction->request->headers->Host == strtolower($ResultDomain)){
              echo "<form action='/detail'><tr>
                 <td>".$val->transaction->id."</td>
                 <td>".$val->transaction->time_stamp."</td>
@@ -16,6 +16,6 @@
                 <!-- <td>High</td> -->
                 <td><a data-fancybox data-src='#modal' ValueLogID='".$val->transaction->id."' class='btn btn-primary FancyBoxButtonPopUp'><div class='fas fa-list'></div></a></td>
             </tr></form>";
-        }
+        //}
     }
 ?>

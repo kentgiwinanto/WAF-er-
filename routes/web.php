@@ -31,13 +31,13 @@ Route::group(['middleware' => 'checkuser'], function(){
     //Server
     Route::get('/Server', function()
     {
-    	return view('server');
+        return view('server');
     });
 
     //addServer
     Route::get('/AddServer', function()
     {
-    	return view('addServer');
+        return view('addServer');
     });
     Route::post('/AddServer', 'AddServerController@add');
 
@@ -45,7 +45,7 @@ Route::group(['middleware' => 'checkuser'], function(){
     //Detail case-sensitive
     Route::get('/Detail', function()
     {
-    	return view('detail');
+        return view('detail');
     });
 
     //Detail case-sensitive
@@ -59,10 +59,17 @@ Route::group(['middleware' => 'checkuser'], function(){
     //Config
     Route::get('/Configuration', function()
     {
-    	return view('configuration');
+        return view('configuration');
     });
     Route::post('/Configuration', 'ConfigController@add');
 
     //Logout
     Route::get('/Logout','LoginController@logout');
+
+    Route::get('/pdf', function()
+    {
+        return view('pdf');
+    });
+
+    Route::get('/genPDF','PDFController@downloadPDF');
 });
