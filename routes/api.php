@@ -25,4 +25,5 @@ Route::get('/testDB',function(){
 });
 
 Route::post('/detail', 'ShowLogsController@GetLogsByID');
+Route::post('/getSecLog', 'ShowLogsController@GetLogsByServerID');
   

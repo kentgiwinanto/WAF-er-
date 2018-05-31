@@ -1,8 +1,7 @@
-	@if(session()->has('serverID'))
+	@if(session()->has('ResultLogServer'))
 
 	<?php
-		$ServerID = Session::get("serverID");
-		$ResultDB = DB::select("CALL WAF_Read_GetServerDetail('$ServerID')")[0];
+		$ResultLogServer = json_decode(Session::get("ResultLogServer"));
 	?>
 
 	@extends('layout.indexPage')
@@ -133,7 +132,6 @@
 			<ol class="breadcrumb">
 				<li><a href="/Home">Home</a></li>
 				<li><a href="/Server">Server</a></li>
-				<li class="active"> <?php echo $ResultDB->ServerName; ?></li>
 			</ol>
 		</div>
 	</section>

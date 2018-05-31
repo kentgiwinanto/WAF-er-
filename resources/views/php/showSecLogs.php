@@ -1,14 +1,10 @@
 <?php
-    $ResultDomain = $ResultDB->Domain;
-    $Result = file_get_contents("http://192.168.56.103:9112/GetLogs.php");
-    $Result = unserialize($Result);
-    foreach ($Result as $att => $val) {
-        $val = json_decode($val);
-        if($val->transaction->request->headers->Host == strtolower($ResultDomain)){
+    foreach ($ResultLogServer->ResultSecLog as $att => $val) {
+        if($val->transaction->request->headers->Host == $ResultLogServer->ServerDetail->Domain){
              echo "<form action='/detail'><tr>
                 <td>".$val->transaction->id."</td>
                 <td>".$val->transaction->time_stamp."</td>
-                <td>".@$val->transaction->messages[0]->message."</td>
+                <td>".$val->transaction->messages[0]->message."</td>
 
                 <!-- <td>SQLi</td> -->
                 <td>".$val->transaction->client_ip.":".$val->transaction->client_port."</td>

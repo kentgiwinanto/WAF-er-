@@ -47,14 +47,7 @@ Route::group(['middleware' => 'checkuser'], function(){
     {
     	return view('detail');
     });
-
-    //Detail case-sensitive
-    Route::get('/Detail/{serverID}', function($serverID)
-    {
-        // return $serverID;
-        // return view('Detail')->with('serverID',$serverID);
-        return redirect('Detail')->with('serverID',$serverID);
-    });
+    Route::get('/Detail/{serverID}', ['uses' =>'ShowLogsController@GetDetailPageWithSecLogAndAccessLog']);
 
     //Config
     Route::get('/Configuration', function()
