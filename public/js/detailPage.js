@@ -13,14 +13,18 @@ $(document).ready(function () {
     $('#seclog').DataTable();
     $('#accesslog').DataTable();
     //Google Chart
+
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
+
     // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart1);
+
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
     // draws it.
-    function drawChart() {
+    function drawChart1() {
+
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Day');
@@ -34,17 +38,64 @@ $(document).ready(function () {
         ['Saturday', 3],
         ['Sunday', 2]
         ]);
+
         // Set chart options
-        var options = 
-        {
-            'title':'Number of Attacks',
-            'width':$(window).width()*0.75,
-            'height':300 
-        };
+        var options = {'title':'Number of Attacks',
+                        'width':300,
+                        'height':200};
+
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
         chart.draw(data, options);
     }
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart2);
+
+    function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+            ['Day', 'SQLI', 'XSS'],
+            ['Monday',  2,      4],
+            ['Tuesday',  3,      2],
+            ['Wednesday',  4,     0],
+            ['Thursday',  1,      2],
+            ['Friday',  5,       9],
+            ['Saturday',  6,       9],
+            ['Sunday',  10,       5]
+        ]);
+
+        var options = {
+            title: 'Attack Summary',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+
+        chart.draw(data, options);
+    }
+
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart3);
+    function drawChart3() {
+        var data = google.visualization.arrayToDataTable([
+            ['Attack', 'Attack/Day'],
+            ['SQLi',     11],
+            ['XSS',      2],
+            ['DDOS',  2],
+            ['RFI', 2],
+            ['Brute Force',    7]
+        ]);
+
+        var options = {
+            title: 'Security Log',
+            pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+    }
+
     //PopUp
     $('.FancyBoxButtonPopUp').on("click", function (e) {
         $.ajax({
