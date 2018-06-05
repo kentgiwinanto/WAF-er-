@@ -109,7 +109,7 @@ $(document).ready(function () {
                 $('#RequestHeaderSection').empty();
                 $('#ResponseHeaderSection').empty();
                 $('#jsonlog').empty();
-                $('#PopUpSecLog').append("<td colspan=14 rowspan=2 style='text-align:center'>Loading...</td>"); 
+                $('#PopUpSecLog').append("<td colspan=14 rowspan=2 style='text-align:center'><div class='loader'>Loading...</div></td>"); 
                 $('#RequestHeaderSection').append(
                     "<tr>\
                         <td colspan=2>Loading...</td>\
