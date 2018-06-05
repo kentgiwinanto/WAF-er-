@@ -3,9 +3,6 @@
 
 Auth::routes();
 
-Route::get('/Home','HomeController@index');
-Route::get('/Admin','AdminController@index');
-
 //Regis
 Route::get('/Register', function () {
     return view('register');

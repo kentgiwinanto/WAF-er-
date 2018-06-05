@@ -54,7 +54,7 @@ class ShowLogsController extends Controller
 
         foreach($SecLogs as $valForEach){
             $valForEach = json_decode($valForEach);
-            if($valForEach->transaction->request->headers->Host == $ServerDetail->Domain){
+            if($valForEach->transaction->request->headers->Host == strtolower($ServerDetail->Domain)){
                 array_push($ResultSecLog,$valForEach);
             }
         }
