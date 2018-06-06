@@ -52,8 +52,11 @@ class PDFController extends Controller
         $SecLogs = $this->GetSecLogsFromServer();
         $AccessLogs = $this->GetAccessLogsFromServer();
         $LogCount = 0;
+        $GetCount =0;
+        $PostCount=0;
 
         // $i=count($SecLogs);
+        // BUAT SEC LOG
         foreach($SecLogs as $valForEach){
             $valForEach = json_decode($valForEach);
             // print_r(
@@ -66,13 +69,22 @@ class PDFController extends Controller
             	$LogCount++;
             }
         }
+        // BUAT ACCESS LOG
         foreach($AccessLogs as $valForEach){
             $valForEach = json_decode($valForEach);
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
                 array_push($ResultAccessLog,$valForEach);
+                if (strstr(substr($valForEach->request,0,3),'GET')) {
+            			$GetCount++;
+             	}else if (strstr(substr($valForEach->request,0,3), 'POST')){
+            			$PostCount++;
+                }
             }
         }
-
+        
+        // print_r($GetCount);
+        // die();
+            
         // foreach($SecLogs as $valForEach){
         //    if(strpos($valForEach->transaction->time_stamp,'Jun'== true){
         //         $LogCount++;
@@ -89,7 +101,9 @@ class PDFController extends Controller
         			"ServerDetail"=>$ServerDetail,
         			"ResultSecLog"=>$ResultSecLog,
         			"ResultAccessLog"=>$ResultAccessLog,
-        			"LogCount"=>$LogCount
+        			"LogCount"=>$LogCount,
+        			"GetCount"=>$GetCount,
+        			"PostCount"=>$PostCount
         		)
         	)
         );     

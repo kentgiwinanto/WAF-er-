@@ -13,6 +13,14 @@
 </head>
 
 <body>
+
+<?php 
+// print_r($GetCount);
+// print_r($PostCount);
+// print_r($browser":" $version);
+// die();
+
+ ?>
 <h1 style="background-color: : ">
   
   <img src="images/logo_visionet.png" style="width: 250px; height: 50px;">
@@ -49,24 +57,24 @@
     <td style="border: solid 2px;border-color: #ff8100;width: 50px">No.</td>
     <td style="border: solid 2px;border-color: #ff8100;width: 50px">Month</td>
     <td style="border: solid 2px;border-color: #ff8100;width: 150px">Attempted Attack</td>
-    <td style="border: solid 2px;border-color: #ff8100;width: 175px">Count POST</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Count POST</td>
     <td style="border: solid 2px;border-color: #ff8100;width: 150px">Count GET</td>
-    <td style="border: solid 2px;border-color: #ff8100;width: 175px">Fav.UserAgent</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Freq.UserAgent</td>
   </tr>
   <?php
-// $i=1;
+$i=1;
 
-//    $ResultLogServer = json_decode(Session::get("ResultLogServer"));
+   $ResultLogServer = json_decode(Session::get("ResultLogServer"));
 
-//             echo"<tr>
-//                 <td >".$i."</td>
-//                 <td></td>
-//                 <td>".$ResultLogServer->LogCount."</td>
-//                 <td></td>
-//                 <td></td>
-//             <td></td>
-//                </tr>";
-//             $i++;
+            echo"<tr>
+                <td style='border: solid 2px;border-color: #ff8100;width: 50px'>".$i."</td>
+                <td style='border: solid 2px;border-color: #ff8100;width: 50px'>Jun</td>
+                <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->LogCount."</td>
+                <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->PostCount."</td>
+                <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->GetCount."</td>
+                <td style='border: solid 2px;border-color: #ff8100;width: 150px'></td>
+               </tr>";
+            $i++;
        
 
  ?>
