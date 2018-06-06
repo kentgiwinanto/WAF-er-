@@ -15,11 +15,8 @@
 <body>
 
 <?php 
-// print_r($GetCount);
-// print_r($PostCount);
-// print_r($browser":" $version);
-// die();
-
+    print_r($GetCount);
+    die();
  ?>
 <h1 style="background-color: : ">
   

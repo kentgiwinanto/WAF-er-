@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use UAParser\Parser;
 use Illuminate\Http\Request;
 use PDF,DB;
 
@@ -54,6 +54,10 @@ class PDFController extends Controller
         $LogCount = 0;
         $GetCount =0;
         $PostCount=0;
+        $SafariCount=0;
+        $FirefoxCount=0;
+        $ChromeCount=0;
+
 
         // $i=count($SecLogs);
         // BUAT SEC LOG
@@ -72,18 +76,27 @@ class PDFController extends Controller
         // BUAT ACCESS LOG
         foreach($AccessLogs as $valForEach){
             $valForEach = json_decode($valForEach);
+            $ua= $valForEach->http_user_agent;
+            $parser = Parser::create();
+			$resultua = $parser->parse($ua);	
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
-                array_push($ResultAccessLog,$valForEach);
+                array_push($ResultAccessLog,$valForEach);                
                 if (strstr(substr($valForEach->request,0,3),'GET')) {
-            			$GetCount++;
-             	}else if (strstr(substr($valForEach->request,0,3), 'POST')){
-            			$PostCount++;
+            		$GetCount++;
+             	}if (strstr(substr($valForEach->request,0,3), 'POST')){
+            		$PostCount++;
+                }if(strstr($resultua->ua->family,'Safari')){
+                	$SafariCount++;
+                }if(strstr($resultua->ua->family, 'Firefox')){
+                	$FirefoxCount++;
+                }if(strstr($resultua->ua->family,'Chrome')){
+                	$ChromeCount++;
                 }
             }
         }
         
-        // print_r($GetCount);
-        // die();
+        print_r($ChromeCount);
+        die();
             
         // foreach($SecLogs as $valForEach){
         //    if(strpos($valForEach->transaction->time_stamp,'Jun'== true){
