@@ -23,14 +23,6 @@
     <td style="width:100px">Server </td>
     <td>: Reverse Proxy Virtual Box</td>
   </tr>
-  <tr>
-    <td style="width: 100px">Month </td>
-    <td>: June</td>
-  </tr>
-  <tr>
-    <td style="width: 100px">PIC </td>
-    <td>: It's Me Mario</td>
-  </tr>
 </table>
 <br><br>
 <table style="border: solid 2px;border-color: #ff8100; ">
@@ -41,49 +33,45 @@
     <td style="width: 330px;border: solid 2px;border-collapse: collapse;padding: 12px;border-color: #ff8100;"><img src="images/chart1.png"  style="width: 330px;height: 200px"></td>
     <td style="width: 330px;border: solid 2px;border-collapse: collapse;padding: 12px;border-color: #ff8100;"><img src="images/chart3.png"  style="width: 330px;height: 200px"></td>
   </tr>
+  <tr>
+        <td colspan="2" style="border: solid 2px;border-collapse: collapse;padding: 12px;float: center;border-color: #ff8100;"><img src="images/chart2.png" style="width: 660px;height: 200px"></td>
+
+  </tr>
 </table>
 <br>
 <br>
 
 <table style="border: solid 2px;border-color: #ff8100;">
   <tr>
-    <th colspan="5" style="background-color:#ff8100;float: center;">.</th>
+    <th colspan="6" style="background-color:#ff8100;float: center;"><label style="color: white;">Detail Server</label></th>
   </tr>
   <tr>
     <td style="border: solid 2px;border-color: #ff8100;width: 50px">No.</td>
-    <td style="border: solid 2px;border-color: #ff8100;width: 175px">Site Name</td>
-    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Attempt</td>
-    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Access</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 50px">Month</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Attempted Attack</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 175px">Count POST</td>
+    <td style="border: solid 2px;border-color: #ff8100;width: 150px">Count GET</td>
     <td style="border: solid 2px;border-color: #ff8100;width: 175px">Fav.UserAgent</td>
   </tr>
-  <tr>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-  </tr>
-  <tr>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-  </tr>
-  <tr>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-  </tr>
-  <tr>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-    <td style="border-left: solid 2px; border-right: solid 2px;border-color: #ff8100;">Test</td>
-  </tr>
+  <?php
+// $i=1;
+
+//    $ResultLogServer = json_decode(Session::get("ResultLogServer"));
+
+//             echo"<tr>
+//                 <td >".$i."</td>
+//                 <td></td>
+//                 <td>".$ResultLogServer->LogCount."</td>
+//                 <td></td>
+//                 <td></td>
+//             <td></td>
+//                </tr>";
+//             $i++;
+       
+
+ ?>
+
+
 </table>
 </body>
 </html>

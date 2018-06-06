@@ -170,6 +170,7 @@
 						<li><a href="#tab_b" data-toggle="tab">Access Log</a></li>
 						<li><a href="#tab_c" data-toggle="tab">Rules</a></li>
 						<li><a href="#tab_d" data-toggle="tab">Setting</a></li>
+						<li><a href="http://localhost:8000/genPDF" ><i class="fa fa-download fa-lg" aria-hidden="true"></i></a></li>
 						<li class="dropdown">
 						</li>
 					</ul>

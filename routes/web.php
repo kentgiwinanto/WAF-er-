@@ -27,7 +27,7 @@ Route::group(['middleware' => 'checkuser'], function(){
 
     //Server
     Route::get('/Server', function()
-    {
+    {   
         return view('server');
     });
 
@@ -60,6 +60,10 @@ Route::group(['middleware' => 'checkuser'], function(){
     {
         return view('pdf');
     });
+    Route::get('/pdf/{serverID}', ['uses' =>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
 
     Route::get('/genPDF','PDFController@downloadPDF');
+
+    
+    
 });

@@ -13,7 +13,7 @@ class ShowLogsController extends Controller
     }
 
     private function GetSecLogsFromServer(){
-        $LogsFromServer = unserialize(file_get_contents("http://ReverseProxy.local:9112/GetLogs.php"));
+        $LogsFromServer = unserialize(file_get_contents("http://192.168.56.103:9112/GetLogs.php"));
         return $LogsFromServer;
     }
 
@@ -28,7 +28,7 @@ class ShowLogsController extends Controller
         $Logs = $this->GetSecLogsFromServer();
 
         foreach($Logs as $valForEach){
-            //decode dahulu kemudian compare
+            //decode dahulu kemudian compact(varname)are
             $valForEach = json_decode($valForEach);
             if($valForEach->transaction->id == $SecLogID){
                 array_push($Result,$valForEach);
@@ -51,6 +51,7 @@ class ShowLogsController extends Controller
         $ServerDetail = $this->GetServerDetailFromServerID($ServerIDPam);
         $SecLogs = $this->GetSecLogsFromServer();
         $AccessLogs = $this->GetAccessLogsFromServer();
+       
 
         foreach($SecLogs as $valForEach){
             $valForEach = json_decode($valForEach);
@@ -64,6 +65,8 @@ class ShowLogsController extends Controller
                 array_push($ResultAccessLog,$valForEach);
             }
         }
-        return redirect('Detail')->with('ResultLogServer',json_encode(array("ServerDetail"=>$ServerDetail,"ResultSecLog"=>$ResultSecLog,"ResultAccessLog"=>$ResultAccessLog)));        
+
+        return redirect('Detail')->with('ResultLogServer',json_encode(array("ServerDetail"=>$ServerDetail,"ResultSecLog"=>$ResultSecLog,"ResultAccessLog"=>$ResultAccessLog)));   
+             
     }
 }
