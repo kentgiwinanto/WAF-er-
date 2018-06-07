@@ -15,8 +15,8 @@
 <body>
 
 <?php 
-    print_r($GetCount);
-    die();
+    // print_r($GetCount);
+    // die();
  ?>
 <h1 style="background-color: : ">
   
@@ -26,7 +26,7 @@
 <table style="font-size: 20px;font-family: Times New Roman">
   <tr>
     <td style="width:100px">Server </td>
-    <td>: Reverse Proxy Virtual Box</td>
+    <td>:<label id="">TEST</label></td>
   </tr>
 </table>
 <br><br>
@@ -69,7 +69,7 @@ $i=1;
                 <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->LogCount."</td>
                 <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->PostCount."</td>
                 <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->GetCount."</td>
-                <td style='border: solid 2px;border-color: #ff8100;width: 150px'></td>
+                <td style='border: solid 2px;border-color: #ff8100;width: 150px'>".$ResultLogServer->FreqUA."</td>
                </tr>";
             $i++;
        

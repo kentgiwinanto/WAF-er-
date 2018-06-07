@@ -57,6 +57,7 @@ class PDFController extends Controller
         $SafariCount=0;
         $FirefoxCount=0;
         $ChromeCount=0;
+        $FreqUA = 0;
 
 
         // $i=count($SecLogs);
@@ -91,12 +92,18 @@ class PDFController extends Controller
                 	$FirefoxCount++;
                 }if(strstr($resultua->ua->family,'Chrome')){
                 	$ChromeCount++;
+                }if($ChromeCount > $SafariCount && $ChromeCount > $FirefoxCount){
+                	$FreqUA = 'Chrome';
+                }if($SafariCount > $ChromeCount && $SafariCount > $FirefoxCount){
+                	$FreqUA = 'Safari';
+                }if($FirefoxCount > $ChromeCount && $FirefoxCount > $SafariCount){
+                	$FreqUA = 'Firefox';
                 }
-            }
+        	}
         }
+
         
-        print_r($ChromeCount);
-        die();
+
             
         // foreach($SecLogs as $valForEach){
         //    if(strpos($valForEach->transaction->time_stamp,'Jun'== true){
@@ -116,7 +123,8 @@ class PDFController extends Controller
         			"ResultAccessLog"=>$ResultAccessLog,
         			"LogCount"=>$LogCount,
         			"GetCount"=>$GetCount,
-        			"PostCount"=>$PostCount
+        			"PostCount"=>$PostCount,
+        			"FreqUA"=>$FreqUA
         		)
         	)
         );     
