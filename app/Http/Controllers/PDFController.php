@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use UAParser\Parser;
 use Illuminate\Http\Request;
-use PDF,DB;
+use DB;
+use PDF;
+// use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+
 
 class PDFController extends Controller
 {
@@ -114,7 +117,7 @@ class PDFController extends Controller
 
 
        
-       return redirect('pdf')->with(
+       return redirect('genPDF')->with(
         	'ResultLogServer',
         	json_encode(
         		array(
@@ -130,10 +133,24 @@ class PDFController extends Controller
         );     
         
     }
-      public function downloadPDF(){
+      
 
-      $pdf = PDF::loadView('/pdf');
-      return $pdf->download('invoice.pdf');
+     public function pdfview()
+    {
+
+            $pdf = PDF::loadView('/pdf');
+            return $pdf->download('report.pdf');
+       
 
     }
+
+         public function downloadPDF()
+    {
+
+            $pdf = PDF::loadView('/pdf');
+            return $pdf->download('invoice.pdf');
+       
+
+    }
+
 }

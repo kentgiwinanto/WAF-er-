@@ -56,14 +56,19 @@ Route::group(['middleware' => 'checkuser'], function(){
     //Logout
     Route::get('/Logout','LoginController@logout');
 
-    Route::get('/pdf', function()
+    Route::get('pdf', function()
     {
         return view('pdf');
     });
     Route::get('/pdf/{serverID}', ['uses' =>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
 
+    Route::get('/genPDF/{serverID}',['uses'=>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
+
     Route::get('/genPDF','PDFController@downloadPDF');
 
+    Route::get('/generate-pdf/{serverID}', ['uses'=>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
+
+    Route::get('/generate-pdf','PDFController@pdfview');
     
     
 });
