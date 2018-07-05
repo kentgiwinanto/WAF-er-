@@ -60,15 +60,28 @@ Route::group(['middleware' => 'checkuser'], function(){
     {
         return view('pdf');
     });
+
+    Route::get('pdf2', function()
+    {
+    return view('pdf2');
+    });
+
     Route::get('/pdf/{serverID}', ['uses' =>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
+
+    Route::get('/pdf2/Download', ['uses' =>'PDFController@GetVariableFromDetail']);
+
+    Route::get('/pdf2/{serverID}', ['uses' =>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
 
     Route::get('/genPDF/{serverID}',['uses'=>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
 
-    Route::get('/genPDF','PDFController@downloadPDF');
+    Route::get('/genPDF','PDFController@pdfview');
 
-    Route::get('/generate-pdf/{serverID}', ['uses'=>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
+    // Route::get('/generate-pdf/{serverID}', ['uses'=>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
 
-    Route::get('/generate-pdf','PDFController@pdfview');
+    // Route::get('/generate-pdf','PDFController@pdfview');
     
     
 });
+
+
+?>

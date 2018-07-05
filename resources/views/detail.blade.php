@@ -9,6 +9,47 @@
 	@section('Title')
 	<title>Detail | WAFer Development</title>
 	<script type="text/javascript" src="js/detailPage.js"></script>
+	<script type="text/javascript">
+
+	google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart3);
+    function drawChart3() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Method', 'Total'],
+            ['GET',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->GetCount; ?> ],
+        	['POST',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->PostCount; ?> ]
+        ]);
+
+        var options = {
+            title: 'Access Log',
+            
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+    }
+
+google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart1);
+
+   
+    function drawChart1() {
+        var data = google.visualization.arrayToDataTable([
+            ['User Agent', 'Count'],
+            ['Firefox',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->FirefoxCount; ?>],
+            ['Chrome',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->ChromeCount; ?>],
+            ['Safari',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SafariCount; ?>]
+        ]);
+
+        var options = {
+            title: 'Frequently used User Agent',
+            pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+    }
+	</script>
 	@endsection
 
 	@section('Content')
@@ -170,7 +211,7 @@
 						<li><a href="#tab_b" data-toggle="tab">Access Log</a></li>
 						<li><a href="#tab_c" data-toggle="tab">Rules</a></li>
 						<li><a href="#tab_d" data-toggle="tab">Setting</a></li>
-						<li><a href="http://localhost:8000/genPDF" ><i class="fa fa-download fa-lg" aria-hidden="true"></i></a></li>
+						<li><a href="#tab_i" data-toggle="tab"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a></li>
 						<li class="dropdown">
 						</li>
 					</ul>
@@ -311,6 +352,76 @@
 							<div class="col-md-"3 style="float: right;">
 								<button type="button" class="btn btn-lg" onclick="addserver();">Cancel</button>
 								<button type="button" class="btn btn-lg" onclick="addserver();">Update</button>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_i">
+							<!-- SECTION DOWNLOAD REPORT -->
+							<div class="col-md-13" style="background-color: white;">
+								<h4>Download Report</h4>
+								
+								<form action="/pdf2/<?php echo json_decode(Session::get('ResultLogServer'))->ServerDetail->ServerID;?>" method="">
+								{{ csrf_field() }}
+								<table>
+									<table >
+										<tr>
+											<th style="width: 550px"></th>
+											<th style="width: 550px"></th>
+										</tr>
+										<tr>
+											<td style="">
+												<div class="form-group">
+													<div class="cols-sm-10">
+														    <div class="form-group">
+														      <label for="sel1">Select Year :</label>
+														      <select class="form-control" id="month">
+														        <option value="2018">2018</option>
+														      </select>
+														    </div>
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="form-group">
+													<div class="cols-sm-10">
+														<div class="form-group">
+														    <label for="sel1">Select Month (select one):</label>
+														      <select class="form-control" id="month">
+														        <option name="Jun" value="Jun">June</option>
+														        <option name="Jul" value="Jul">July</option>
+														        <option name="Aug" value="Aug">August</option>
+														      </select>
+														    </div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+
+										</tr>
+										<tr>
+											<td>
+												<div class="form-group btn-group">
+													<input type="checkbox" name="custom7" value="1" id="custom7" checked="checked">
+													<label for="custom7">Agree with term and condition !</label>
+												</div>
+											</td>
+											<td>
+												<div class="form-group">
+													<label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>
+											</td>
+										</tr>
+									</table>
+								</table>
+							<div class="col-md-8">
+								<button type="submit" class="btn btn-lg" style="float:left;" >Download</button>
+							</div>
+							</form>
 							</div>
 						</div>
 					</div>

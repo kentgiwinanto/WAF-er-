@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use UAParser\Parser;
 use Illuminate\Http\Request;
 use DB;
 
@@ -51,22 +51,90 @@ class ShowLogsController extends Controller
         $ServerDetail = $this->GetServerDetailFromServerID($ServerIDPam);
         $SecLogs = $this->GetSecLogsFromServer();
         $AccessLogs = $this->GetAccessLogsFromServer();
-       
-
+        $LogCount = 0;
+        $GetCount =0;
+        $AccessLogCount =0;
+        $PostCount=0;
+        $SafariCount=0;
+        $FirefoxCount=0;
+        $ChromeCount=0;
+        $FreqUA = 0;
+       // $i=count($SecLogs);
+        // BUAT SEC LOG
         foreach($SecLogs as $valForEach){
             $valForEach = json_decode($valForEach);
+            // print_r(
+                
+            // );die;
             if($valForEach->transaction->request->headers->Host == strtolower($ServerDetail->Domain)){
                 array_push($ResultSecLog,$valForEach);
             }
+            if(strstr($valForEach->transaction->time_stamp,'Jun')){
+                $LogCount++;
+            }
         }
+        // BUAT ACCESS LOG
         foreach($AccessLogs as $valForEach){
             $valForEach = json_decode($valForEach);
+            $ua= $valForEach->http_user_agent;
+            $parser = Parser::create();
+            $resultua = $parser->parse($ua);    
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
                 array_push($ResultAccessLog,$valForEach);
+                 if (strstr($valForEach->time_local,'Jun')) {
+                    $AccessLogCount++;                
+                }if (strstr(substr($valForEach->request,0,3),'GET')) {
+                    $GetCount++;
+                }if (strstr(substr($valForEach->request,0,4), 'POST')){
+                    $PostCount++;
+                }if(strstr($resultua->ua->family,'Safari')){
+                    $SafariCount++;
+                }if(strstr($resultua->ua->family, 'Firefox')){
+                    $FirefoxCount++;
+                }if(strstr($resultua->ua->family,'Chrome')){
+                    $ChromeCount++;
+                }if($ChromeCount > $SafariCount && $ChromeCount > $FirefoxCount){
+                    $FreqUA = 'Chrome';
+                }if($SafariCount > $ChromeCount && $SafariCount > $FirefoxCount){
+                    $FreqUA = 'Safari';
+                }if($FirefoxCount > $ChromeCount && $FirefoxCount > $SafariCount){
+                    $FreqUA = 'Firefox';
+                }
             }
         }
 
-        return redirect('Detail')->with('ResultLogServer',json_encode(array("ServerDetail"=>$ServerDetail,"ResultSecLog"=>$ResultSecLog,"ResultAccessLog"=>$ResultAccessLog)));   
+
+        // foreach($SecLogs as $valForEach){
+        //     $valForEach = json_decode($valForEach);
+        //     if($valForEach->transaction->request->headers->Host == strtolower($ServerDetail->Domain)){
+        //         array_push($ResultSecLog,$valForEach);
+        //     }
+        // }
+        // foreach($AccessLogs as $valForEach){
+        //     $valForEach = json_decode($valForEach);
+        //     if($valForEach->server_name == strtolower($ServerDetail->Domain)){
+        //         array_push($ResultAccessLog,$valForEach);
+        //     }
+        // }
+
+       return redirect('Detail')->with(
+            'ResultLogServer',
+            json_encode(
+                array(
+                    "ServerDetail"=>$ServerDetail,
+                    "ResultSecLog"=>$ResultSecLog,
+                    "ResultAccessLog"=>$ResultAccessLog,
+                    "LogCount"=>$LogCount,
+                    "FirefoxCount"=>$FirefoxCount,
+                    "SafariCount"=>$SafariCount,
+                    "ChromeCount"=>$ChromeCount,
+                    "AccessLogCount"=>$AccessLogCount,
+                    "GetCount"=>$GetCount,
+                    "PostCount"=>$PostCount,
+                    "FreqUA"=>$FreqUA
+                )
+            )
+        );    
              
     }
 }

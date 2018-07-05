@@ -48,6 +48,13 @@ class PDFController extends Controller
         }
     }
 
+    // public function GetVariableFromDetail(Request $request) {
+    //     $Monthdl = $request->input('month');
+    //     $request->session()->put('monthdl', $Monthdl);
+
+    //     return redirect('/pdf2/ServerID_7e0f3061-5e5d');
+    // }
+
     public function GetDetailPageWithSecLogAndAccessLog($ServerIDPam){
         $ResultSecLog = array();
         $ResultAccessLog = array();
@@ -56,6 +63,7 @@ class PDFController extends Controller
         $AccessLogs = $this->GetAccessLogsFromServer();
         $LogCount = 0;
         $GetCount =0;
+        $AccessLogCount =0;
         $PostCount=0;
         $SafariCount=0;
         $FirefoxCount=0;
@@ -84,8 +92,10 @@ class PDFController extends Controller
             $parser = Parser::create();
 			$resultua = $parser->parse($ua);	
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
-                array_push($ResultAccessLog,$valForEach);                
-                if (strstr(substr($valForEach->request,0,3),'GET')) {
+                array_push($ResultAccessLog,$valForEach);
+                 if (strstr($valForEach->time_local,'Jun')) {
+                    $AccessLogCount++;                
+                }if (strstr(substr($valForEach->request,0,3),'GET')) {
             		$GetCount++;
              	}if (strstr(substr($valForEach->request,0,3), 'POST')){
             		$PostCount++;
@@ -125,6 +135,10 @@ class PDFController extends Controller
         			"ResultSecLog"=>$ResultSecLog,
         			"ResultAccessLog"=>$ResultAccessLog,
         			"LogCount"=>$LogCount,
+                    "FirefoxCount"=>$FirefoxCount,
+                    "SafariCount"=>$SafariCount,
+                    "ChromeCount"=>$ChromeCount,
+                    "AccessLogCount"=>$AccessLogCount,
         			"GetCount"=>$GetCount,
         			"PostCount"=>$PostCount,
         			"FreqUA"=>$FreqUA
@@ -138,7 +152,7 @@ class PDFController extends Controller
      public function pdfview()
     {
 
-            $pdf = PDF::loadView('/pdf');
+            $pdf = PDF::loadView('/pdf2');
             return $pdf->download('report.pdf');
        
 

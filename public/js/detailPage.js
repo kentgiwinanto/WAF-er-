@@ -15,39 +15,39 @@ $(document).ready(function () {
     //Google Chart
 
     // Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart']});
+    // google.charts.load('current', {'packages':['corechart']});
 
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart1);
+    // // Set a callback to run when the Google Visualization API is loaded.
+    // google.charts.setOnLoadCallback(drawChart1);
 
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    function drawChart1() {
+    // // Callback that creates and populates a data table,
+    // // instantiates the pie chart, passes in the data and
+    // // draws it.
+    // function drawChart1() {
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Day');
-        data.addColumn('number', 'SQLi');
-        data.addRows([
-        ['Monday', 3],
-        ['Tuesday', 1],
-        ['Wednesday', 4],
-        ['Thursday', 4],
-        ['Friday', 6],
-        ['Saturday', 3],
-        ['Sunday', 2]
-        ]);
+    //     // Create the data table.
+    //     var data = new google.visualization.DataTable();
+    //     data.addColumn('string', 'Day');
+    //     data.addColumn('number', 'SQLi');
+    //     data.addRows([
+    //     ['Monday', 3],
+    //     ['Tuesday', 1],
+    //     ['Wednesday', 4],
+    //     ['Thursday', 4],
+    //     ['Friday', 6],
+    //     ['Saturday', 3],
+    //     ['Sunday', 2]
+    //     ]);
 
-        // Set chart options
-        var options = {'title':'Number of Attacks',
-                        'width':300,
-                        'height':200};
+    //     // Set chart options
+    //     var options = {'title':'Number of Attacks',
+    //                     'width':300,
+    //                     'height':200};
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
-        chart.draw(data, options);
-    }
+    //     // Instantiate and draw our chart, passing in some options.
+    //     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+    //     chart.draw(data, options);
+    // }
 
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart2);
@@ -74,27 +74,23 @@ $(document).ready(function () {
 
         chart.draw(data, options);
     }
+    // google.charts.load("current", {packages:["corechart"]});
+    // google.charts.setOnLoadCallback(drawChart3);
+    // function drawChart3() {
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Method', 'Total'],
+    //         ['Post',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->PostCount; ?> ],
+    //         ['Get',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->GetCount; ?> ]
+    //     ]);
 
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart3);
-    function drawChart3() {
-        var data = google.visualization.arrayToDataTable([
-            ['Attack', 'Attack/Day'],
-            ['SQLi',     11],
-            ['XSS',      2],
-            ['DDOS',  2],
-            ['RFI', 2],
-            ['Brute Force',    7]
-        ]);
+    //     var options = {
+    //         title: 'Security Log',
+            
+    //     };
 
-        var options = {
-            title: 'Security Log',
-            pieHole: 0.4,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
-        chart.draw(data, options);
-    }
+    //     var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+    //     chart.draw(data, options);
+    // }
 
     //PopUp
     $('.FancyBoxButtonPopUp').on("click", function (e) {
