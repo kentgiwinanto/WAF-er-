@@ -11,34 +11,81 @@
 	<script type="text/javascript" src="js/detailPage.js"></script>
 	<script type="text/javascript">
 
-	google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart3);
-    function drawChart3() {
-        var data = new google.visualization.arrayToDataTable([
-            ['Method', 'Total'],
-            ['GET',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->GetCount; ?> ],
-        	['POST',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->PostCount; ?> ]
-        ]);
+  	google.charts.load('current', {'packages':['corechart']});
+  	google.charts.setOnLoadCallback(drawChart1);
+  	
+	function drawChart1() {
 
-        var options = {
-            title: 'Access Log',
-            
-        };
+        // Create the data table.
+        var data = google.visualization.arrayToDataTable([
+        ["Methods", "Count"],
+        ["200", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount200; ?>],
+        ["502", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount502; ?>],
+        ["403", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount403; ?>],
+        ["404", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount404; ?>],
+        ["Other", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCOther; ?>]
+      ]);
+        
 
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        // Set chart options
+        var options = {	title:'Methods',
+       					pieSliceText: 'label',
+          				slices: {  2: {offset: 0.7},
+          					},
+                        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
         chart.draw(data, options);
     }
 
-google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart2);
+
+    function drawChart2() {
+       var data = new google.visualization.arrayToDataTable([
+            ['Status Code', 'Count',{ role: "style" } ],
+            ['GET',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->GetCount; ?>, "purple"],
+            ['POST', <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->PostCount; ?>, "color: #e5e4e2"],
+            ['HEAD',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->HeadCount; ?>, "silver"],
+            ['PUT',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->PutCount; ?>, "gold"],
+            ['OPTIONS',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->OptionsCount; ?>, "blue"],
+            ['DELETE',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->DeleteCount; ?>, "red"],
+            ['TRACE',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->TraceCount; ?>, "yellow"],
+            ['CONNECT',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->ConnectCount; ?>, "pink"],
+            ['PATCH',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->PatchCount; ?>, "cyan"],
+            ['OTHER',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->OtherMethod; ?>, "orange"]
+        ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Status Code",
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("chart_div2"));
+      chart.draw(view, options);
+    }
+	
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart3);
 
    
-    function drawChart1() {
+    function drawChart3() {
         var data = google.visualization.arrayToDataTable([
             ['User Agent', 'Count'],
             ['Firefox',  <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->FirefoxCount; ?>],
             ['Chrome',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->ChromeCount; ?>],
-            ['Safari',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SafariCount; ?>]
+            ['Opera',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->OperaCount; ?>],
+            ['Safari',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SafariCount; ?>],
+            ['Other',   <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->OtherUA; ?>]
         ]);
 
         var options = {
@@ -46,9 +93,10 @@ google.charts.load("current", {packages:["corechart"]});
             pieHole: 0.4,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div3'));
         chart.draw(data, options);
     }
+
 	</script>
 	@endsection
 
@@ -359,7 +407,7 @@ google.charts.load("current", {packages:["corechart"]});
 							<div class="col-md-13" style="background-color: white;">
 								<h4>Download Report</h4>
 								
-								<form action="/pdf2/<?php echo json_decode(Session::get('ResultLogServer'))->ServerDetail->ServerID;?>" method="">
+								<form action="/pdf2/<?php echo json_decode(Session::get('ResultLogServer'))->ServerDetail->ServerID;?>" method="POST">
 								{{ csrf_field() }}
 								<table>
 									<table >
@@ -385,10 +433,10 @@ google.charts.load("current", {packages:["corechart"]});
 													<div class="cols-sm-10">
 														<div class="form-group">
 														    <label for="sel1">Select Month (select one):</label>
-														      <select class="form-control" id="month">
-														        <option name="Jun" value="Jun">June</option>
-														        <option name="Jul" value="Jul">July</option>
-														        <option name="Aug" value="Aug">August</option>
+														      <select class="form-control" name="month" id="month">
+														        <option value="Jun">June</option>
+														        <option value="Jul">July</option>
+														        <option value="Aug">August</option>
 														      </select>
 														    </div>
 													</div>

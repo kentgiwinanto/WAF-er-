@@ -46,19 +46,34 @@ class ShowLogsController extends Controller
     }
 
     public function GetDetailPageWithSecLogAndAccessLog($ServerIDPam){
-        $ResultSecLog = array();
+         $ResultSecLog = array();
         $ResultAccessLog = array();
         $ServerDetail = $this->GetServerDetailFromServerID($ServerIDPam);
         $SecLogs = $this->GetSecLogsFromServer();
         $AccessLogs = $this->GetAccessLogsFromServer();
         $LogCount = 0;
         $GetCount =0;
-        $AccessLogCount =0;
+        $HeadCount =0;
         $PostCount=0;
+        $PutCount =0;
+        $OptionsCount =0;
+        $ConnectCount =0;
+        $TraceCount =0;
+        $DeleteCount =0;
+        $PatchCount =0;
+        $OtherMethod=0;
+        $AccessLogCount =0;
         $SafariCount=0;
         $FirefoxCount=0;
         $ChromeCount=0;
+        $OperaCount=0;
+        $OtherUA=0;
         $FreqUA = 0;
+        $SCcount404 = 0;
+        $SCcount502 = 0;
+        $SCcount200 = 0;
+        $SCcount403 = 0;
+        $SCOther = 0;
        // $i=count($SecLogs);
         // BUAT SEC LOG
         foreach($SecLogs as $valForEach){
@@ -74,31 +89,78 @@ class ShowLogsController extends Controller
             }
         }
         // BUAT ACCESS LOG
-        foreach($AccessLogs as $valForEach){
+         foreach($AccessLogs as $valForEach){
             $valForEach = json_decode($valForEach);
             $ua= $valForEach->http_user_agent;
+            $scode=$valForEach->status;
+            $methodc=$valForEach->request;
             $parser = Parser::create();
-            $resultua = $parser->parse($ua);    
+            $resultua = $parser->parse($ua);
+            $uafam= $resultua->ua->family; 
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
                 array_push($ResultAccessLog,$valForEach);
-                 if (strstr($valForEach->time_local,'Jun')) {
+                if (strstr($valForEach->time_local,'Jul')) {
                     $AccessLogCount++;                
-                }if (strstr(substr($valForEach->request,0,3),'GET')) {
-                    $GetCount++;
-                }if (strstr(substr($valForEach->request,0,4), 'POST')){
-                    $PostCount++;
-                }if(strstr($resultua->ua->family,'Safari')){
+                }switch($uafam){
+                    case(strpos($uafam,"Safari")!==false):
                     $SafariCount++;
-                }if(strstr($resultua->ua->family, 'Firefox')){
-                    $FirefoxCount++;
-                }if(strstr($resultua->ua->family,'Chrome')){
+                    break;
+                    case(strpos($uafam,"Chrome")!==false):
                     $ChromeCount++;
-                }if($ChromeCount > $SafariCount && $ChromeCount > $FirefoxCount){
-                    $FreqUA = 'Chrome';
-                }if($SafariCount > $ChromeCount && $SafariCount > $FirefoxCount){
-                    $FreqUA = 'Safari';
-                }if($FirefoxCount > $ChromeCount && $FirefoxCount > $SafariCount){
-                    $FreqUA = 'Firefox';
+                    break;
+                    case(strpos($uafam,"Opera")!==false):
+                    $OperaCount++;
+                    break;
+                    case(strpos($uafam,"Firefox")!==false):
+                    $FirefoxCount++;
+                    break;
+                    Default:
+                    $OtherUA++;
+                }switch($scode){
+                    case (404):
+                    $SCcount404++;
+                    break;
+                    case(200):
+                    $SCcount200++;
+                    break;
+                    case(502):
+                    $SCcount502++;
+                    break;
+                    case(403):
+                    $SCcount403++;
+                    break;
+                    Default:
+                    $SCOther++;
+                }switch($methodc){
+                    case(strpos($methodc,"GET")!==false):
+                    $GetCount++;
+                    break;
+                    case(strpos($methodc,"POST")!==false):
+                    $PostCount++;
+                    break;
+                    case(strpos($methodc,"HEAD")!==false):
+                    $HeadCount++;
+                    break;
+                    case(strpos($methodc,"OPTIONS")!==false):
+                    $OptionsCount++;
+                    break;
+                    case(strpos($methodc,"PUT")!==false):
+                    $PutCount++;
+                    break;
+                    case(strpos($methodc,"'DELETE'")!==false):
+                    $DeleteCount++;
+                    break;
+                    case(strpos($methodc,"TRACE")!==false):
+                    $TraceCount++;
+                    break;
+                    case(strpos($methodc,"CONNECT")!==false):
+                    $ConnectCount++;
+                    break;
+                    case(strpos($methodc,"PATCH")!==false):
+                    $PatchCount++;
+                    break;
+                    Default:
+                    $OtherMethod++;
                 }
             }
         }
@@ -117,7 +179,7 @@ class ShowLogsController extends Controller
         //     }
         // }
 
-       return redirect('Detail')->with(
+    return redirect('Detail')->with(
             'ResultLogServer',
             json_encode(
                 array(
@@ -128,9 +190,24 @@ class ShowLogsController extends Controller
                     "FirefoxCount"=>$FirefoxCount,
                     "SafariCount"=>$SafariCount,
                     "ChromeCount"=>$ChromeCount,
+                    "OperaCount"=>$OperaCount,
+                    "OtherUA"=>$OtherUA,
                     "AccessLogCount"=>$AccessLogCount,
                     "GetCount"=>$GetCount,
                     "PostCount"=>$PostCount,
+                    "HeadCount"=>$HeadCount,
+                    "PutCount"=>$PutCount,
+                    "OptionsCount"=>$OptionsCount,
+                    "TraceCount"=>$TraceCount,
+                    "ConnectCount"=>$ConnectCount,
+                    "DeleteCount"=>$DeleteCount,
+                    "PatchCount"=>$PatchCount,
+                    "OtherMethod"=>$OtherMethod,
+                    "SCcount404"=>$SCcount404,
+                    "SCcount403"=>$SCcount403,
+                    "SCcount502"=>$SCcount502,
+                    "SCcount200"=>$SCcount200,
+                    "SCOther"=>$SCOther,
                     "FreqUA"=>$FreqUA
                 )
             )
@@ -138,3 +215,4 @@ class ShowLogsController extends Controller
              
     }
 }
+

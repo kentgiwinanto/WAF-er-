@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use UAParser\Parser;
 use Illuminate\Http\Request;
+
 use DB;
 use PDF;
 // use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -55,7 +56,8 @@ class PDFController extends Controller
     //     return redirect('/pdf2/ServerID_7e0f3061-5e5d');
     // }
 
-    public function GetDetailPageWithSecLogAndAccessLog($ServerIDPam){
+    public function GetDetailPageWithSecLogAndAccessLog(Request $request,$ServerIDPam){
+        $Month = $request->input('month');
         $ResultSecLog = array();
         $ResultAccessLog = array();
         $ServerDetail = $this->GetServerDetailFromServerID($ServerIDPam);
@@ -81,7 +83,7 @@ class PDFController extends Controller
             if($valForEach->transaction->request->headers->Host == strtolower($ServerDetail->Domain)){
                 array_push($ResultSecLog,$valForEach);
             }
-            if(strstr($valForEach->transaction->time_stamp,'Jun')){
+            if(strstr($valForEach->transaction->time_stamp,$Month)){
             	$LogCount++;
             }
         }
@@ -93,7 +95,7 @@ class PDFController extends Controller
 			$resultua = $parser->parse($ua);	
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
                 array_push($ResultAccessLog,$valForEach);
-                 if (strstr($valForEach->time_local,'Jun')) {
+                 if (strstr($valForEach->time_local,$Month)) {
                     $AccessLogCount++;                
                 }if (strstr(substr($valForEach->request,0,3),'GET')) {
             		$GetCount++;
@@ -131,7 +133,8 @@ class PDFController extends Controller
         	'ResultLogServer',
         	json_encode(
         		array(
-        			"ServerDetail"=>$ServerDetail,
+                    "ServerDetail"=>$ServerDetail,
+                    "Month"=>$Month,
         			"ResultSecLog"=>$ResultSecLog,
         			"ResultAccessLog"=>$ResultAccessLog,
         			"LogCount"=>$LogCount,

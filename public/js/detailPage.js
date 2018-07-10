@@ -49,31 +49,31 @@ $(document).ready(function () {
     //     chart.draw(data, options);
     // }
 
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart2);
+    // google.charts.load('current', {'packages':['corechart']});
+    // google.charts.setOnLoadCallback(drawChart2);
 
-    function drawChart2() {
-        var data = google.visualization.arrayToDataTable([
-            ['Day', 'SQLI', 'XSS'],
-            ['Monday',  2,      4],
-            ['Tuesday',  3,      2],
-            ['Wednesday',  4,     0],
-            ['Thursday',  1,      2],
-            ['Friday',  5,       9],
-            ['Saturday',  6,       9],
-            ['Sunday',  10,       5]
-        ]);
+    // function drawChart2() {
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Day', 'SQLI', 'XSS'],
+    //         ['Monday',  2,      4],
+    //         ['Tuesday',  3,      2],
+    //         ['Wednesday',  4,     0],
+    //         ['Thursday',  1,      2],
+    //         ['Friday',  5,       9],
+    //         ['Saturday',  6,       9],
+    //         ['Sunday',  10,       5]
+    //     ]);
 
-        var options = {
-            title: 'Attack Summary',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
+    //     var options = {
+    //         title: 'Attack Summary',
+    //         curveType: 'function',
+    //         legend: { position: 'bottom' }
+    //     };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+    //     var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
 
-        chart.draw(data, options);
-    }
+    //     chart.draw(data, options);
+    // }
     // google.charts.load("current", {packages:["corechart"]});
     // google.charts.setOnLoadCallback(drawChart3);
     // function drawChart3() {

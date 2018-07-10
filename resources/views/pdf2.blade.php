@@ -43,8 +43,12 @@
     p { page-break-after: always; }
     p:last-child { page-break-after: never; }
  </style>
+<!--  -->
+
 </head>
 <body>
+
+
  <header><img src="images/logo_visionet.png" style="width: 250px; height: 50px;"></header>
 <div id="footer">
   <div class="datetime"><?php date_default_timezone_set("Asia/Bangkok"); echo date("Y-m-d h:i:sa")?></div>
@@ -55,6 +59,15 @@
 
 <!--   PAGE 1 -->
  
+<div style=" justify-content: center;
+  text-align: center;margin-top: 200px;margin-bottom: 200px;">
+    
+    <h1 style="font-size: 40px;">REPORT</h1>
+    <h2 style="font-size: 35px;"><?php $ResultLogServer = json_decode(Session::get("ResultLogServer")); echo $ResultLogServer->Month; ?></h2>
+    <h3 style="font-size: 30px;">V 1.1.1</h3>
+  </div>
+
+
 <div style="position: fixed;bottom: 300px;">
  <!-- <h1 style="background-color: : ">
   

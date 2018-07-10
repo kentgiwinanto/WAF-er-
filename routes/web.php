@@ -70,7 +70,8 @@ Route::group(['middleware' => 'checkuser'], function(){
 
     Route::get('/pdf2/Download', ['uses' =>'PDFController@GetVariableFromDetail']);
 
-    Route::get('/pdf2/{serverID}', ['uses' =>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
+    Route::post('/pdf2/{serverID}', ['uses' =>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
+    // Route::post('/pdf2/{serverID}', 'PDFController@GetDetailPageWithSecLogAndAccessLog');
 
     Route::get('/genPDF/{serverID}',['uses'=>'PDFController@GetDetailPageWithSecLogAndAccessLog']);
 
