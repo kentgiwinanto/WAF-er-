@@ -80,11 +80,11 @@ class PDFController extends Controller
             // print_r(
             	
             // );die;
+            if(strstr($valForEach->transaction->time_stamp,$Month)){
+                $LogCount++;
             if($valForEach->transaction->request->headers->Host == strtolower($ServerDetail->Domain)){
                 array_push($ResultSecLog,$valForEach);
             }
-            if(strstr($valForEach->transaction->time_stamp,$Month)){
-            	$LogCount++;
             }
         }
         // BUAT ACCESS LOG
@@ -96,24 +96,26 @@ class PDFController extends Controller
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
                 array_push($ResultAccessLog,$valForEach);
                  if (strstr($valForEach->time_local,$Month)) {
-                    $AccessLogCount++;                
-                }if (strstr(substr($valForEach->request,0,3),'GET')) {
-            		$GetCount++;
-             	}if (strstr(substr($valForEach->request,0,3), 'POST')){
-            		$PostCount++;
+                    $AccessLogCount++;     
+                 if (strstr(substr($valForEach->request,0,3),'GET')) {
+                    $GetCount++;
+                }if (strstr(substr($valForEach->request,0,3), 'POST')){
+                    $PostCount++;
                 }if(strstr($resultua->ua->family,'Safari')){
-                	$SafariCount++;
+                    $SafariCount++;
                 }if(strstr($resultua->ua->family, 'Firefox')){
-                	$FirefoxCount++;
+                    $FirefoxCount++;
                 }if(strstr($resultua->ua->family,'Chrome')){
-                	$ChromeCount++;
+                    $ChromeCount++;
                 }if($ChromeCount > $SafariCount && $ChromeCount > $FirefoxCount){
-                	$FreqUA = 'Chrome';
+                    $FreqUA = 'Chrome';
                 }if($SafariCount > $ChromeCount && $SafariCount > $FirefoxCount){
-                	$FreqUA = 'Safari';
+                    $FreqUA = 'Safari';
                 }if($FirefoxCount > $ChromeCount && $FirefoxCount > $SafariCount){
-                	$FreqUA = 'Firefox';
-                }
+                    $FreqUA = 'Firefox';
+                }      
+                }     
+                
         	}
         }
 

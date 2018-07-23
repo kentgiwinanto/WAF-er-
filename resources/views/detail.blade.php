@@ -19,11 +19,12 @@
         // Create the data table.
         var data = google.visualization.arrayToDataTable([
         ["Methods", "Count"],
-        ["200", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount200; ?>],
-        ["502", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount502; ?>],
-        ["403", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount403; ?>],
-        ["404", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCcount404; ?>],
-        ["Other", <?php $ResultLogServer = json_decode(Session::get('ResultLogServer')); echo $ResultLogServer->SCOther; ?>]
+        <?php 
+        $ResultLogServer = json_decode(Session::get('ResultLogServer'));
+		foreach($ResultLogServer->scamount as $key=>$value){
+                  echo "['",$key,"',",$value,"],";
+            }
+		?>
       ]);
         
 

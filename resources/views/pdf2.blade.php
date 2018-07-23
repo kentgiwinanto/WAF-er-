@@ -64,7 +64,7 @@
     
     <h1 style="font-size: 40px;">REPORT</h1>
     <h2 style="font-size: 35px;"><?php $ResultLogServer = json_decode(Session::get("ResultLogServer")); echo $ResultLogServer->Month; ?></h2>
-    <h3 style="font-size: 30px;">V 1.1.1</h3>
+    <h3 style="font-size: 30px;">V 1.1.3</h3>
   </div>
 
 
@@ -264,12 +264,21 @@ $i=1;
                           <td style='border: solid ;border-color: #ff8100;width: 150px'>".$value->transaction->client_ip."</td>
                           <td style='border: solid ;border-color: #ff8100;width: 150px'>".$value->transaction->host_ip.":".$value->transaction->host_port."</td>
                           <td style='border: solid ;border-color: #ff8100;width: 5px'>1</td>
-                        </tr>";
+                        </tr>
+                        ";
                         $i++;
                 }
             
             
   ?>
+                          <tr>
+                          <td style='border: solid ;border-color: #ff8100;width: 5px'>  </td>
+                          <td style='border: solid ;border-color: #ff8100;width: 200px'>  </td>
+                          <td style='border: solid ;border-color: #ff8100;width: 150px'>  </td>
+                          <td style='border: solid ;border-color: #ff8100;width: 150px'>  </td>
+                          <td style='border: solid ;border-color: #ff8100;width: 150px'>  </td>
+                          <td style='border: solid ;border-color: #ff8100;width: 5px'>  </td>
+                        </tr>
 </table>
 
 

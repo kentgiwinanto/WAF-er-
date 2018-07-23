@@ -17,7 +17,7 @@
 		<div class="row main">
 			<div class="panel-heading">
                <div class="panel-title text-center">
-               		<h1 class="title" style="text-align: center;">WAFer</h1>
+               		<h1 class="title" style="text-align: center;">Edit Profile</h1>
                		<hr />
                	</div>
             </div> 
@@ -29,16 +29,22 @@
 						<div class="cols-sm-4">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="firstname" id="firstnametxt"  placeholder="First Name"/>
+								<input type="text" class="form-control" name="firstname" id="firstnametxt"  placeholder=<?php echo session()->get('Username'); ?> />
 
-								<input type="text" class="form-control" name="lastname" id="lastnametxt"  placeholder="Last Name"/>
+								<input type="text" class="form-control" name="lastname" id="lastnametxt"  placeholder=<?php echo session()->get('Username'); ?>/>
 							</div>
 
 						</div>
 					</div>
-
-					
-
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Old Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="oldpassword" id="oldpasswordtxt"  placeholder="Enter your Previous Password"/>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="password" class="cols-sm-2 control-label">Password</label>
 						<div class="cols-sm-10">
@@ -60,26 +66,12 @@
 					</div>
 
 					<div class="form-group">
-						<label for="position" class="cols-sm-2 control-label">Job Position</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-briefcase fa-lg" aria-hidden="true"></i></span>
-								<select class="form-control" id="jobpostcheck">
-									<option value=""></option>
-									<option value="admin" id="admincheck">Admin</option>
-									<option value="staff" id="staffcheck">Staff</option>
-								</select>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
 						<label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
 					</div>
 					
 					<div class="form-group ">
-						<button type="button" class="btn btn-lg btn-block" onclick="">Cancel</button>
-						<button type="button" class="btn btn-primary btn-lg btn-block" onclick="checkregis();">Register</button>
+						<button type="button" class="btn btn-lg btn-block" onclick="window.history.go(-1);">Cancel</button>
+						<button type="submit" class="btn btn-primary btn-lg btn-block" onclick="checkregis();">Save Changes</button>
 					</div>
 					
 				</form>

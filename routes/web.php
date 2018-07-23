@@ -4,10 +4,10 @@
 Auth::routes();
 
 //Regis
-Route::get('/Register', function () {
-    return view('register');
+Route::get('/Profile', function () {
+    return view('profile');
   });
-Route::post('/Register', 'RegisterController@store');
+Route::post('/Profile', 'RegisterController@store');
 
 //Login
 Route::get('/Login', function () {

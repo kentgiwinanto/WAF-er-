@@ -44,9 +44,10 @@ class ShowLogsController extends Controller
             return json_encode(array("Status"=>"0","Message"=>"No Data Found!"));
         }
     }
+   
 
     public function GetDetailPageWithSecLogAndAccessLog($ServerIDPam){
-         $ResultSecLog = array();
+        $ResultSecLog = array();
         $ResultAccessLog = array();
         $ServerDetail = $this->GetServerDetailFromServerID($ServerIDPam);
         $SecLogs = $this->GetSecLogsFromServer();
@@ -69,11 +70,7 @@ class ShowLogsController extends Controller
         $OperaCount=0;
         $OtherUA=0;
         $FreqUA = 0;
-        $SCcount404 = 0;
-        $SCcount502 = 0;
-        $SCcount200 = 0;
-        $SCcount403 = 0;
-        $SCOther = 0;
+        
        // $i=count($SecLogs);
         // BUAT SEC LOG
         foreach($SecLogs as $valForEach){
@@ -89,14 +86,19 @@ class ShowLogsController extends Controller
             }
         }
         // BUAT ACCESS LOG
-         foreach($AccessLogs as $valForEach){
+        foreach($AccessLogs as $valForEach){
             $valForEach = json_decode($valForEach);
             $ua= $valForEach->http_user_agent;
             $scode=$valForEach->status;
             $methodc=$valForEach->request;
             $parser = Parser::create();
             $resultua = $parser->parse($ua);
-            $uafam= $resultua->ua->family; 
+            $uafam = $resultua->ua->family;            
+            $SCContainer[] =$valForEach->status;
+            $scamount= array_count_values($SCContainer);
+
+                       
+
             if($valForEach->server_name == strtolower($ServerDetail->Domain)){
                 array_push($ResultAccessLog,$valForEach);
                 if (strstr($valForEach->time_local,'Jul')) {
@@ -116,21 +118,6 @@ class ShowLogsController extends Controller
                     break;
                     Default:
                     $OtherUA++;
-                }switch($scode){
-                    case (404):
-                    $SCcount404++;
-                    break;
-                    case(200):
-                    $SCcount200++;
-                    break;
-                    case(502):
-                    $SCcount502++;
-                    break;
-                    case(403):
-                    $SCcount403++;
-                    break;
-                    Default:
-                    $SCOther++;
                 }switch($methodc){
                     case(strpos($methodc,"GET")!==false):
                     $GetCount++;
@@ -166,20 +153,9 @@ class ShowLogsController extends Controller
         }
 
 
-        // foreach($SecLogs as $valForEach){
-        //     $valForEach = json_decode($valForEach);
-        //     if($valForEach->transaction->request->headers->Host == strtolower($ServerDetail->Domain)){
-        //         array_push($ResultSecLog,$valForEach);
-        //     }
-        // }
-        // foreach($AccessLogs as $valForEach){
-        //     $valForEach = json_decode($valForEach);
-        //     if($valForEach->server_name == strtolower($ServerDetail->Domain)){
-        //         array_push($ResultAccessLog,$valForEach);
-        //     }
-        // }
+      
 
-    return redirect('Detail')->with(
+       return redirect('Detail')->with(
             'ResultLogServer',
             json_encode(
                 array(
@@ -203,11 +179,8 @@ class ShowLogsController extends Controller
                     "DeleteCount"=>$DeleteCount,
                     "PatchCount"=>$PatchCount,
                     "OtherMethod"=>$OtherMethod,
-                    "SCcount404"=>$SCcount404,
-                    "SCcount403"=>$SCcount403,
-                    "SCcount502"=>$SCcount502,
-                    "SCcount200"=>$SCcount200,
-                    "SCOther"=>$SCOther,
+                    "scamount"=>$scamount,
+                    "SCContainer"=>$SCContainer,
                     "FreqUA"=>$FreqUA
                 )
             )
@@ -215,4 +188,3 @@ class ShowLogsController extends Controller
              
     }
 }
-

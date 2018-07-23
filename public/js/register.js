@@ -3,9 +3,6 @@ function checkregis() {
 	var lastname = document.getElementById("lastnametxt").value;
 	var password = document.getElementById("passwordtxt").value;
 	var confirm = document.getElementById("confirmtxt").value;
-	var jobpost = document.getElementById("jobpostcheck").value;
-	var adminpost = document.getElementById("admincheck").checked;
-	var staffpost = document.getElementById("staffcheck").checked;
 	var errormsg = document.getElementById("errortxt").innerHTML;
 
 if (firstname =="" || lastname =="") {
@@ -25,9 +22,6 @@ document.getElementById("errortxt").innerHTML="Invalid Name";
 }
 else if (confirm!=password){
 	document.getElementById("errortxt").innerHTML="Confirm Password Does not Match";
-}
- else if (jobpost==""){
-	document.getElementById("errortxt").innerHTML="Choose the job Position";
 }
 else 
 	{ document.getElementById("errortxt").innerHTML="";}
