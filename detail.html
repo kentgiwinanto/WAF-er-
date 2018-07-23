@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WAF(er) Manager</title>
+	<title>Detail Server</title>
     <link rel="stylesheet" href="css/materialize.css">
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
 </head>
 <body>
-    <!-- Sidebar -->
+   <!-- Sidebar -->
     <ul class="sidenav sidenav-fixed">
         <li>
             <div class="user-view">
@@ -57,70 +57,101 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+          <div class="row">
+		    <div class="col s12">
+		      <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+			    <li class="tab"><a class="active" href="#tab_a">Access Log</a></li>
+			    <li class="tab"><a  href="#tab_b">Security Log</a></li>
+			    <li class="tab"><a href="#tab_c">Edit Server</a></li>
+			    <li class="tab"><a href="#tab_d">Report</a></li>
+			  </ul>
+
+
+			  <div class="tab_content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;height: 500px;overflow-y: scroll;overflow-x: scroll;">
+			  	<!-- tab 1 -->
+	  <div id="tab_a" class="col s12">
+		<div class="row">
             <table id="table_id" class="display">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Server Name</th>
-                        <th>Hostname</th>
-                        <th>IP Address</th>
-                        <th>Port</th>
-                        <th>ModSecurity</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>ID</th>
+                        <th>Date/Time</th>
+                        <th>EventName</th>
+                        <th>IP Source</th>
+                        <th>Destination</th>
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>ServerName1</td>
-                        <td>Server1.local</td>
+                        <td>15281696620.095748</td>
+                        <td>Tue Jun 5 10:34:22 2018</td>
+                        <td>SQL Injection</td>
                         <td>10.0.0.1</td>
-                        <td>80</td>
-                        <td>On</td>
-                        <td style="background-color: lightgreen">Online</td>
-                        <td>
-                            <a class="tooltip" href="detail.html">
-                                <i class="material-icons">details</i>
-                                <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">delete</i>
-                                <span class="tooltiptext">Delete</span>
-                            </a>
-                        </td>
+                        <td>1.1.1.1</td>
+                        <td>Popup</td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>ServerName2</td>
-                        <td>server2.local</td>
-                        <td>10.0.0.2</td>
-                        <td>80</td>
-                        <td>Off</td>
-                        <td style="background-color: pink">Offline</td>
-                        <td>
-                            <a class="tooltip" href="detail.html">
-                                <i class="material-icons tooltip">details</i>
-                                <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">delete</i>
-                                <span class="tooltiptext">Delete</span>
-                            </a>
-                        </td>
+                        <td>15281696620.095765</td>
+                        <td>Tue Jun 5 10:34:20 2018</td>
+                        <td>SQL Injection</td>
+                        <td>10.0.0.1</td>
+                        <td>1.1.1.1</td>
+                        <td>Popup</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div></div>
+
+        <!-- tab 2 -->
+
+	<div id="tab_b" class="col s12">
+		<div class="row">
+			<div class="col s12">
+            <table id="table_id2" class="display">
+                <thead>
+                    <tr>
+                        <th>TimeStamp</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Request</th>
+                        <th>Request Body</th>
+                        <th>Status</th>
+                        <th>Body Bytes Sent</th>
+                        <th>User Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tue Jun 5 10:34:20 2018</td>
+                        <td>192.168.30.403</td>
+                        <td>192.168.1.1</td>
+                        <td>GET /GetAccessLogs.php HTTP/1.0</td>
+                        <td></td>
+                        <td>200</td>
+                        <td>53</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                         <td>Tue Jun 5 10:34:20 2018</td>
+                        <td>192.168.30.403</td>
+                        <td>192.168.1.1</td>
+                        <td>GET /GetAccessLogs.php HTTP/1.0</td>
+                        <td>ServerName=Report&IP=4.4.1.1&Port=8080&Domain=www.reporting.com&ModSecurity=1</td>
+                        <td>200</td>
+                        <td>33</td>
+                        <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div></div></div>
+
+			  <div id="tab_c" class="col s12"><p>Edit Server</p></div>
+
+			  <div id="tab_d" class="col s12"><p>Report</p></div>
+</div>
+		  </div>
+
     </div>
     
     
@@ -132,13 +163,15 @@
     <script>
         $(document).ready( function () {
             $('#table_id').DataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": false,
-                "bInfo": false,
-                "bAutoWidth": false
             });
         } );
+         $(document).ready( function () {
+            $('#table_id2').DataTable({
+            });
+        } );
+        $(document).ready(function(){
+    $('.tabs').tabs();
+  });
     </script>
 </body>
 </html>
