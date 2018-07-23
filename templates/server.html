@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WAF(er) Manager</title>
-    <link rel="stylesheet" href="css/materialize.css">
-    <link rel="stylesheet" href="css/MainPageStyle.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
-</head>
-<body>
-    <!-- Sidebar -->
-    <ul class="sidenav sidenav-fixed">
-        <li>
-            <div class="user-view">
-                <div class="background"><img src="https://s3-ap-southeast-1.amazonaws.com/bengkel/wp-content/uploads/2015/03/10115645/grass.jpg"></div>
-                <a href="#user"><img class="responsive-img circle" src="https://lc-imageresizer-live-s.legocdn.com//resize?mode=portrait&size=medium&ratio=1&imageUrl=https://lc-www-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/dimensions/mugshot%20december%202016/71212_1to1_mf_mugshot_emmet_336.png?l.r2=519611620"></a>
-                <a href="#name"><span class="black-text name">User Name</span></a>
-                <a href="#email"><span class="black-text email">User Position</span></a>
-            </div>
-        </li>
-        <li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
-        <li><a class="waves-effect" href="server.html"><i class="material-icons">view_list</i>Servers</a></li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Profile Settings</a></li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">lock</i>Change Password</a></li>
-        <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
-    </ul>
+{% extends "layout.html" %}
+{% block body %}
 
     <div id="MainLayout">
         
@@ -97,11 +68,10 @@
             </table>
         </div>
     </div>
-    
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+<!-- Tambahan JS untuk dimasukkin ke parent -->
+{% block js %}
     <script>
         $(document).ready( function () {
             $('#table_id').DataTable({
@@ -113,5 +83,4 @@
             });
         } );
     </script>
-</body>
-</html>
+{% endblock %}

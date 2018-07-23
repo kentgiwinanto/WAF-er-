@@ -1,24 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-	<!-- Sidebar -->
-	<ul class="sidenav sidenav-fixed">
-		<li>
-			<div class="user-view">
-				<div class="background"><img src="{{ url_for('static', filename='images/GrassBackgroundProfilePic.jpg') }}"></div>
-				<a href="#user"><img class="responsive-img circle" src="{{ url_for('static', filename='images/LegoProfilePic.png') }}"></a>
-				<a href="#name"><span class="black-text name">User Name</span></a>
-				<a href="#email"><span class="black-text email">User Position</span></a>
-			</div>
-		</li>
-		<li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
-		<li><a class="waves-effect" href="server.html"><i class="material-icons">view_list</i>Servers</a></li>
-		<li><a class="waves-effect" href="#!"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
-		<li><div class="divider"></div></li>
-		<li><a class="subheader">Profile Settings</a></li>
-		<li><a class="waves-effect" href="#!"><i class="material-icons">lock</i>Change Password</a></li>
-		<li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
-	</ul>
-
 	<!-- Cards For Statistic -->
 	<div id="MainLayout">
 
@@ -110,7 +91,10 @@
 			</table>
 		</div>
 	</div>
-	{% block js %}
+{% endblock %}
+
+<!-- Tambahan JS masukkin ke parent -->
+{% block js %}
 	<script src="{{ url_for('static', filename='js/MainPageChart.js') }}"></script>
 	<script>
 		$(document).ready( function () {
@@ -124,4 +108,3 @@
 		} );
 	</script>
 	{% endblock %}
-{% endblock %}
