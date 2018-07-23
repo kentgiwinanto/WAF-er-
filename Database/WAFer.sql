@@ -9,7 +9,7 @@ use WAFer;
 		UserIN VARCHAR(32),
 		DateUP DATETIME,
 		UserUP VARCHAR(32),
-		UserJobPosID VARCHAR(1024)PRIMARY KEY,
+		UserJobPosID VARCHAR(1024),
 		UserJobName VARCHAR(32) NOT NULL    
 		);
     
@@ -21,12 +21,11 @@ use WAFer;
 		UserIN VARCHAR(32),
 		DateUP DATETIME,
 		UserUP VARCHAR(32),
-		UserProfileID VARCHAR(1024) PRIMARY KEY,
+		UserProfileID VARCHAR(1024),
 		FirstName VARCHAR(32) NOT NULL,
-		LastName VARCHAR(32) NOT NULL,    
-		UserJobPosID VARCHAR(1024), 
-		FOREIGN KEY (UserJobPosID) REFERENCES UserJobPosition(UserJobPosID) ON UPDATE CASCADE ON DELETE CASCADE
-	   );
+		LastName VARCHAR(32) NOT NULL,
+        UserJobPosID VARCHAR(1024)
+		);
 		
 
 
@@ -37,51 +36,13 @@ use WAFer;
 		UserIN VARCHAR(32),
 		DateUP DATETIME,
 		UserUP VARCHAR(32),
-		UserProfileID VARCHAR(1024) NOT NULL,
-		FOREIGN KEY (UserProfileID) REFERENCES UserProfile(UserProfileID) ON UPDATE CASCADE ON DELETE CASCADE,
-		UserLoginID VARCHAR(1024) PRIMARY KEY,
+		UserLoginID VARCHAR(1024),
 		Username VARCHAR(32) NOT NULL,
-		Userpass VARCHAR(64) NOT NULL
+		Userpass VARCHAR(64) NOT NULL,
+        UserProfileID VARCHAR(1024)
 		);    
         
-        CREATE TABLE headersRequestTransactionLog (
-		Stsrc VARCHAR (1),
-		UserIn VARCHAR (32),
-		DateIn DATETIME,
-		UserUp VARCHAR (32),
-		DateUp DATETIME,
-		headersRequestTransactionLogID VARCHAR (1024) PRIMARY KEY,
-		Cache_Control VARCHAR (24),
-		Origin VARCHAR (64),
-		User_agent VARCHAR (128),
-		Content_Type VARCHAR (64),
-		Content_Length VARCHAR (8),
-		Connection VARCHAR (64),
-		Host VARCHAR (64),
-		Accept_encoding VARCHAR (128),
-		Cookie VARCHAR (1024),
-        Referer VARCHAR(1000),
-        Accept_Language VARCHAR (1000),
-        Accept VARCHAR (1000),
-        DNT VARCHAR(1000),
-        Upgrade_Insecure_Request VARCHAR(1000)
-        );
-	
-	
-	CREATE TABLE RequestTransactionLog (
-		Stsrc VARCHAR (1),
-		UserIn VARCHAR (32),
-		DateIn DATETIME,
-		UserUp VARCHAR (32),
-		DateUp DATETIME,
-		RequestTransactionLogID VARCHAR (1024) PRIMARY KEY,
-		Method VARCHAR (4),
-		HTTP_Version VARCHAR (3),
-		Uri VARCHAR (64),
-		headersRequestTransactionLogID VARCHAR (1024),
-		FOREIGN KEY (headersRequestTransactionLogID) REFERENCES headersRequestTransactionLog (headersRequestTransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE
-		
-	);
+       
 	
 	CREATE TABLE ServerList (
 		Stsrc VARCHAR (1),
@@ -89,7 +50,7 @@ use WAFer;
 		DateIn DATETIME,
 		UserUp VARCHAR (32),
 		DateUp DATETIME,
-		ServerID VARCHAR (1024) PRIMARY KEY,
+		ServerID VARCHAR (1024),
 		ServerName VARCHAR (64),
 		IP VARCHAR (16),
 		PortsOpen VARCHAR (8),
@@ -97,162 +58,7 @@ use WAFer;
         ModSecurity CHAR(1)
 	);    
 	
-	CREATE TABLE HeadersResponseTransactionLog (
-		stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn DATETIME,
-		UserUp VARCHAR(32),
-		DateUp DATETIME,
-		HeadersResponseTransactionLogID VARCHAR(1024) PRIMARY KEY,
-		server VARCHAR(64),
-		date VARCHAR(50),
-		content_length VARCHAR(8),
-		content_type VARCHAR(64),
-		connection VARCHAR(64)
-	);
-
-
-
-	CREATE TABLE ResponseTransactionLog (
-		stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn DATETIME,
-		UserUp VARCHAR(32),
-		DateUp DATETIME,
-		ResponseTransactionLogID VARCHAR(1024) PRIMARY KEY,
-		HTTP_code VARCHAR(3),
-		HeadersResponseTransactionLogID VARCHAR(1024),
-        FOREIGN KEY (HeadersResponseTransactionLogID) REFERENCES HeadersResponseTransactionLog(HeadersResponseTransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE
-	);
-    
-	CREATE TABLE EncryptionType
-	(
-		Stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn Datetime,
-		UserUp VARCHAR(32),
-		DateUp Datetime,
-		EncryptionTypeID VARCHAR(1024) PRIMARY KEY,
-		EncryptionTypeName VARCHAR(1024)
-	);
-
-	CREATE TABLE ProducerTransactionLog
-	(
-		Stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn Datetime,
-		UserUp VARCHAR(32),
-		DateUp Datetime,
-		ProducerTransactionLogID VARCHAR(1024) PRIMARY KEY,
-		ModSecurity VARCHAR(128),
-		Connector VARCHAR(128),
-		SecRules_engine VARCHAR(128),
-		Components VARCHAR(128)
-	);
-
-	CREATE TABLE TagsMessageTransactionDetailLog
-	(
-		Stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn Datetime,
-		UserUp VARCHAR(32),
-		DateUp Datetime,
-		TagsMessageTransactionDetailLogID VARCHAR(1024) PRIMARY KEY,
-		TagsMessageID VARCHAR(1024),
-		Message TEXT
-	);
-
-	CREATE TABLE DetailMessageTransactionDetailLog
-	(
-		Stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn Datetime,
-		UserUp VARCHAR(32),
-		DateUp Datetime,
-		DetailMessageTransactionDetailLogID VARCHAR(1024) PRIMARY KEY,
-		DetailMatch VARCHAR(256),
-		Reference VARCHAR(256),
-		RuleID VARCHAR(512),
-		DetailMessageTransactionDetailFile VARCHAR(512),
-		LineNumber VARCHAR(16),
-		Data VARCHAR(512),
-		Severity VARCHAR(512),
-		ver VARCHAR(16),
-		rev VARCHAR(16),
-		TagsMessageTransactionDetailLogID VARCHAR(1024),
-		FOREIGN KEY (TagsMessageTransactionDetailLogID) REFERENCES TagsMessageTransactionDetailLog(TagsMessageTransactionDetailLogID) ON UPDATE CASCADE ON DELETE CASCADE,
-		Maturity VARCHAR(8),
-		Accuracy VARCHAR(8)
-	);
-
-	CREATE TABLE MessageTransactionLogDetail
-	(
-		Stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn Datetime,
-		UserUp VARCHAR(32),
-		DateUp Datetime,
-		MessageTransactionLogDetailID VARCHAR(1024) PRIMARY KEY,
-		MessageTransactionLog VARCHAR(1024),
-		DetailMessageTransactionDetailLogID VARCHAR(1024),
-		FOREIGN KEY (DetailMessageTransactionDetailLogID) REFERENCES DetailMessageTransactionDetailLog(DetailMessageTransactionDetailLogID) ON UPDATE CASCADE ON DELETE CASCADE
-	);
-
-	CREATE TABLE MessageTransactionLog
-	(
-		Stsrc VARCHAR(1),
-		UserIn VARCHAR(32),
-		DateIn Datetime,
-		UserUp VARCHAR(32),
-		DateUp Datetime,
-		MessageTransactionLogID VARCHAR(1024) PRIMARY KEY,
-		MessageTransactionLogDetailID VARCHAR(1024),
-		FOREIGN KEY (MessageTransactionLogDetailID) REFERENCES MessageTransactionLogDetail(MessageTransactionLogDetailID) ON UPDATE CASCADE ON DELETE CASCADE
-	);
-
-	
-	CREATE TABLE TransactionLog (
-		Stsrc VARCHAR (1),
-		UserIn VARCHAR (32),
-		DateIn DATETIME,
-		UserUp VARCHAR (32),
-		DateUp DATETIME,
-		TransactionLogID VARCHAR (1024) PRIMARY KEY,
-		LogId VARCHAR (64),
-		TimeStamp VARCHAR(50),
-		Host_IP VARCHAR (24),
-		Host_Port VARCHAR (6),
-		Client_Port VARCHAR (6),
-		RequestTransactionLogID VARCHAR (1024),
-		FOREIGN KEY (RequestTransactionLogID) REFERENCES RequestTransactionLog (RequestTransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE,
-		ResponseTransactionLogID VARCHAR (1024),
-		FOREIGN KEY (ResponseTransactionLogID) REFERENCES ResponseTransactionLog (ResponseTransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE,
-		ProducerTransactionLogID VARCHAR (1024),
-		FOREIGN KEY (ProducerTransactionLogID) REFERENCES ProducerTransactionLog (ProducerTransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE,
-		MessageTransactionLogID VARCHAR (1024),
-		FOREIGN KEY (MessageTransactionLogID) REFERENCES MessageTransactionLog (MessageTransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE
-			);
-	
-	
-	
-	CREATE TABLE WAF_Logs (
-		Stsrc VARCHAR (1),
-		UserIn VARCHAR (32),
-		DateIn DATETIME,
-		UserUp VARCHAR (32),
-		DateUp DATETIME,
-		WAF_LogsID VARCHAR (1024) PRIMARY KEY,
-		TimeStampLog VARCHAR(50),
-		ServerID VARCHAR (1024),
-		FOREIGN KEY (ServerID) REFERENCES ServerList(ServerID) ON UPDATE CASCADE ON DELETE CASCADE,
-		LogFile TEXT,
-		EncryptionTypeID VARCHAR (1024),
-		FOREIGN KEY (EncryptionTypeID) REFERENCES EncryptionType (EncryptionTypeID) ON UPDATE CASCADE ON DELETE CASCADE,
-		EncryptionKey TEXT,
-		TransactionLogID VARCHAR (1024),
-		FOREIGN KEY (TransactionLogID) REFERENCES TransactionLog (TransactionLogID) ON UPDATE CASCADE ON DELETE CASCADE
-	);
-    
+	    
 		CREATE TABLE Config
 	(
 		Stsrc VARCHAR(1),
@@ -260,7 +66,7 @@ use WAFer;
 		DateIn Datetime,
 		UserUp VARCHAR(32),
 		DateUp Datetime,
-		ConfigID VARCHAR(1024) PRIMARY KEY,
+		ConfigID VARCHAR(1024),
 		ConfigName VARCHAR(64),
 		Description TEXT,
 		Syntax VARCHAR(1024),
@@ -276,7 +82,7 @@ use WAFer;
 		DateIn Datetime,
 		UserUp VARCHAR(32),
 		DateUp Datetime,
-		VariableID VARCHAR(1024) PRIMARY KEY,
+		VariableID VARCHAR(1024),
 		VariableName VARCHAR(64),
 		Description TEXT
 	);
@@ -288,18 +94,17 @@ use WAFer;
 		DateIn Datetime,
 		UserUp VARCHAR(32),
 		DateUp Datetime,
-		SecrulesID VARCHAR(1024) PRIMARY KEY,
+		SecrulesID VARCHAR(1024),
 		SecrulesName VARCHAR(512),
-		VariableID VARCHAR(1024),
-		FOREIGN KEY (VariableID) REFERENCES Variable(VariableID) ON UPDATE CASCADE ON DELETE CASCADE    
-	);
+        VariableID VARCHAR(1024)
+		);
 
 	DELIMITER $$
 CREATE  PROCEDURE `WAF_Initiate_Position`()
 BEGIN
-		SET @posadmin=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
-		SET @posstaff=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
-		SET @posbot=CONCAT('UserJobPosID_',Substring(uuid(),1,13));
+		SET @posadmin='UserJobPosID_1cad7222-3966';
+		SET @posstaff='UserJobPosID_1d1f20a9-3966';
+		SET @posbot='UserJobPosID_1e8431fb-3966';
 
 		INSERT INTO UserJobPosition(UserJobPosID, UserJobName, STSRC, DateIN, UserIN, DateUP, UserUP)
 			VALUES (@posadmin,'ADMIN','A',CURRENT_TIMESTAMP,'SYSTEM',NULL,NULL);
@@ -344,7 +149,7 @@ BEGIN
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `WAF_Read_Login`( uname VARCHAR(32), upass VARCHAR(32))
+CREATE  PROCEDURE `WAF_Read_Login`( uname VARCHAR(32), upass VARCHAR(32))
 BEGIN
 -- ======================================================
 -- Created By : Rizky Gunawan Liga   
@@ -360,421 +165,14 @@ BEGIN
         SELECT CONCAT(a.FirstName,' ',a.LastName) as 'FullName', 
         a.UserProfileID, 
         a.UserJobPosID, 
-        b.UserJobName
+        b.UserJobName,
+        c.Username
         FROM UserProfile a
         JOIN UserJobPosition b ON a.UserJobPosID=b.UserJobPosID
         JOIN UserLogin c ON c.UserProfileID=a.UserProfileID
         WHERE c.Username=@uname AND c.Userpass=@upass;
     END IF;
     END$$
-DELIMITER ;
-
-  
-
-
-   DELIMITER $$
-CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Insert_Log`(
-	 EncryptionTypeIDin VARCHAR(1024),    
-	 Attackin VARCHAR(64),
-	 userinin VARCHAR(32),
-     xmlstring VARCHAR(65531)
-	   )
-BEGIN    
--- ================================================
--- Created By: Rizky Khonan Kentgi
--- Date Created: 27 - 03 - 2018
--- Description: SP untuk MASUKIN LOG DARI XML
--- ================================================
-     SET @xmlstring=xmlstring;  
-	 SET @waflogsid=CONCAT('WAF_LogsID_',Substring(uuid(),1,13));    
-	 SET @transactionlogid=CONCAT('TransactionLogID_',Substring(uuid(),1,13));    
-	 SET @requestid=CONCAT('RequestTransactionLogID_',Substring(uuid(),1,13));    
-	 SET @requestheaderid=CONCAT('headersRequestTransactionID_',Substring(uuid(),1,13));    
-	 SET @responseid=concat('ResponseTransactionLogID_',Substring(uuid(),1,13));    
-	 SET @responseheaderid=CONCAT('headersResponseTransactionLog_',Substring(uuid(),1,13));    
-	 SET @producerid=CONCAT('ProducerTransactionLogID_',Substring(uuid(),1,13));    
-	 SET @messageid=CONCAT('MessageTransactionLogID_',Substring(uuid(),1,13));    
-	 SET @messagelogdetailid=CONCAT('MessageTransactionLogDetailID_',Substring(uuid(),1,13));    
-	 
-     
-	 INSERT INTO ProducerTransactionLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 ProducerTransactionLogID,    
-	 ModSecurity,    
-	 Connector,    
-	 SecRules_engine,    
-	 Components)    
-	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@producerid,    
-	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/modsecurity') as 'ModSecurity',    
-	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/connector') as 'Connector',     
-	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/secrules_engine') as 'SecRules_engine',   
-	 ExtractValue(@xmlstring,'//XML/transaction/producer[1]/components') as 'Components';  
-	
-     
-	 INSERT INTO headersRequestTransactionLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 headersRequestTransactionLogID,    
-	 Cache_Control,    
-	 Origin,    
-	 User_agent,    
-	 Content_Type,    
-	 Content_Length,    
-	 Connection,    
-	 Host,    
-	 Accept_encoding,    
-	 Cookie,
-     Referer,
-     Accept_Language,
-     Accept,
-     DNT,
-     Upgrade_Insecure_Request)    
-	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@requestheaderid,    
-	 Extractvalue(@xmlstring,'//XML/transaction/request/headers[1]/Cache-Control') as 'Cache_Control',    
-	 Extractvalue(@xmlstring,'//XML/transaction/request/headers[1]/Origin') as 'Origin',    
-	 Extractvalue(@xmlstring,'//XML/transaction/request/headers[1]/User-Agent') as 'User_agent',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Content-Type') as 'Content_Type',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Content-Length') as 'Content_Length',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Connection') as 'Connection',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Host') as 'Host',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Accept-Encoding') as 'Accept_encoding', 
-     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Cookie') as 'Cookie',
-	 ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Referer') as 'Referer',
-     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Accept-Language') as 'Accept_Language',
-     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Accept') as 'Accept',
-     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/DNT') as 'DNT',
-     ExtractValue(@xmlstring,'//XML/transaction/request/headers[1]/Upgrade-Insecure-Request') as 'Upgrade_Insecure_Request';  
-	 
-     
-
-     
-	 INSERT INTO RequestTransactionLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 RequestTransactionLogID,    
-	 Method,    
-	 HTTP_Version,    
-	 Uri,    
-	 headersRequestTransactionLogID    
-	 )    
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 current_timestamp,    
-	 @requestid,    
-	 ExtractValue(@xmlstring,'//XML/transaction/request[1]/method') as 'Method',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request[1]/http_version') as 'HTTP_Version',    
-	 ExtractValue(@xmlstring,'//XML/transaction/request[1]/uri') as 'Uri',    
-	 @requestheaderid;    
-	    
-     
-    
-	 INSERT INTO HeadersResponseTransactionLog(    
-	 stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 HeadersResponseTransactionLogID,    
-	 server,    
-	 date,    
-	 content_length,    
-	 content_type,    
-	 connection    
-	 )    
-	 SELECT 'A',userinin,CURRENT_TIMESTAMP,null,null,@responseheaderid,    
-	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Server') as 'Server',    
-	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Date') as 'Date',    
-	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Content-Length') as 'Content_Length',    
-	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Content-Type') as 'Content_Type',    
-	  ExtractValue(@xmlstring,'//XML/transaction/response/headers[1]/Connection') as 'Connection';    
-	  
-    
-     
-	 INSERT INTO ResponseTransactionLog(    
-	 stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 ResponseTransactionLogID,    
-	 HTTP_code,    
-	 HeadersResponseTransactionLogID    
-	 )    
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 current_timestamp,    
-	 null,    
-	 null,    
-	 @responseid,    
-	 ExtractValue(@xmlstring,'//XML/transaction/response[1]/http_code') as HTTP_code,    
-	 @responseheaderid;    
-     
-     
-	 SET @COUNTMES = (SELECT EXTRACTVALUE(@xmlstring,'COUNT(//XML/transaction[1]/messages)'));
-     SET @h:=1;
-     SET @j:=1;
-     WHILE(@h <= @COUNTMES)DO
-	 SET @tagmessageid=CONCAT('TagsMessageID_',Substring(uuid(),1,13));    
-	 SET @COUNTDET = (SELECT EXTRACTVALUE(@xmlstring,CONCAT('COUNT(//XML/transaction[1]/messages[',@h,']/details)')));
-     SET @COUNTTAG = (SELECT EXTRACTVALUE(@xmlstring,CONCAT('COUNT(//XML/transaction[1]/messages[',@h,']/details[',@j,']/tags)')));
-     SET @i:=1;
-	 WHILE (@i <= @COUNTTAG) DO
-     SET @tagmessagedetailid=CONCAT('TagsMessageTransactionDetailLogID_',Substring(uuid(),1,13));  
-     INSERT INTO TagsMessageTransactionDetailLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 TagsMessageTransactionDetailLogID,    
-	 TagsMessageID,    
-	 Message    
-	 )
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 current_timestamp,    
-	 null,    
-	 null,    
-	 @tagmessagedetailid,    
-	 @tagmessageid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/tags[',@i,']')) as 'Message';
-     SET @i=@i+1;
-     END WHILE;
-      SET @detailmessageid=CONCAT('DetailMessageTransactionDetailLogID_',Substring(uuid(),1,13));
-     	 INSERT INTO DetailMessageTransactionDetailLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 DetailMessageTransactionDetailLogID,    
-	 DetailMatch,    
-	 Reference,    
-	 RuleID,    
-	 DetailMessageTransactionDetailFile,    
-	 LineNumber,    
-	 Data,    
-	 Severity,    
-	 ver,    
-	 rev,    
-	 TagsMessageTransactionDetailLogID,    
-	 Maturity,    
-	 Accuracy    
-	 )    
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 current_timestamp,    
-	 null,    
-	 null,    
-	 @detailmessageid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/match')) as 'Match',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/reference'))as 'Reference',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/ruleId'))as 'RuleID',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/file'))as 'DetailMessageTransactionDetailFile',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/lineNumber'))as 'LineNumber',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/data'))as 'Data',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/severity'))as 'Severity',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/ver'))as 'ver',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/rev'))as 'rev',    
-	 @tagmessagedetailid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/maturity'))as 'Maturity',    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/details[',@j,']/accuracy'))as 'Accuracy';
-	     
-	 SET @messagelogdetailid=CONCAT('MessageTransactionLogDetailID_',Substring(uuid(),1,13));    
-     INSERT INTO MessageTransactionLogDetail(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 MessageTransactionLogDetailID,    
-	 MessageTransactionLog,    
-	 DetailMessageTransactionDetailLogID    
-	 )    
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 current_timestamp,    
-	 @messagelogdetailid,    
-	 ExtractValue(@xmlstring,CONCAT('//XML/transaction/messages[',@h,']/message')) as 'Message',    
-	 @detailmessageid;
-     SET @h= @h+1;
-     END WHILE;
-   
-     
-	 INSERT INTO MessageTransactionLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 MessageTransactionLogID,    
-	 MessageTransactionLogDetailID    
-	 )    
-	 VALUES (    
-	 'A',    
-	 userinin,    
-	 current_timestamp,    
-	 @messageid,    
-	 @messagelogdetailid    
-	 );    
-     
-     
-
-    
-	 INSERT INTO TransactionLog(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 TransactionLogID,    
-	 TimeStamp,    
-	 Host_IP,    
-	 Host_Port, 
-     Client_IP,
-	 Client_Port,    
-	 RequestTransactionLogID,    
-	 ResponseTransactionLogID,    
-	 ProducerTransactionLogID,    
-	 MessageTransactionLogID,    
-	 LogID    
-	 )    
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 CURRENT_TIMESTAMP,    
-	 @transactionlogid,    
-	 ExtractValue(@xmlstring,'//XML/transaction[1]/time_Stamp') as 'TimeStamp',    
-	 ExtractValue(@xmlstring,'//XML/transaction[1]/host_ip')as 'Host_IP',    
-	 ExtractValue(@xmlstring,'//XML/transaction[1]/host_port')as 'Host_Port',
-     ExtractValue(@xmlstring,'//XML/transaction[1]/client_ip')as 'Client_IP',
-	 ExtractValue(@xmlstring,'//XML/transaction[1]/client_port')as 'Client_Port',    
-	 @requestid,    
-	 @responseid,    
-	 @producerid,    
-	 @messageid,    
-	 ExtractValue(@xmlstring,'//XML/transaction/LogID')as 'id';    
-
-	  INSERT INTO WAF_Logs(    
-	 Stsrc,    
-	 UserIn,    
-	 DateIn,    
-	 UserUp,    
-	 DateUp,    
-	 WAF_LogsID,    
-	 TimeStampLog,    
-	 ServerID,    
-	 LogFile,    
-	 EncryptionTypeID,    
-	 EncryptionKey,    
-	 TransactionLogID,
-     AttackType
-	 )    
-	 SELECT     
-	 'A',    
-	 userinin,    
-	 CURRENT_TIMESTAMP,    
-	 null,    
-	 null,    
-	 @waflogsid,    
-	 ExtractValue(@xmlstring,'//XML/transaction[1]/time_stamp')as 'TimeStampLog',    
-	 (SELECT ServerID FROM ServerList WHERE IP=ExtractValue(@xmlstring,'//XML/transaction[1]/client_ip')),    
-	 @xmlstring,    
-	 EncryptionTypeIDin,    
-	 ExtractValue(@xmlstring,'//XML/transaction[1]/encryptioney')as 'EncryptionKey',    
-	 @transactionlogid
-     ,Attackin;  
-	 END$$
-DELIMITER ;
-
-	
-
-
-DELIMITER $$
-CREATE PROCEDURE `WAF_Read_Logs`()
-BEGIN
--- ============================================================
--- Created By: Rizky Gunawan Liga
--- Date Created: 23-03-2018
--- Description: Create procedure untuk baca Log dr smua table
--- ============================================================
-	SELECT 
-		a.TimeStampLog,
-		a.WAF_LogsID,		
-		a.LogFile,
-		a.EncryptionKey,
-        a.AttackType,
-		b.ServerName,
-		d.EncryptionTypeName,
-        c.Client_IP,
-		c.TimeStamp,
-		c.Host_IP,
-		c.Host_Port,
-		c.LogID,
-		e.Method,
-		e.HTTP_Version,
-		e.Uri,
-		i.Cache_Control,
-		i.Origin,
-		i.User_agent,
-		i.Content_Type,
-		i.Content_Length,
-		i.Connection,
-		i.Host,
-		i.Accept_encoding,
-		i.Cookie,
-        i.Referer,
-        i.Accept_Language,
-        i.Accept,
-        i.DNT,
-        i.Upgrade_Insecure_Request,
-		f.HTTP_code,
-		j.server,
-		j.date,
-		j.content_length,
-		j.content_type,
-		j.connection,
-		g.ModSecurity,
-		g.Connector,
-		g.SecRules_engine,
-		g.Components,
-		k.MessageTransactionLog,
-		l.DetailMatch,
-		l.Reference,
-		l.RuleID,
-		l.DetailMessageTransactionDetailFile as 'File',
-		l.LineNumber,
-		l.Data,
-		l.Severity,
-		l.ver,
-		l.rev,
-		m.TagsMessageID,
-		m.Message,
-		l.Maturity,
-		l.Accuracy
-	FROM
-		WAF_Logs a
-		JOIN ServerList b ON a.ServerID=b.ServerID
-		JOIN TransactionLog c ON a.TransactionLogID=c.TransactionLogID
-		JOIN EncryptionType d ON a.EncryptionTypeID=d.EncryptionTypeID
-		JOIN RequestTransactionLog e ON c.RequestTransactionLogID=e.RequestTransactionLogID
-		JOIN ResponseTransactionLog f ON c.ResponseTransactionLogID=f.ResponseTransactionLogID
-		JOIN ProducerTransactionLog g ON c.ProducerTransactionLogID=g.ProducerTransactionLogID
-		JOIN MessageTransactionLog h ON c.MessageTransactionLogID=h.MessageTransactionLogID
-		JOIN headersRequestTransactionLog i ON i.headersRequestTransactionLogID=e.headersRequestTransactionLogID
-		JOIN HeadersResponseTransactionLog j ON j.HeadersResponseTransactionLogID=f.HeadersResponseTransactionLogID
-		JOIN MessageTransactionLogDetail k ON k.MessageTransactionLogDetailID=h.MessageTransactionLogDetailID
-		JOIN DetailMessageTransactionDetailLog l ON  l.DetailMessageTransactionDetailLogID=k.DetailMessageTransactionDetailLogID
-		JOIN TagsMessageTransactionDetailLog m ON m.TagsMessageTransactionDetailLogID=l.TagsMessageTransactionDetailLogID
-        ORDER BY a.TimeStampLog DESC;
-		END$$
 DELIMITER ;
 
         
@@ -784,7 +182,8 @@ CREATE PROCEDURE `WAF_Insert_ServerList`(
 		servernamein VARCHAR (64),
 		ipin VARCHAR (16),
 		portsopenin VARCHAR (8),
-		domainin VARCHAR (32))
+		domainin VARCHAR (32),
+        modsecin INTEGER(1))
 BEGIN 
         /*--=======================================
 	--Created By    : Albert Sudirwan
@@ -798,8 +197,8 @@ BEGIN
         THEN SET a ='IP Already Exists';
         ELSE
         SET @serverid =CONCAT('ServerID_',Substring(uuid(),1,13));
-        INSERT INTO ServerList (ServerID,ServerName,IP,PortsOpen,Domain,Stsrc,UserIn,DateIn,UserUp,Dateup)
-        VALUES (@serverid,servernamein,ipin,portsopenin,domainin,'A',userinin,CURRENT_TIMESTAMP,NULL,NULL);
+        INSERT INTO ServerList (ServerID,ServerName,IP,PortsOpen,Domain,ModSecurity,Stsrc,UserIn,DateIn,UserUp,Dateup)
+        VALUES (@serverid,servernamein,ipin,portsopenin,domainin,modsecin,'A',userinin,CURRENT_TIMESTAMP,NULL,NULL);
         SET a='Server Registered';
         END IF;
         END$$
@@ -820,24 +219,92 @@ DELIMITER ;
 	END$$
     DELIMITER;
     
-        
-	DELIMITER $$
-	CREATE PROCEDURE `WAF_Insert_EncryptionType`( 
-		EncryptionTypeNamein VARCHAR(1024),
-		UserIn VARCHAR(32))
-	BEGIN
-	-- ===================================================
-	-- CREATED BY : RICHARD KHONAN
-	-- CREATED DATE : 21 - MARCH -2018
-	-- DESCRIPTION : PENAMBAHAN WAF_Insert_EncryptionType
-	-- ===================================================
-
-		SET @EncryptionTypeId=CONCAT('EncryptionTypeID_',Substring(uuid(),1,13));
-		INSERT INTO EncryptionType(Stsrc,UserIn,DateIn,UserUp,DateUp,EncryptionTypeID,EncryptionTypeName)
-			VALUES('A',UserIn,Current_Timestamp,NULL,Null,@EncryptionTypeId,EncryptionTypeNamein);
-	END$$
-    DELIMITER;
     
+    DELIMITER $$
+	CREATE  PROCEDURE `WAF_Update_User`(
+			userupup VARCHAR (1024),
+			usernameup VARCHAR(32),
+			firstnameup VARCHAR (32),
+			lastnameup VARCHAR (32),
+			oldpassword VARCHAR(64),
+			newpassword VARCHAR (64))
+	BEGIN 
+			/*--=======================================
+		--Created By    : Rizky Gunawan Liga
+		--Created Date  : 16 July 2018
+		--Description   : Edit Profile User
+		--=======================================
+		*/
+		SET @op=SHA2(CONCAT(usernameup,oldpassword),256);
+		IF EXISTS(SELECT UserProfileID FROM UserLogin WHERE Userpass=@op)
+		THEN
+			UPDATE UserProfile 
+			SET FirstName=firstnameup,
+				LastName=lastnameup,
+				DateUP=CURRENT_TIMESTAMP,
+				UserUP=userupup
+			WHERE UserProfileID=userupup;
+			UPDATE UserLogin
+			SET Userpass=SHA2(CONCAT(usernameup,newpassword),256),
+				DateUP=CURRENT_TIMESTAMP,
+				UserUP=userupup
+			WHERE UserProfileID=userupup;
+		ELSE
+			END IF;        
+			END$$
+	DELIMITER ;  	
+
+
+    DELIMITER $$
+	CREATE PROCEDURE `WAF_Update_ServerList`(
+			userupin VARCHAR (32),
+			servernameup VARCHAR (64),
+			ipup VARCHAR (16),
+			portsopenup VARCHAR (8),
+			domainup VARCHAR (32),
+			modsecup CHAR(1),
+			serveridup VARCHAR(1024))
+	BEGIN 
+			/*--=======================================
+		--Created By    : Rizky Gunawan Liga
+		--Created Date  : 21 June 2018
+		--Description   : Edit Server List
+		--=======================================
+		*/
+			UPDATE ServerList
+			SET ServerName = servernameup,
+			IP = ipup,
+			PortsOpen = portsopenup,
+			Domain = domainup,
+			ModSecurity = modsecup,
+			UserUp = userupin,
+			DateUP = CURRENT_TIMESTAMP
+			WHERE ServerID = serveridup;
+	END$$
+	DELIMITER ;
+    
+    DELIMITER $$
+	CREATE PROCEDURE WAF_Delete_ServerList(
+		serveriddel VARCHAR(1024),
+		userdel VARCHAR(32)
+		)
+		BEGIN
+			/*--=======================================
+			--Created By    : Rizky Gunawan Liga
+			--Created Date  : 26 June 2018
+			--Description   : Delete Server List
+			--=======================================
+			*/
+		UPDATE ServerList
+				SET 
+				Stsrc='D',
+				UserUp = userdel,
+				DateUP = CURRENT_TIMESTAMP
+				WHERE ServerID = serveriddel;
+	END$$
+	DELIMITER ;
+        
+	   
 
     DELIMITER $$
 	CREATE PROCEDURE `WAF_Insert_Config`(
@@ -954,24 +421,7 @@ DELIMITER ;
 	END $$
 	DELIMITER ;
     
-    DELIMITER $$
-    CREATE PROCEDURE `WAF_Read_LogExist`(
-    logidin VARCHAR(1024)
-    )
-    BEGIN
-		-- ===================================		
-		-- Created By: Rizky Gunawan Liga
-		-- Created Date: 03 - 05 - 2018
-		-- Description: Check if Log exists
-		-- ===================================
-    DECLARE logstat VARCHAR(1);
-    IF EXISTS(SELECT LogId FROM TransactionLog WHERE LogId=logidin) THEN
-		SET logstat='1';
-	ELSE 
-		SET logstat='0';
-    END IF;
-    END$$
-    DELIMITER ;
+  
     
 		DELIMITER $$
 	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_AttackSummary`()
@@ -1011,13 +461,14 @@ DELIMITER ;
 		;
 		END$$
 	DELIMITER ;
+    
+    
 
 	
     
     
     CALL WAF_Initiate_Position();
-    CALL WAF_Insert_Register('123','123',@posadmin,'123','System');
-	CALL WAF_Insert_Register('Super','User',@posadmin,'tangowaferchocolate999','SYSTEM');
+
     CALL WAF_Insert_Variable('Admin','ARGS','ARGS is a collection and can be used on its own (means all arguments including the POST Payload), with a static parameter (matches arguments with that name), or with a regular expression (matches all arguments with name that matches the regular expression). To look at only the query string or body arguments, see the ARGS_GET and ARGS_POST collections.');
 	CALL WAF_Insert_Variable('Admin','ARGS_Combined_Size','Contains the combined size of all request parameters. Files are excluded from the calculation. This variable can be useful, for example, to create a rule to ensure that the total size of the argument data is below a certain threshold.');
 	CALL WAF_Insert_Variable('Admin','ARGS_GET','ARGS_GET is similar to ARGS, but contains only query string parameters.');
