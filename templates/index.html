@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+{% block body %}
+	<!-- Sidebar -->
+	<ul class="sidenav sidenav-fixed">
+		<li>
+			<div class="user-view">
+				<div class="background"><img src="{{ url_for('static', filename='images/GrassBackgroundProfilePic.jpg') }}"></div>
+				<a href="#user"><img class="responsive-img circle" src="{{ url_for('static', filename='images/LegoProfilePic.png') }}"></a>
+				<a href="#name"><span class="black-text name">User Name</span></a>
+				<a href="#email"><span class="black-text email">User Position</span></a>
+			</div>
+		</li>
+		<li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
+		<li><a class="waves-effect" href="server.html"><i class="material-icons">view_list</i>Servers</a></li>
+		<li><a class="waves-effect" href="#!"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
+		<li><div class="divider"></div></li>
+		<li><a class="subheader">Profile Settings</a></li>
+		<li><a class="waves-effect" href="#!"><i class="material-icons">lock</i>Change Password</a></li>
+		<li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
+	</ul>
+
+	<!-- Cards For Statistic -->
+	<div id="MainLayout">
+
+		<div class="row" style="grid-auto-flow: row dense;">
+			<div class="col s6 m4">
+				<div class="card">
+					<div class="card-content white-text">
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col s6 m4">
+				<div class="card">
+					<div class="card-content white-text">
+						<canvas id="myChart2"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col s6 m4">
+				<div class="card">
+					<div class="card-content white-text">
+						<canvas id="myChart3"></canvas>                    
+					</div>    
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table id="table_id" class="display">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Server Name</th>
+						<th>Hostname</th>
+						<th>IP Address</th>
+						<th>Port</th>
+						<th>ModSecurity</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>ServerName1</td>
+						<td>Server1.local</td>
+						<td>10.0.0.1</td>
+						<td>80</td>
+						<td>On</td>
+						<td style="background-color: lightgreen">Online</td>
+						<td>
+							<a class="tooltip" href="#/">
+								<i class="material-icons">details</i>
+								<span class="tooltiptext">Detail</span>
+							</a>
+							<a class="tooltip" href="#/">
+								<i class="material-icons">settings_applications</i>
+								<span class="tooltiptext">Modify</span>
+							</a>
+							<a class="tooltip" href="#/">
+								<i class="material-icons">delete</i>
+								<span class="tooltiptext">Delete</span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>ServerName2</td>
+						<td>server2.local</td>
+						<td>10.0.0.2</td>
+						<td>80</td>
+						<td>Off</td>
+						<td style="background-color: pink">Offline</td>
+						<td>
+							<a class="tooltip" href="#/">
+								<i class="material-icons tooltip">details</i>
+								<span class="tooltiptext">Detail</span>
+							</a>
+							<a class="tooltip" href="#/">
+								<i class="material-icons">settings_applications</i>
+								<span class="tooltiptext">Modify</span>
+							</a>
+							<a class="tooltip" href="#/">
+								<i class="material-icons">delete</i>
+								<span class="tooltiptext">Delete</span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% block js %}
+	<script src="{{ url_for('static', filename='js/MainPageChart.js') }}"></script>
+	<script>
+		$(document).ready( function () {
+			$('#table_id').DataTable({
+				"bPaginate": false,
+				"bLengthChange": false,
+				"bFilter": false,
+				"bInfo": false,
+				"bAutoWidth": false
+			});
+		} );
+	</script>
+	{% endblock %}
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	    <title>WAF(er) Manager</title>
+	    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/materialize.css') }}">
+	    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/MainPageStyle.css') }}">
+	    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/Material-icons.css') }}">
+	    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/jquery.dataTables.min.css') }}">
+
+	    <!-- untuk CSS tambahan dari child -->
+	    {% block css %}
+
+	    {% endblock %}
+	</head>
+	<body>
+		{% for message in get_flashed_messages() %}
+			<div class=flash>{{ message }} </div>
+		{% endfor %}
+		{% block body %}
+
+		{% endblock %}
+
+		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	    <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+	    <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+	    <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+	    
+	    <!-- untuk JS tambahan dari child -->
+	    {% block js %}
+
+	    {% endblock %}
+	</body>
+
+</html>
+	
