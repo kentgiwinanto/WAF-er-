@@ -175,6 +175,30 @@ BEGIN
     END$$
 DELIMITER ;
 
+DELIMITER $$
+	CREATE  PROCEDURE `WAF_Update_Password`(
+			userupup VARCHAR (1024),
+			usernameup VARCHAR(32),
+			oldpassword VARCHAR(64),
+			newpassword VARCHAR (64))
+	BEGIN 
+	  /*--=======================================
+		--Created By    : Rizky Gunawan Liga
+		--Created Date  : 23 July 2018
+		--Description   : Change Password
+		--=======================================
+		*/
+		SET @op=SHA2(CONCAT(usernameup,oldpassword),256);
+		IF EXISTS(SELECT UserProfileID FROM UserLogin WHERE Userpass=@op)
+		THEN
+			UPDATE UserLogin
+			SET Userpass=SHA2(CONCAT(usernameup,newpassword),256),
+				DateUP=CURRENT_TIMESTAMP,
+				UserUP=userupup
+			WHERE UserProfileID=userupup;
+			END IF;        
+			END$$
+DELIMITER ; 
         
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_ServerList`(
