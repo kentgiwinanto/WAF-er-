@@ -24,24 +24,65 @@
 				<div class="user-view">
 					<div class="background"><img src="{{ url_for('static', filename='images/GrassBackgroundProfilePic.jpg') }}"></div>
 					<a href="#user"><img class="responsive-img circle" src="{{ url_for('static', filename='images/LegoProfilePic.png') }}"></a>
-					<a href="#name"><span class="black-text name">User Name</span></a>
-					<a href="#email"><span class="black-text email">User Position</span></a>
+					<a href="#name">
+						<span class="black-text name">
+						{% if session.userProfileName %}
+							{{ session.userProfileName }}
+						{% else %}
+							UserName
+						{% endif %}
+						</span>
+					</a>
+					<a href="#email">
+						<span class="black-text email">
+							{% if session.UserJobPosName %}
+								{{ session.UserJobPosName }}
+							{% else %}
+								UserJob
+							{% endif %}
+						</span>
+					</a>
 				</div>
 			</li>
-			<li><a class="waves-effect" href="/"><i class="material-icons">home</i>Home</a></li>
-			<li><a class="waves-effect" href="server"><i class="material-icons">view_list</i>Servers</a></li>
-			<li><a class="waves-effect" href="#!"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
-			<li><div class="divider"></div></li>
-			<li><a class="subheader">Profile Settings</a></li>
-			<li><a class="waves-effect" href="#!"><i class="material-icons">lock</i>Change Password</a></li>
-			<li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
+			<li>
+				<a class="waves-effect" href="/">
+					<i class="material-icons">home</i>
+					Home
+				</a>
+			</li>
+			<li>
+				<a class="waves-effect" href="server">
+					<i class="material-icons">view_list</i>
+					Servers
+				</a>
+			</li>
+			<li>
+				<a class="waves-effect" href="#!">
+					<i class="material-icons">perm_data_setting</i>
+					ModSec Configuration
+				</a>
+			</li>
+			<li>
+				<div class="divider"></div>
+			</li>
+			<li>
+				<a class="subheader">Profile Settings</a>
+			</li>
+			<li>
+				<a class="waves-effect" href="#!">
+					<i class="material-icons">lock</i>
+					Change Password
+				</a>
+			</li>
+			<li>
+				<a class="waves-effect" href="logout" style="color: red">
+					<i class="material-icons" style="color: red">power_settings_new</i>Logout
+				</a>
+			</li>
 		</ul>
 		{% block body %}
 
 		{% endblock %}
-
-
-
 		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 	    <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
 	    <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>

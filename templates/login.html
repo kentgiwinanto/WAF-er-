@@ -21,7 +21,7 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
+					<form class="form-horizontal" method="POST" action="{{ url_for('login') }}">
 						<div class="form-group">
 							<label for="username" class="cols-sm-2 control-label">Username</label>
 							<div class="cols-sm-10">
@@ -41,14 +41,17 @@
 								</div>
 							</div>
 						</div>
-
+						{% if errorMessage %}
 						<div class="form-group">
-							<label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+							<label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;">
+									{{ errorMessage }} 
+							</label>
 						</div>
+						{% endif %}
 						
 
 						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="check()">Login</button>
+							<input type="submit" Value="Login" class="btn btn-primary btn-lg btn-block login-button"/>
 						</div>
 						
 					</form>
