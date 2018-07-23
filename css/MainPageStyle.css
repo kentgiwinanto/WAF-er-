@@ -1,6 +1,11 @@
 #MainLayout{
     padding-left: 280px;
 }
+h4{
+    color:#000000;
+    position: center;
+
+}
 .tooltip {
     position: relative;
     display: inline-block;
