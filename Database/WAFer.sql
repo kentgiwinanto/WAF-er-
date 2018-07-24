@@ -227,7 +227,36 @@ BEGIN
         END IF;
         END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `WAF_Insert_ServerList`(
+		userinin VARCHAR (32),
+		servernamein VARCHAR (64),
+		ipin VARCHAR (16),
+		portsopenin VARCHAR (8),
+		domainin VARCHAR (32),
+        modsecin INTEGER(1))
+BEGIN 
+        /*--=======================================
+	--Created By    : Albert Sudirwan
+	--Created Date  : 26 March 2018
+	--Description   : Penambahan Server List
+	--=======================================
+    */
+        DECLARE StatusCode VARCHAR (20);
+        DECLARE StatusMessage VARCHAR (50);
         
+        IF EXISTS (SELECT IP FROM ServerList WHERE IP=ipin)
+        THEN SET StatusCode ='0';SET StatusMessage ='IP Exists!';
+        ELSE
+        SET @serverid =CONCAT('ServerID_',Substring(uuid(),1,13));
+        INSERT INTO ServerList (ServerID,ServerName,IP,PortsOpen,Domain,ModSecurity,Stsrc,UserIn,DateIn,UserUp,Dateup)
+        VALUES (@serverid,servernamein,ipin,portsopenin,domainin,modsecin,'A',userinin,CURRENT_TIMESTAMP,NULL,NULL);
+        SET StatusCode ='1';SET StatusMessage ='Server Inserted Successfully!';
+        END IF;
+        SELECT StatusCode,StatusMessage;
+        END$$
+DELIMITER ;
         
 	DELIMITER $$
     CREATE PROCEDURE `WAF_Read_ServerList` ()
