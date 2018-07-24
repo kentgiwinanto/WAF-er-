@@ -7,66 +7,50 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Server Name</th>
-                        <th>Hostname</th>
-                        <th>IP Address</th>
-                        <th>Port</th>
-                        <th>ModSecurity</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th style="text-align: center;">Server Name</th>
+                        <th style="text-align: center;">Hostname</th>
+                        <th style="text-align: center;">IP Address</th>
+                        <th style="text-align: center;">Port</th>
+                        <th style="text-align: center;">ModSecurity</th>
+                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ServerName1</td>
-                        <td>Server1.local</td>
-                        <td>10.0.0.1</td>
-                        <td>80</td>
-                        <td>On</td>
-                        <td style="background-color: lightgreen">Online</td>
-                        <td>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">details</i>
-                                <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">delete</i>
-                                <span class="tooltiptext">Delete</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>ServerName2</td>
-                        <td>server2.local</td>
-                        <td>10.0.0.2</td>
-                        <td>80</td>
-                        <td>Off</td>
-                        <td style="background-color: pink">Offline</td>
-                        <td>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons tooltip">details</i>
-                                <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">delete</i>
-                                <span class="tooltiptext">Delete</span>
-                            </a>
-                        </td>
-                    </tr>
+                    
+                    {% for data in ServerListResult %}
+                            <tr>
+                                <td style="text-align: center">{{ data['ServerName'] }}</td>
+                                <td style="text-align: center">{{ data['Hostname'] }}</td>
+                                <td style="text-align: center">{{ data['IP'] }}</td>
+                                <td style="text-align: center">{{ data['Port'] }}</td>
+                                <td style="text-align: center">{{ data['ModSecurity'] }}</td>
+                                {% if '-1' in data['Ping'] %}
+                                    <td style="background-color: pink;text-align: center">Offline</td>
+                                {% else %}
+                                    <td style="background-color: lightgreen;text-align: center">Online ({{ data['Ping'] }} ms)</td>
+                                {% endif %}
+                                
+                                <td style="text-align: center">
+                                    <a class="tooltip" href="#/">
+                                        <i class="material-icons">details</i>
+                                        <span class="tooltiptext">Detail</span>
+                                    </a>
+                                    <a class="tooltip" href="#/">
+                                        <i class="material-icons">settings_applications</i>
+                                        <span class="tooltiptext">Modify</span>
+                                    </a>
+                                    <a class="tooltip" href="#/">
+                                        <i class="material-icons">delete</i>
+                                        <span class="tooltiptext">Delete</span>
+                                    </a>
+                                </td>
+                            </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
+        <div style="float: right;padding-right: 1%"><a href="addServer" class="waves-effect waves-light btn-small"><i class="material-icons left">playlist_add</i>Add Server</a></div>
     </div>
 {% endblock %}
 

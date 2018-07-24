@@ -23,25 +23,21 @@
 			<li>
 				<div class="user-view">
 					<div class="background"><img src="{{ url_for('static', filename='images/GrassBackgroundProfilePic.jpg') }}"></div>
-					<a href="#user"><img class="responsive-img circle" src="{{ url_for('static', filename='images/LegoProfilePic.png') }}"></a>
-					<a href="#name">
-						<span class="black-text name">
-						{% if session.userProfileName %}
-							{{ session.userProfileName }}
+					<a><img class="responsive-img circle" src="{{ url_for('static', filename='images/LegoProfilePic.png') }}"></a>
+					<span class="black-text name">
+					{% if session.userProfileName %}
+						<b>{{ session.userProfileName }}</b>
+					{% else %}
+						UserName
+					{% endif %}
+					</span>
+					<span class="black-text email">
+						{% if session.UserJobPosName %}
+							{{ session.UserJobPosName }}
 						{% else %}
-							UserName
+							UserJob
 						{% endif %}
-						</span>
-					</a>
-					<a href="#email">
-						<span class="black-text email">
-							{% if session.UserJobPosName %}
-								{{ session.UserJobPosName }}
-							{% else %}
-								UserJob
-							{% endif %}
-						</span>
-					</a>
+					</span>
 				</div>
 			</li>
 			<li>
