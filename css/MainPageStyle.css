@@ -1,6 +1,15 @@
 #MainLayout{
     padding-left: 280px;
 }
+#header .container .row a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+#header .container .row .dropdown ul li a {
+  text-decoration: none;
+  color: black;
+}
 h4{
     color:#000000;
     position: center;

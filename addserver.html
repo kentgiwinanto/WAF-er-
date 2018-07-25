@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register User</title>
-    <link rel="stylesheet" href="css/materialize.css">
+	<title>Add Server</title>
+	<link rel="stylesheet" href="css/materialize.css">
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
 </head>
 <body>
-       <!-- Sidebar -->
+     <!-- Sidebar -->
     <ul class="sidenav sidenav-fixed">
         <li>
             <div class="user-view">
@@ -35,42 +35,55 @@
     <div id="MainLayout" class="container">
      <div class="row">
     <div class="col s12">
-          <h4> Add Staff </h4>
+          <h4> Add Server </h4>
           <hr>
     </div>
   </div>
         <div class="row">
     <form class="col s12">
       <div class="row">
-        <div class="input-field col s6">
-          <input id="first_name" type="text" data-length="20">
-          <label for="first_name">First Name</label>
+        <div class="input-field col s12">
+          <input name="servername" id="servernametxt" type="text" data-length="20">
+          <label for="servername">Server Name</label>
         </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" data-length="20">
-          <label for="last_name">Last Name</label>
+      </div>
+	<div class="row">
+        <div class="input-field col s12">
+          <input name="ip" id="iptxt" type="text" data-length="20">
+          <label for="ip">IP</label>
+        </div>
+      </div>
+	<div class="row">
+        <div class="input-field col s12">
+          <input name="portsopen" id="portsopentxt" type="text" data-length="20">
+          <label for="portsOpen">PortsOpen</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
+          <input name="domain" id="domaintxt" type="text" data-length="20">
+          <label for="domain">Domain</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <input id="confirm" type="password" class="validate">
-          <label for="confirm">Confirm Password</label>
-        </div>
+	<p>
+      <label>
+        <input type="checkbox" name="custom7" value="1" id="custom7" />
+        <span>Enable Mod Security?</span>
+      </label>
+    </p>
+      </div>
+      <div class="row">
+      	<label  for="error" id="errortxt" value="" style="color:red;"></label>
       </div>
     <div class="row">
-        <a class="waves-effect waves-light btn"><i class="material-icons right">send</i>Submit</a>
+        <a class="waves-effect waves-light btn" onclick="addserver();"><i class="material-icons right">send</i>Add Server</a>
     </div>
     </form>
   </div>
     </div>
     
-    
+    <script type="text/javascript" src="js/addserver.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
