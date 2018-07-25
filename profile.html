@@ -4,14 +4,14 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Add Server</title>
-	<link rel="stylesheet" href="css/materialize.css">
+	<title>Change Password</title>
+    <link rel="stylesheet" href="css/materialize.css">
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="js/profile.js"></script>
 </head>
 <body>
-     <!-- Sidebar -->
+      <!-- Sidebar -->
     <ul class="sidenav sidenav-fixed">
         <li>
             <div class="user-view">
@@ -27,15 +27,15 @@
         <li><a class="waves-effect" href="register.html"><i class="material-icons">person_add</i>Add Staff</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Profile Settings</a></li>
-        <li><a class="waves-effect" href=profile.html"><i class="material-icons">lock</i>Change Password</a></li>
+        <li><a class="waves-effect" href="profile.html"><i class="material-icons">lock</i>Change Password</a></li>
         <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
     </ul>
 
-    <!-- Register Layout -->
     <div id="MainLayout" class="container">
-     <div class="row">
+
+   <div class="row">
     <div class="col s12">
-          <h4> Add Server </h4>
+          <h4>CHANGE PASSWORD</h4>
           <hr>
     </div>
   </div>
@@ -43,51 +43,35 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field col s12">
-          <input name="servername" id="servernametxt" type="text" data-length="20">
-          <label for="servername">Server Name</label>
-        </div>
-      </div>
-	<div class="row">
-        <div class="input-field col s12">
-          <input name="ip" id="iptxt" type="text" data-length="20">
-          <label for="ip">IP</label>
-        </div>
-      </div>
-	<div class="row">
-        <div class="input-field col s12">
-          <input name="portsopen" id="portsopentxt" type="text" data-length="20">
-          <label for="portsOpen">PortsOpen</label>
+          <input id="oldpasswordtxt" type="password" class="validate">
+          <label for="oldpassword">Old Password</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input name="domain" id="domaintxt" type="text" data-length="20">
-          <label for="domain">Domain</label>
+          <input id="newpasswordtxt" type="password" class="validate">
+          <label for="newpassword">New Password</label>
         </div>
       </div>
       <div class="row">
-	<p>
-      <label>
-        <input type="checkbox" name="custom7" value="1" id="custom7" />
-        <span>Enable Mod Security?</span>
-      </label>
-    </p>
+        <div class="input-field col s12">
+          <input id="confirmtxt" type="password" class="validate">
+          <label for="confirmtxt">Confirm Password</label>
+        </div>
       </div>
-      <div class="row">
-      	<label  for="error" id="errortxt" value="" style="color:red;"></label>
-      </div>
-    <div class="row">
-        <a class="waves-effect waves-light btn" onclick="addserver();"><i class="material-icons right">send</i>Add Server</a>
+         <div class="row">
+				<label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+	   </div>
+         <div class="row">
+        <a class="waves-effect waves-light btn" onclick="check()"><i class="material-icons right">send</i>Submit</a>
+         <a class="waves-effect waves-light btn" href="index.html">Cancel</a>
     </div>
     </form>
+
   </div>
     </div>
-    
-    <script type="text/javascript" src="js/addserver.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
-   
 </body>
 </html>
