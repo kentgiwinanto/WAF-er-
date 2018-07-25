@@ -257,7 +257,8 @@ BEGIN
         SELECT StatusCode,StatusMessage;
         END$$
 DELIMITER ;
-        
+    
+    
 	DELIMITER $$
     CREATE PROCEDURE `WAF_Read_ServerList` ()
 	BEGIN
@@ -268,7 +269,14 @@ DELIMITER ;
 	--=======================================
     */
     
-       SELECT ServerID,ServerName,IP,PortsOpen,Domain FROM ServerList; 
+	SELECT 
+    ServerID,
+    ServerName,
+    IP,
+    PortsOpen,
+    Domain,
+    CASE WHEN ModSecurity = '1' THEN 'Yes' ELSE 'No' END 
+    FROM ServerList; 
 	END$$
     DELIMITER;
     
