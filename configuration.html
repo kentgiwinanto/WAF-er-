@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Detail Server</title>
-    <link rel="stylesheet" href="css/materialize.css">
+    <title>Configuration</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/materialize.css">
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     
+
+
 </head>
 <body>
-      <!-- Sidebar -->
+    <!-- Sidebar -->
     <ul class="sidenav sidenav-fixed">
         <li>
             <div class="user-view">
@@ -30,28 +34,115 @@
         <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
     </ul>
 
-    <div id="MainLayout">
-        <!-- Dropdown Trigger -->
-  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
+     <div id="MainLayout">
+                    <div class="row">
+                <!--Container COntent -->
+                <div class="col s12">
+                      <h4> Configuration </h4>
+                      <hr>
+                </div>
 
-  <!-- Dropdown Structure -->
-  <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
-    <li class="divider" tabindex="-1"></li>
-    <li><a href="#!">three</a></li>
-    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-  </ul>
+               
+                    <form class="" action="#" method="post">
+
+                       <div class="panel-body" style="">
+                        <div class="col-md-13">
+                           <div class="col-md-13" id="container">
+                              <div class="well col-md-13 well-centered clearfix" id="container1" style="display: none;">
+
+                                 <div class="" id="smallcontainer1" style="display: none;">
+                                 <div class="btn-group" >
+
+
+                                          <select id="action" class="btn btn-default" >
+                                             <option value="a">SecEngine A</option>
+                                             <option value="b">SecEngine B</option>
+                                          </select>
+
+                                        <input type="text" name="textDropdown" id="dropdowntxt">
+
+                                  </div></div>
+                                 <div class="" id="textfield1" style="display: none;">
+                                    <input type="text" name="textfield1">
+                                 </div>
+                                 <!-- <div class="fas fa-plus fa-lg" id="addsmallcontainer1"  onclick="addcont2 ();"></div> -->
+                                 <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" id="menu" type="button" data-toggle="dropdown"><i class="fas fa-plus fa-lg"></i>
+                                    <span class="caret"></span></button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+                                       <li role="presentation"><a style="text-align: center;cursor: pointer;" role="menuitem" tabindex="-1" id="addsmallcontainer1">Dropdown</a></li>
+                                       <li role="presentation"><a style="text-align: center; cursor: pointer;" role="menuitem" tabindex="-1" id="addtextfield1">TextField</a></li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-13" id="addcontainer1" onclick="addcont1 ();">
+                              <div class="well well-centered clearfix"  style="background-color:#999999;cursor: pointer;border-radius: 8px; padding-left: 3px;margin-left: 0px;">
+                                 <div class="col-md-3">
+                                 </div>
+                                 <div class="col-md-3" id="container2" style="">
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="fas fa-plus fa-lg"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-2" style="float: right;padding-right: 0px;"> <button type="button" class="btn btn-lg btn-block">Save</button></div>
+                     </div>
+                    </form>
+                    
+                    </div>
+                </div>
+                 <!-- Tempat Naro SideBar -->
+            </div>
+        </div>
+
         
-
-    </div>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
         $('.dropdown-trigger').dropdown();
     </script>
 
+
+        <script type="text/javascript">
+         
+        var nomor = 2; 
+var digit = 1;
+
+function addcont1 () {
+    $('#container1').clone().appendTo('#container').removeAttr('id').attr('id','container'+nomor).attr('testong',nomor).css('display','');
+    $('#container'+nomor).children('.dropdown').children('.dropdown-menu').children().children('#addsmallcontainer1').removeAttr('id').attr('id','addsmallcontainer'+nomor).attr('nomor',nomor);
+    $('#container'+nomor).children('.dropdown').children('.dropdown-menu').children().children('#addtextfield1').removeAttr('id').attr('id','addtextfield'+nomor).attr('nomor',nomor);
+    $("#addsmallcontainer"+nomor).click(function(){
+        var tempnomor = $(this).attr('nomor');
+        $('#smallcontainer1').clone().appendTo("#container"+tempnomor).removeAttr('id').attr('id','smallcontainer'+tempnomor).css('display','');
+    });
+    $("#addtextfield"+nomor).click(function(){
+        var tempnomor = $(this).attr('nomor');
+        $('#textfield1').clone().appendTo("#container"+tempnomor).removeAttr('id').attr('id','smallcontainer'+tempnomor).css('display','');
+    });
+    nomor = nomor + 1;
+    
+}
+
+// function addcont2 () {
+//  console.log(attr('testong'));
+//  $('#smallcontainer1').clone().appendTo("#container3").removeAttr('id').attr('id','smallcontainer'+nomor).css('display','')
+// }
+
+
+function addserver() {
+    $('#servercont').clone().appendTo('#servercontainer').removeAttr('id').attr('id','servercont'+digit).css('display','');
+    digit = digit+1;
+}
+
+
+        </script>
+        
 </body>
 </html>

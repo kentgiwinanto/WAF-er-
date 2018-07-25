@@ -9,6 +9,25 @@
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+    <style type="text/css">
+                   .tabs .tab a{
+            color:#97ce2f;
+        } /*Black color to the text*/
+
+        .tabs .tab a:hover {
+            background-color:#ffffff;
+            color:#97ce2f;
+        } /*Text color on hover*/
+
+        .tabs .tab a.active {
+            background-color:#ffffff;
+            color:#97ce2f;
+        } /*Background and text color when a tab is active*/
+
+        .tabs .indicator {
+            background-color:#97ce2f;
+        } /*Color of underline*/
+    </style>
 </head>
 <body>
       <!-- Sidebar -->
@@ -59,11 +78,11 @@
         </div>
           <div class="row">
 		    <div class="col s12">
-		      <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-			    <li class="tab"><a class="active" href="#tab_a">Access Log</a></li>
-			    <li class="tab"><a  href="#tab_b">Security Log</a></li>
-			    <li class="tab"><a href="#tab_c">Edit Server</a></li>
-			    <li class="tab"><a href="#tab_d">Report</a></li>
+		      <ul class="tabs tabs-fixed-width tab-demo z-depth-1" >
+			    <li class="tab"><a class="active" href="#tab_a" >Access Log</a></li>
+			    <li class="tab"><a  href="#tab_b" >Security Log</a></li>
+			    <li class="tab"><a href="#tab_c" >Edit Server</a></li>
+			    <li class="tab"><a href="#tab_d" >Report</a></li>
 			  </ul>
 
 
@@ -237,6 +256,8 @@
 		   $(document).ready(function(){
 		    $('select').formSelect();
 		  });
+
+           
     </script>
 </body>
 </html>

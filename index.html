@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+    <style type="text/css">
+        .modal { width: 20% !important ; height: 25% !important ;overflow-y: hidden !important ;overflow-x: hidden !important ; }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -56,6 +59,27 @@
                     </div>    
                 </div>
             </div>
+             <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart4"></canvas>                    
+                    </div>    
+                </div>
+            </div>
+             <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart5"></canvas>                    
+                    </div>    
+                </div>
+            </div>
+             <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart6"></canvas>                    
+                    </div>    
+                </div>
+            </div>
         </div>
         <div class="row">
             <table id="table_id" class="display">
@@ -85,14 +109,21 @@
                                 <i class="material-icons">details</i>
                                 <span class="tooltiptext">Detail</span>
                             </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
+                            <a class="tooltip modal-trigger" href="#modal1">
                                 <i class="material-icons">delete</i>
                                 <span class="tooltiptext">Delete</span>
                             </a>
+
+                            <!-- Modal Structure -->
+                                  <div id="modal1" class="modal">
+                                    <div class="modal-content">
+                                      <h4>Are You Sure</h4>
+                                      <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="font-size: 16px;">Yes</a>
+                                      <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="font-size: 16px;">No</a>
+                                    </div>
+
+                                  </div>
+           
                         </td>
                     </tr>
                     <tr>
@@ -108,14 +139,11 @@
                                 <i class="material-icons tooltip">details</i>
                                 <span class="tooltiptext">Detail</span>
                             </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
+                            <a class="tooltip modal-trigger" href="#modal1">
                                 <i class="material-icons">delete</i>
                                 <span class="tooltiptext">Delete</span>
                             </a>
+                           
                         </td>
                     </tr>
                 </tbody>
@@ -139,6 +167,14 @@
                 "bAutoWidth": false
             });
         } );
+    </script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+    $('.modal').modal();
+  });
+
+
     </script>
 </body>
 </html>

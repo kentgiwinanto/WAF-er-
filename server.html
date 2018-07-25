@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WAF(er) Manager</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/materialize.css">
     <link rel="stylesheet" href="css/MainPageStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -34,6 +33,32 @@
 
     <div id="MainLayout">
         
+        <div class="row" style="grid-auto-flow: row dense;">
+            
+             <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart4"></canvas>                    
+                    </div>    
+                </div>
+            </div>
+             <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart5"></canvas>                    
+                    </div>    
+                </div>
+            </div>
+             <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart6"></canvas>                    
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+
         <div class="row">
             <table id="table_id" class="display">
                 <thead>
@@ -63,10 +88,6 @@
                                 <span class="tooltiptext">Detail</span>
                             </a>
                             <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
-                            </a>
-                            <a class="tooltip" href="#/">
                                 <i class="material-icons">delete</i>
                                 <span class="tooltiptext">Delete</span>
                             </a>
@@ -84,10 +105,6 @@
                             <a class="tooltip" href="#/">
                                 <i class="material-icons tooltip">details</i>
                                 <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">settings_applications</i>
-                                <span class="tooltiptext">Modify</span>
                             </a>
                             <a class="tooltip" href="#/">
                                 <i class="material-icons">delete</i>
