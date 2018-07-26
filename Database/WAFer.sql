@@ -2,7 +2,6 @@ DROP DATABASE WAFer;
 CREATE DATABASE WAFer;
 use WAFer;
 
-
 	CREATE TABLE UserJobPosition(
 		STSRC VARCHAR(1),
 		DateIN DATETIME,
@@ -12,8 +11,6 @@ use WAFer;
 		UserJobPosID VARCHAR(1024),
 		UserJobName VARCHAR(32) NOT NULL    
 		);
-    
-    
     
 	CREATE TABLE UserProfile(
 		STSRC VARCHAR(1),
@@ -27,9 +24,6 @@ use WAFer;
         UserJobPosID VARCHAR(1024)
 		);
 		
-
-
-
 	CREATE TABLE UserLogin(
 		STSRC VARCHAR(1),
 		DateIN DATETIME,
@@ -42,8 +36,6 @@ use WAFer;
         UserProfileID VARCHAR(1024)
 		);    
         
-       
-	
 	CREATE TABLE ServerList (
 		Stsrc VARCHAR (1),
 		UserIn VARCHAR (32),
@@ -58,7 +50,6 @@ use WAFer;
         ModSecurity CHAR(1)
 	);    
 	
-	    
 		CREATE TABLE Config
 	(
 		Stsrc VARCHAR(1),
@@ -115,7 +106,7 @@ BEGIN
 	END$$
 DELIMITER ;
 
-		    
+
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_Register`(
 		firstnamein VARCHAR(32),
@@ -258,7 +249,6 @@ BEGIN
         END$$
 DELIMITER ;
     
-    
 	DELIMITER $$
     CREATE PROCEDURE `WAF_Read_ServerList` ()
 	BEGIN
@@ -280,40 +270,7 @@ DELIMITER ;
 	END$$
     DELIMITER;
     
-    
-    DELIMITER $$
-	CREATE  PROCEDURE `WAF_Update_User`(
-			userupup VARCHAR (1024),
-			usernameup VARCHAR(32),
-			firstnameup VARCHAR (32),
-			lastnameup VARCHAR (32),
-			oldpassword VARCHAR(64),
-			newpassword VARCHAR (64))
-	BEGIN 
-			/*--=======================================
-		--Created By    : Rizky Gunawan Liga
-		--Created Date  : 16 July 2018
-		--Description   : Edit Profile User
-		--=======================================
-		*/
-		SET @op=SHA2(CONCAT(usernameup,oldpassword),256);
-		IF EXISTS(SELECT UserProfileID FROM UserLogin WHERE Userpass=@op)
-		THEN
-			UPDATE UserProfile 
-			SET FirstName=firstnameup,
-				LastName=lastnameup,
-				DateUP=CURRENT_TIMESTAMP,
-				UserUP=userupup
-			WHERE UserProfileID=userupup;
-			UPDATE UserLogin
-			SET Userpass=SHA2(CONCAT(usernameup,newpassword),256),
-				DateUP=CURRENT_TIMESTAMP,
-				UserUP=userupup
-			WHERE UserProfileID=userupup;
-		ELSE
-			END IF;        
-			END$$
-	DELIMITER ;  	
+     	
 
 
     DELIMITER $$
@@ -485,7 +442,7 @@ DELIMITER ;
   
     
 		DELIMITER $$
-	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_AttackSummary`()
+	CREATE PROCEDURE `WAF_Read_AttackSummary`()
 	BEGIN
 		-- ===================================		
 		-- Created By: Rizky Gunawan Liga
@@ -500,7 +457,7 @@ DELIMITER ;
 	DELIMITER ;
 
 	DELIMITER $$
-	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_GetServerDetail`(
+	CREATE PROCEDURE `WAF_Read_GetServerDetail`(
 			ServerIDIN VARCHAR(256)
 	)
 	BEGIN
@@ -515,7 +472,7 @@ DELIMITER ;
 		IP,
 		PortsOpen,
 		Domain,
-		Modsecurity
+		CASE WHEN Modsecurity = '1' THEN 'Yes' ELSE 'No' END as ModSecurity
 		FROM
 		ServerList
 		WHERE ServerID = ServerIDIN
