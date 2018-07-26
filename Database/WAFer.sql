@@ -245,7 +245,7 @@ DELIMITER ;
     
     
     DELIMITER $$
-	CREATE  PROCEDURE `WAF_Update_User`(
+	CREATE PROCEDURE `WAF_Update_User`(
 			userupup VARCHAR (1024),
 			usernameup VARCHAR(32),
 			firstnameup VARCHAR (32),
@@ -273,7 +273,7 @@ DELIMITER ;
 				DateUP=CURRENT_TIMESTAMP,
 				UserUP=userupup
 			WHERE UserProfileID=userupup;
-		ELSE
+		
 			END IF;        
 			END$$
 	DELIMITER ;  	
