@@ -1,30 +1,34 @@
-from flask import Flask, request, session, redirect, url_for, abort, render_template, flash, jsonify
+from flask import Flask, request, session, redirect, url_for, abort, render_template, flash, jsonify,make_response
 from flaskext.mysql import MySQL
 from functools import wraps
 import os, json, requests
 
-_app = Flask(__name__)
+__app = Flask(__name__)
 mysql = MySQL()
 
-_app.config.update(dict(
+__app.config.update(dict(
 	SECRET_KEY = 'h[#T@t$bKvya*h[#T@t$bKvya*h[#T@t$bKvya*ctr(^ctr(^ctr(^',
 ))
 
 #MySQL Configuration
-_Database_Username = 'root'
-_Database_Password = 'toor'
-_Database_Database = 'WAFer'
-_Database_Host = '127.0.0.1'
+__Database_Username = 'root'
+__Database_Password = 'toor'
+__Database_Database = 'WAFer'
+__Database_Host = '127.0.0.1'
 
-_app.config['MYSQL_DATABASE_USER'] = _Database_Username
-_app.config['MYSQL_DATABASE_PASSWORD'] = _Database_Password
-_app.config['MYSQL_DATABASE_DB'] = _Database_Database
-_app.config['MYSQL_DATABASE_HOST'] = _Database_Host
-mysql.init_app(_app)
+__app.config['MYSQL_DATABASE_USER'] = __Database_Username
+__app.config['MYSQL_DATABASE_PASSWORD'] = __Database_Password
+__app.config['MYSQL_DATABASE_DB'] = __Database_Database
+__app.config['MYSQL_DATABASE_HOST'] = __Database_Host
+mysql.init_app(__app)
+
+#Variables
+__ReverseProxy_Address = "http://192.168.56.103:9112/"
 
 __conn = mysql.connect()
 __cursor = __conn.cursor()
 
+#Decorators
 #Check is session exists
 def is_logged_in(f):
 	@wraps(f)
@@ -35,8 +39,9 @@ def is_logged_in(f):
 			return render_template('login.html',errorMessage="You must login first!")
 	return wrap
 
+#functions
 def SendRequestAddServer(__ServerName,__IPAddress,__PortAddress,__Hostname,__ModSecurityVal):
-	r = requests.post("http://192.168.56.103:9112/addServer.php",data = {
+	r = requests.post(__ReverseProxy_Address+"addServer.php",data = {
 			'ServerName':__ServerName,
 			'IP':__IPAddress,
 			'Port':__PortAddress,
@@ -46,17 +51,33 @@ def SendRequestAddServer(__ServerName,__IPAddress,__PortAddress,__Hostname,__Mod
 	return r.text
 
 def SendRequestPingServer(__JSONDump):
-	r = requests.post("http://192.168.56.103:9112/pingServer.php", data = {
+	r = requests.post(__ReverseProxy_Address+"pingServer.php", data = {
 			'ListIPJSON':__JSONDump
 		})
 	return r.text
 
-@_app.route('/')
+def GetLogsFromServer():
+	global __SecLogs_WAF_ReverseProxy
+	global __AccessLogs_Nginx_ReverseProxy
+	__SecLogs_WAF_ReverseProxy = json.loads(requests.get(__ReverseProxy_Address+"GetLogs.php").text)
+	__AccessLogs_Nginx_ReverseProxy = json.loads(requests.get(__ReverseProxy_Address+"GetAccessLogs.php").text)
+	
+	for key,value in enumerate(__SecLogs_WAF_ReverseProxy):
+		__SecLogs_WAF_ReverseProxy[key] = json.loads(value)
+
+	for key,value in enumerate(__AccessLogs_Nginx_ReverseProxy):
+		__AccessLogs_Nginx_ReverseProxy[key] = json.loads(value)
+
+	print(type(__SecLogs_WAF_ReverseProxy[0]))
+
+#routes and business process logic
+@__app.route('/')
 @is_logged_in
 def home():
-	return render_template('index.html')
+	GetLogsFromServer()
+	return render_template('index.html',SecurityLog=__SecLogs_WAF_ReverseProxy,AccessLogs=__AccessLogs_Nginx_ReverseProxy)
 
-@_app.route('/server')
+@__app.route('/server')
 @is_logged_in
 def server():
 	__cursor.callproc('WAF_Read_ServerList')
@@ -77,7 +98,7 @@ def server():
 	__FinalResult = json.loads(SendRequestPingServer(json.dumps(__ServerList)))
 	return render_template('server.html',ServerListResult=__FinalResult)
 
-@_app.route('/addServer',methods=['GET','POST'])
+@__app.route('/addServer',methods=['GET','POST'])
 @is_logged_in
 def addServer():
 	if request.method == 'POST':
@@ -102,7 +123,7 @@ def addServer():
 	else:
 		return render_template('addserver.html')
 
-@_app.route('/login',methods=['POST'])
+@__app.route('/login',methods=['POST'])
 def login():
 	_Username_Login_Form = request.form['username']
 	_Password_Login_Form = request.form['password']
@@ -124,7 +145,7 @@ def login():
 		error = "Invalid Username or Password!"
 		return render_template('login.html',errorMessage=error)
 
-@_app.route('/logout')
+@__app.route('/logout')
 def logout():
 	session.pop("logged_in")
 	session.pop("userProfileID")
@@ -134,5 +155,5 @@ def logout():
 	return redirect(url_for('home'))
 
 if __name__ == "__main__":
-	_app.secret_key = os.urandom(12)
-	_app.run(debug=True)
+	__app.secret_key = os.urandom(12)
+	__app.run(debug=True)
