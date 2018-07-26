@@ -2,7 +2,6 @@ DROP DATABASE WAFer;
 CREATE DATABASE WAFer;
 use WAFer;
 
-
 	CREATE TABLE UserJobPosition(
 		STSRC VARCHAR(1),
 		DateIN DATETIME,
@@ -12,8 +11,6 @@ use WAFer;
 		UserJobPosID VARCHAR(1024),
 		UserJobName VARCHAR(32) NOT NULL    
 		);
-    
-    
     
 	CREATE TABLE UserProfile(
 		STSRC VARCHAR(1),
@@ -27,9 +24,6 @@ use WAFer;
         UserJobPosID VARCHAR(1024)
 		);
 		
-
-
-
 	CREATE TABLE UserLogin(
 		STSRC VARCHAR(1),
 		DateIN DATETIME,
@@ -42,8 +36,6 @@ use WAFer;
         UserProfileID VARCHAR(1024)
 		);    
         
-       
-	
 	CREATE TABLE ServerList (
 		Stsrc VARCHAR (1),
 		UserIn VARCHAR (32),
@@ -58,7 +50,6 @@ use WAFer;
         ModSecurity CHAR(1)
 	);    
 	
-	    
 		CREATE TABLE Config
 	(
 		Stsrc VARCHAR(1),
@@ -115,7 +106,7 @@ BEGIN
 	END$$
 DELIMITER ;
 
-		    
+
 DELIMITER $$
 CREATE PROCEDURE `WAF_Insert_Register`(
 		firstnamein VARCHAR(32),
@@ -227,8 +218,37 @@ BEGIN
         END IF;
         END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `WAF_Insert_ServerList`(
+		userinin VARCHAR (32),
+		servernamein VARCHAR (64),
+		ipin VARCHAR (16),
+		portsopenin VARCHAR (8),
+		domainin VARCHAR (32),
+        modsecin INTEGER(1))
+BEGIN 
+        /*--=======================================
+	--Created By    : Albert Sudirwan
+	--Created Date  : 26 March 2018
+	--Description   : Penambahan Server List
+	--=======================================
+    */
+        DECLARE StatusCode VARCHAR (20);
+        DECLARE StatusMessage VARCHAR (50);
         
-        
+        IF EXISTS (SELECT IP FROM ServerList WHERE IP=ipin)
+        THEN SET StatusCode ='0';SET StatusMessage ='IP Exists!';
+        ELSE
+        SET @serverid =CONCAT('ServerID_',Substring(uuid(),1,13));
+        INSERT INTO ServerList (ServerID,ServerName,IP,PortsOpen,Domain,ModSecurity,Stsrc,UserIn,DateIn,UserUp,Dateup)
+        VALUES (@serverid,servernamein,ipin,portsopenin,domainin,modsecin,'A',userinin,CURRENT_TIMESTAMP,NULL,NULL);
+        SET StatusCode ='1';SET StatusMessage ='Server Inserted Successfully!';
+        END IF;
+        SELECT StatusCode,StatusMessage;
+        END$$
+DELIMITER ;
+    
 	DELIMITER $$
     CREATE PROCEDURE `WAF_Read_ServerList` ()
 	BEGIN
@@ -239,10 +259,18 @@ DELIMITER ;
 	--=======================================
     */
     
-       SELECT ServerID,ServerName,IP,PortsOpen,Domain FROM ServerList; 
+	SELECT 
+    ServerID,
+    ServerName,
+    IP,
+    PortsOpen,
+    Domain,
+    CASE WHEN ModSecurity = '1' THEN 'Yes' ELSE 'No' END 
+    FROM ServerList; 
 	END$$
     DELIMITER;
     
+<<<<<<< HEAD
     
     DELIMITER $$
 	CREATE PROCEDURE `WAF_Update_User`(
@@ -273,10 +301,13 @@ DELIMITER ;
 				DateUP=CURRENT_TIMESTAMP,
 				UserUP=userupup
 			WHERE UserProfileID=userupup;
-		
+			ELSE
 			END IF;        
 			END$$
 	DELIMITER ;  	
+=======
+     	
+>>>>>>> 31292c872fe7da66f6f67d0c5dffd47130d1a9a3
 
 
     DELIMITER $$
@@ -448,7 +479,7 @@ DELIMITER ;
   
     
 		DELIMITER $$
-	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_AttackSummary`()
+	CREATE PROCEDURE `WAF_Read_AttackSummary`()
 	BEGIN
 		-- ===================================		
 		-- Created By: Rizky Gunawan Liga
@@ -463,7 +494,7 @@ DELIMITER ;
 	DELIMITER ;
 
 	DELIMITER $$
-	CREATE DEFINER=`Admin`@`%` PROCEDURE `WAF_Read_GetServerDetail`(
+	CREATE PROCEDURE `WAF_Read_GetServerDetail`(
 			ServerIDIN VARCHAR(256)
 	)
 	BEGIN
@@ -478,7 +509,7 @@ DELIMITER ;
 		IP,
 		PortsOpen,
 		Domain,
-		Modsecurity
+		CASE WHEN Modsecurity = '1' THEN 'Yes' ELSE 'No' END as ModSecurity
 		FROM
 		ServerList
 		WHERE ServerID = ServerIDIN
