@@ -301,7 +301,6 @@ DELIMITER ;
 				DateUP=CURRENT_TIMESTAMP,
 				UserUP=userupup
 			WHERE UserProfileID=userupup;
-			ELSE
 			END IF;        
 			END$$
 	DELIMITER ;  	
