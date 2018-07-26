@@ -9,6 +9,26 @@
       <link rel="stylesheet" href="css/MainPageStyle.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+       <style type="text/css">
+         .modal { 
+         width: 90%  ;
+         height: 70%  ;
+         }
+         .tabs .tab a{
+         color:#97ce2f;
+         } /*Black color to the text*/
+         .tabs .tab a:hover {
+         background-color:#ffffff;
+         color:#97ce2f;
+         } /*Text color on hover*/
+         .tabs .tab a.active {
+         background-color:#ffffff;
+         color:#97ce2f;
+         } /*Background and text color when a tab is active*/
+         .tabs .indicator {
+         background-color:#97ce2f;
+         } /*Color of underline*/
+      </style>
    </head>
    <body>
       <!-- Sidebar -->
@@ -33,6 +53,161 @@
          <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
       </ul>
       <div id="MainLayout">
+                 <!-- POP UP DETAIL -->
+         <div id="popup1" class="modal">
+            <div class="modal-content">
+               <h4></h4>
+               <ul class="tabs tabs-fixed-width tab-demo z-depth-1" >
+                  <li class="tab"><a class="active" href="#tab_e" >Table Log</a></li>
+                  <li class="tab"><a  href="#tab_f" >Request Header</a></li>
+                  <li class="tab"><a href="#tab_g" >Response Header</a></li>
+                  <li class="tab"><a href="#tab_h" >JSON Log</a></li>
+               </ul>
+               <div class="tab_content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;overflow-y: scroll;overflow-x: scroll;">
+                  <div id="tab_e" class="col s12">
+                     <div class="row">
+                        <table id="table_id2" class="display">
+                           <thead>
+                              <tr>
+                                 <th>ID</th>
+                                 <th>Message</th>
+                                 <th>Match</th>
+                                 <th>Ref</th>
+                                 <th>RuleID</th>
+                                 <th>File</th>
+                                 <th>LineNumber</th>
+                                 <th>Data</th>
+                                 <th>Severity</th>
+                                 <th>Version</th>
+                                 <th>Rev</th>
+                                 <th>Tags</th>
+                                 <th>Maturity</th>
+                                 <th>Accuracy</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>12321512123</td>
+                                 <td>INI PESAN</td>
+                                 <td>Matched</td>
+                                 <td>01.213123</td>
+                                 <td>0921021932103</td>
+                                 <td>InI File</td>
+                                 <td>LineNumber</td>
+                                 <td>Data</td>
+                                 <td>Severity</td>
+                                 <td>Version</td>
+                                 <td>Rev</td>
+                                 <td>Tags</td>
+                                 <td>Maturity</td>
+                                 <td>Accuracy</td>
+                              </tr>
+                              <tr>
+                                 <td>2132151252</td>
+                                 <td>INI EVENT MESSAGE</td>
+                                 <td>Not Matched</td>
+                                 <td>01.2913912</td>
+                                 <td>213215213</td>
+                                 <td>iNI File</td>
+                                 <td>LineNumber</td>
+                                 <td>Data</td>
+                                 <td>Severity</td>
+                                 <td>Version</td>
+                                 <td>Rev</td>
+                                 <td>Tags</td>
+                                 <td>Maturity</td>
+                                 <td>Accuracy</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <!-- REQUEST HEADER SECCTION -->
+                  <div id="tab_f" class="col s12">
+                     <div class="row">
+                        <h4>Request Header</h4>
+                        <table style="width:100%; border-collapse:collapse; border:1px solid black">
+                           <tr id="RequestHeaderSection">
+                              <td>Host</td>
+                              <td>reversevirtualbox.local</td>
+                           </tr>
+                           <tr>
+                              <td>Connection</td>
+                              <td>keep-alive</td>
+                           </tr>
+                           <tr>
+                              <td>Cche-Control</td>
+                              <td>max-age=0</td>
+                           </tr>
+                           <tr>
+                              <td>Upgrade-Insecure-Request</td>
+                              <td>1</td>
+                           </tr>
+                           <tr>
+                              <td>User-Agent</td>
+                              <td>Mozilla/5.0</td>
+                           </tr>
+                           <tr>
+                              <td>Accept</td>
+                              <td>text/html.application/xhtml+xml</td>
+                           </tr>
+                           <tr>
+                              <td>Accept-Encoding</td>
+                              <td>gzip,deflate</td>
+                           </tr>
+                           <tr>
+                              <td>Accept-Language</td>
+                              <td>en-US,en;q=0.9</td>
+                           </tr>
+                        </table>
+                     </div>
+                  </div>
+                  <!-- END OF REQUEST HEADER SECTION -->
+                  <!-- RESPONSE HEADER SECCTION -->
+                  <div id="tab_g" class="col s12">
+                     <div class="row">
+                        <h4>Response Header</h4>
+                        <table style="width:100%; border-collapse:collapse; border:1px solid black">
+                           <table style="width:100%; border-collapse:collapse; border:1px solid black">
+                              <tr id="ResponseHeaderSection">
+                                 <td>Server</td>
+                                 <td>nginx</td>
+                              </tr>
+                              <tr>
+                                 <td>Date</td>
+                                 <td>Tue,05 Jun 2018 03:34:22 GMT</td>
+                              </tr>
+                              <tr>
+                                 <td>Content-Length</td>
+                                 <td>564</td>
+                              </tr>
+                              <tr>
+                                 <td>Content-Type</td>
+                                 <td>text/html</td>
+                              </tr>
+                              <tr>
+                                 <td>Connection</td>
+                                 <td>keep-alive</td>
+                              </tr>
+                           </table>
+                        </table>
+                     </div>
+                  </div>
+                  <!-- END OF RESPONSE HEADER SECTION -->
+                  <!-- JSON Log SECCTION -->
+                  <div id="tab_h" class="col s12">
+                     <div class="row">
+                        <h4>JSON Log</h4>
+                        <div class="input-field col s12">
+                           <textarea id="textarea1" disabled value="I am not editable" class="materialize-textarea"></textarea>
+                           <label for="textarea1">JSON LOG</label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- JSON Log SECTION -->
+               </div>
+            </div>
+         </div>
          <div class="row" style="grid-auto-flow: row dense;">
             <div class="col s6 m4">
                <div class="card">
@@ -80,9 +255,9 @@
                      <td>On</td>
                      <td style="background-color: lightgreen">Online</td>
                      <td>
-                        <a class="tooltip" href="#/">
-                        <i class="material-icons">details</i>
-                        <span class="tooltiptext">Detail</span>
+                        <a class="tooltip modal-trigger" href="#popup1">
+                        <i class="material-icons">server</i>
+                        <span class="tooltiptext">Popup</span>
                         </a>
                         <a class="tooltip" href="#/">
                         <i class="material-icons">delete</i>
@@ -99,9 +274,9 @@
                      <td>Off</td>
                      <td style="background-color: pink">Offline</td>
                      <td>
-                        <a class="tooltip" href="#/">
-                        <i class="material-icons tooltip">details</i>
-                        <span class="tooltiptext">Detail</span>
+                        <a class="tooltip modal-trigger" href="#popup1">
+                        <i class="material-icons">server</i>
+                        <span class="tooltiptext">Popup</span>
                         </a>
                         <a class="tooltip" href="#/">
                         <i class="material-icons">delete</i>
@@ -127,6 +302,22 @@
                  "bAutoWidth": false
              });
          } );
+
+         $(document).ready( function () {
+          $('#table_id2').DataTable({
+              });
+          } );
+          
+         $(document).ready(function(){
+         $('.tabs').tabs();
+         });
+         $(document).ready(function(){
+         $('select').formSelect();
+         
+             $(document).ready(function(){
+             $('.modal').modal();
+           });
+           });
       </script>
    </body>
 </html>
