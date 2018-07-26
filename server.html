@@ -1,137 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WAF(er) Manager</title>
-    <link rel="stylesheet" href="css/materialize.css">
-    <link rel="stylesheet" href="css/MainPageStyle.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
-</head>
-<body>
-    <!-- Sidebar -->
-    <ul class="sidenav sidenav-fixed">
-        <li>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>WAF(er) Manager</title>
+      <link rel="stylesheet" href="css/materialize.css">
+      <link rel="stylesheet" href="css/MainPageStyle.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+   </head>
+   <body>
+      <!-- Sidebar -->
+      <ul class="sidenav sidenav-fixed">
+         <li>
             <div class="user-view">
-                <div class="background"><img src="https://s3-ap-southeast-1.amazonaws.com/bengkel/wp-content/uploads/2015/03/10115645/grass.jpg"></div>
-                <a href="#user"><img class="responsive-img circle" src="https://lc-imageresizer-live-s.legocdn.com//resize?mode=portrait&size=medium&ratio=1&imageUrl=https://lc-www-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/dimensions/mugshot%20december%202016/71212_1to1_mf_mugshot_emmet_336.png?l.r2=519611620"></a>
-                <a href="#name"><span class="black-text name" style="font-size: 18px;">User Name</span></a>
-                <a href="#email"><span class="black-text email">User Position</span></a>
+               <div class="background"><img src="https://s3-ap-southeast-1.amazonaws.com/bengkel/wp-content/uploads/2015/03/10115645/grass.jpg"></div>
+               <a href="#user"><img class="responsive-img circle" src="https://lc-imageresizer-live-s.legocdn.com//resize?mode=portrait&size=medium&ratio=1&imageUrl=https://lc-www-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/dimensions/mugshot%20december%202016/71212_1to1_mf_mugshot_emmet_336.png?l.r2=519611620"></a>
+               <a href="#name"><span class="black-text name" style="font-size: 18px;">User Name</span></a>
+               <a href="#email"><span class="black-text email">User Position</span></a>
             </div>
-        </li>
-        <li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
-        <li><a class="waves-effect" href="server.html"><i class="material-icons">view_list</i>Servers</a></li>
-        <li><a class="waves-effect" href="configuration.html"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
-        <li><a class="waves-effect" href="register.html"><i class="material-icons">person_add</i>Add Staff</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Profile Settings</a></li>
-        <li><a class="waves-effect" href="profile.html"><i class="material-icons">lock</i>Change Password</a></li>
-        <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
-    </ul>
-
-    <div id="MainLayout">
-        
-        <div class="row" style="grid-auto-flow: row dense;">
-            
-             <div class="col s6 m4">
-                <div class="card">
-                    <div class="card-content white-text">
-                        <canvas id="myChart4"></canvas>                    
-                    </div>    
-                </div>
+         </li>
+         <li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
+         <li><a class="waves-effect" href="server.html"><i class="material-icons">view_list</i>Servers</a></li>
+         <li><a class="waves-effect" href="configuration.html"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
+         <li><a class="waves-effect" href="register.html"><i class="material-icons">person_add</i>Add Staff</a></li>
+         <li>
+            <div class="divider"></div>
+         </li>
+         <li><a class="subheader">Profile Settings</a></li>
+         <li><a class="waves-effect" href="profile.html"><i class="material-icons">lock</i>Change Password</a></li>
+         <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
+      </ul>
+      <div id="MainLayout">
+         <div class="row" style="grid-auto-flow: row dense;">
+            <div class="col s6 m4">
+               <div class="card">
+                  <div class="card-content white-text">
+                     <canvas id="myChart4"></canvas>
+                  </div>
+               </div>
             </div>
-             <div class="col s6 m4">
-                <div class="card">
-                    <div class="card-content white-text">
-                        <canvas id="myChart5"></canvas>                    
-                    </div>    
-                </div>
+            <div class="col s6 m4">
+               <div class="card">
+                  <div class="card-content white-text">
+                     <canvas id="myChart5"></canvas>
+                  </div>
+               </div>
             </div>
-             <div class="col s6 m4">
-                <div class="card">
-                    <div class="card-content white-text">
-                        <canvas id="myChart6"></canvas>                    
-                    </div>    
-                </div>
+            <div class="col s6 m4">
+               <div class="card">
+                  <div class="card-content white-text">
+                     <canvas id="myChart6"></canvas>
+                  </div>
+               </div>
             </div>
-        </div>
-
-
-        <div class="row">
+         </div>
+         <div class="row">
             <table id="table_id" class="display">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Server Name</th>
-                        <th>Hostname</th>
-                        <th>IP Address</th>
-                        <th>Port</th>
-                        <th>ModSecurity</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ServerName1</td>
-                        <td>Server1.local</td>
-                        <td>10.0.0.1</td>
-                        <td>80</td>
-                        <td>On</td>
-                        <td style="background-color: lightgreen">Online</td>
-                        <td>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">details</i>
-                                <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">delete</i>
-                                <span class="tooltiptext">Delete</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>ServerName2</td>
-                        <td>server2.local</td>
-                        <td>10.0.0.2</td>
-                        <td>80</td>
-                        <td>Off</td>
-                        <td style="background-color: pink">Offline</td>
-                        <td>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons tooltip">details</i>
-                                <span class="tooltiptext">Detail</span>
-                            </a>
-                            <a class="tooltip" href="#/">
-                                <i class="material-icons">delete</i>
-                                <span class="tooltiptext">Delete</span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
+               <thead>
+                  <tr>
+                     <th>No</th>
+                     <th>Server Name</th>
+                     <th>Hostname</th>
+                     <th>IP Address</th>
+                     <th>Port</th>
+                     <th>ModSecurity</th>
+                     <th>Status</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1</td>
+                     <td>ServerName1</td>
+                     <td>Server1.local</td>
+                     <td>10.0.0.1</td>
+                     <td>80</td>
+                     <td>On</td>
+                     <td style="background-color: lightgreen">Online</td>
+                     <td>
+                        <a class="tooltip" href="#/">
+                        <i class="material-icons">details</i>
+                        <span class="tooltiptext">Detail</span>
+                        </a>
+                        <a class="tooltip" href="#/">
+                        <i class="material-icons">delete</i>
+                        <span class="tooltiptext">Delete</span>
+                        </a>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>2</td>
+                     <td>ServerName2</td>
+                     <td>server2.local</td>
+                     <td>10.0.0.2</td>
+                     <td>80</td>
+                     <td>Off</td>
+                     <td style="background-color: pink">Offline</td>
+                     <td>
+                        <a class="tooltip" href="#/">
+                        <i class="material-icons tooltip">details</i>
+                        <span class="tooltiptext">Detail</span>
+                        </a>
+                        <a class="tooltip" href="#/">
+                        <i class="material-icons">delete</i>
+                        <span class="tooltiptext">Delete</span>
+                        </a>
+                     </td>
+                  </tr>
+               </tbody>
             </table>
-        </div>
-    </div>
-    
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#table_id').DataTable({
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": false,
-                "bInfo": false,
-                "bAutoWidth": false
-            });
-        } );
-    </script>
-</body>
+         </div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <script src="js/materialize.js"></script>
+      <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+      <script>
+         $(document).ready( function () {
+             $('#table_id').DataTable({
+                 "bPaginate": false,
+                 "bLengthChange": false,
+                 "bFilter": false,
+                 "bInfo": false,
+                 "bAutoWidth": false
+             });
+         } );
+      </script>
+   </body>
 </html>
