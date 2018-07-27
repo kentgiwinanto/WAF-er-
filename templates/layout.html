@@ -47,12 +47,6 @@
 				</a>
 			</li>
 			<li>
-				<a class="waves-effect" href="server">
-					<i class="material-icons">view_list</i>
-					Servers
-				</a>
-			</li>
-			<li>
 				<a class="waves-effect" href="#!">
 					<i class="material-icons">perm_data_setting</i>
 					ModSec Configuration
@@ -65,10 +59,8 @@
 				<a class="subheader">Profile Settings</a>
 			</li>
 			<li>
-				<a class="waves-effect" href="#!">
-					<i class="material-icons">lock</i>
-					Change Password
-				</a>
+				<a class="waves-effect waves-light modal-trigger" href="#modalchangepassword">
+					<i class="material-icons">lock</i>Change Password</a>
 			</li>
 			<li>
 				<a class="waves-effect" href="logout" style="color: red">
@@ -76,6 +68,44 @@
 				</a>
 			</li>
 		</ul>
+		<!-- Modal Structure -->
+		<div id="modalchangepassword" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<div class="">
+					<h4>CHANGE PASSWORD</h4>
+					<hr>
+				</div>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="oldpasswordtxt" type="password" class="validate">
+								<label for="oldpassword">Old Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="newpasswordtxt" type="password" class="validate">
+								<label for="newpassword">New Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="confirmtxt" type="password" class="validate">
+								<label for="confirmtxt">Confirm Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a class="waves-effect waves-light btn" id="BtnSendChangePassword"><i class="material-icons right">send</i>Submit</a>
+				<a class="waves-effect waves-light btn" onclick="$('#modalchangepassword').modal('close')" href="#!">Cancel</a>
+			</div>
+		</div>
 		{% block body %}
 
 		{% endblock %}
@@ -88,6 +118,32 @@
 	    {% block js %}
 
 	    {% endblock %}
+	    <script type="text/javascript">
+	    	$('#BtnSendChangePassword').on("click", function (e) {
+				$.ajax({
+					url: "ChangePassword", 
+					type: 'post',
+					data: {
+						"OldPassword": $("#oldpasswordtxt").val(),
+						"NewPassword": $("#newpasswordtxt").val(),
+						"ConfNewPassword": $("#confirmtxt").val()
+					},
+					beforeSend: function(){
+										 
+					},
+					error: function(result){
+										  
+					},
+					success: function(result){
+						
+						console.log(result);
+						 
+					}
+				});
+			}); 
+	    	$('.tabs').tabs();
+			$('.modal').modal();
+	    </script>
 	</body>
 
 </html>
