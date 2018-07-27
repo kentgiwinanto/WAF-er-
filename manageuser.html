@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Manage User</title>
+      <link rel="stylesheet" href="css/materialize.css">
+      <link rel="stylesheet" href="css/MainPageStyle.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+   </head>
+   <body>
+      <!-- Sidebar -->
+      <ul class="sidenav sidenav-fixed">
+         <li>
+            <div class="user-view">
+               <div class="background"><img src="https://s3-ap-southeast-1.amazonaws.com/bengkel/wp-content/uploads/2015/03/10115645/grass.jpg"></div>
+               <a href="#user"><img class="responsive-img circle" src="https://lc-imageresizer-live-s.legocdn.com//resize?mode=portrait&size=medium&ratio=1&imageUrl=https://lc-www-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/dimensions/mugshot%20december%202016/71212_1to1_mf_mugshot_emmet_336.png?l.r2=519611620"></a>
+               <a href="#name"><span class="black-text name" style="font-size: 18px;">User Name</span></a>
+               <a href="#email"><span class="black-text email">User Position</span></a>
+            </div>
+         </li>
+         <li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
+         <li><a class="waves-effect" href="server.html"><i class="material-icons">view_list</i>Servers</a></li>
+         <li><a class="waves-effect" href="configuration.html"><i class="material-icons">perm_data_setting</i>ModSec Configuration</a></li>
+         <li><a class="waves-effect" href="register.html"><i class="material-icons">person_add</i>Add Staff</a></li>
+         <li>
+            <div class="divider"></div>
+         </li>
+         <li><a class="subheader">Profile Settings</a></li>
+         <li><a class="waves-effect waves-light modal-trigger" href="#modalchangepassword"><i class="material-icons">lock</i>Change Password</a></li>
+         <li><a class="waves-effect" href="#!" style="color: red"><i class="material-icons" style="color: red">power_settings_new</i>Logout</a></li>
+      </ul>
+      <!-- Cards For Statistic -->
+      <div id="MainLayout" style="margin:1%;">
+      	<h4>Manage User</h4>
+      	<hr>
+
+          <div id="modal2" class="modal"  style="overflow-y: hidden;">
+            <div class="modal-content">
+               <h4>Edit</h4>
+         <div class="row">
+            <form class="col s12">
+               <div class="row">
+                  <div class="input-field col s6">
+                     <input id="first_name" type="text" class="validate">
+                     <label for="first_name">First Name</label>
+                  </div>
+                  <div class="input-field col s6">
+                     <input id="last_name" type="text" class="validate">
+                     <label for="last_name">Last Name</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="newpasswordtxt" type="password" class="validate">
+                     <label for="newpassword">New Password</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="confirmtxt" type="password" class="validate">
+                     <label for="confirmtxt">Confirm Password</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+               </div>
+               <div class="modal-footer">
+                  <a class="waves-effect waves-light btn" onclick="check()"><i class="material-icons right">send</i>Submit</a>
+                  <a class="waves-effect waves-light btn" href="index.html">Cancel</a>
+               </div>
+            </form>
+         </div>
+            </div>
+          </div>   	
+
+           <div id="modal3" class="modal" style="overflow-y: hidden;">
+            <div class="modal-content">
+            	<h4>Add Staff</h4>
+            	<hr>
+                <div class="row">
+            <form class="col s12">
+               <div class="row">
+                  <div class="input-field col s6">
+                     <input id="first_name" type="text" data-length="20">
+                     <label for="first_name">First Name</label>
+                  </div>
+                  <div class="input-field col s6">
+                     <input id="last_name" type="text" data-length="20">
+                     <label for="last_name">Last Name</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="password" type="password" class="validate">
+                     <label for="password">Password</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="confirm" type="password" class="validate">
+                     <label for="confirm">Confirm Password</label>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <a class="waves-effect waves-light btn"><i class="material-icons right">send</i>Submit</a>
+               </div>
+            </form>
+         </div>
+            </div>
+          </div>   	
+	
+	
+
+          <!-- Modal Structure -->
+          <div id="modalchangepassword" class="modal modal-fixed-footer">
+            <div class="modal-content">
+         <div class="">
+
+               <h4>CHANGE PASSWORD</h4>
+               <hr>
+
+         </div>
+         <div class="row">
+            <form class="col s12">
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="oldpasswordtxt" type="password" class="validate">
+                     <label for="oldpassword">Old Password</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="newpasswordtxt" type="password" class="validate">
+                     <label for="newpassword">New Password</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input id="confirmtxt" type="password" class="validate">
+                     <label for="confirmtxt">Confirm Password</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <label for="error" class="cols-sm-2 control-label" id="errortxt" value="" style="color:red;"></label>
+               </div>
+
+            </form>
+         </div>
+            </div>
+            <div class="modal-footer">
+              <a class="waves-effect waves-light btn" onclick="check()"><i class="material-icons right">send</i>Submit</a>
+                  <a class="waves-effect waves-light btn" href="index.html">Cancel</a>
+            </div>
+          </div>
+
+         <div class="row">
+            <table id="table_id" class="display">
+               <thead>
+                  <tr>
+                     <th>No</th>
+                     <th>First Name</th>
+                     <th>Last name</th>
+                     <th>Job Post</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>1</td>
+                     <td>Andi</td>
+                     <td>Kurniawan</td>
+                     <td>Admin</td>
+                     <td>
+                        <a class="tooltip modal-trigger" href="#modal2">
+                        <i class="material-icons">edit</i>
+                        <span class="tooltiptext">Edit</span>
+                        </a>
+                        <a class="tooltip modal-trigger" href="#modal1">
+                        <i class="material-icons">delete</i>
+                        <span class="tooltiptext">Delete</span>
+                        </a>
+                        <!-- Modal Structure -->
+				          <div id="modal1" class="modal modal-fixed-footer" style="overflow-x: hidden;overflow-y: hidden;height: 30%;">
+				            <div class="modal-content">
+				         <div class="">
+
+				               <h4>Delete</h4>
+				               <hr>
+				               <p>Are You Sure You Want To Delete This User?</p>
+
+				         </div>
+				            </div>
+				            <div class="modal-footer">
+				              <a class="waves-effect waves-light btn" href="#">Yes</a>
+				                  <a class="waves-effect waves-light btn" href="#" onclick="$('.modal').modal('close');" style="margin-right: 3%;">No</a>
+				            </div>
+				          </div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>2</td>
+                     <td>Reza</td>
+                     <td>Arap</td>
+                     <td>Staff</td>
+                     <td>
+                        <a class="tooltip modal-trigger" href="#modal2">
+                        <i class="material-icons tooltip">edit</i>
+                        <span class="tooltiptext">Edit</span>
+                        </a>
+                        <a class="tooltip modal-trigger" href="#modal1">
+                        <i class="material-icons">delete</i>
+                        <span class="tooltiptext">Delete</span>
+                        </a>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+               <div class="row">
+                  <a class="waves-effect waves-light btn modal-trigger" href="#modal3"><i class="material-icons right">person_add</i>Add Staff</a>
+               </div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="js/materialize.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+      <script src="js/MainPageChart.js"></script>
+      <script>
+         $(document).ready( function () {
+             $('#table_id').DataTable({
+                 "bPaginate": false,
+                 "bLengthChange": false,
+                 "bFilter": false,
+                 "bInfo": false,
+                 "bAutoWidth": false
+             });
+         } );
+      </script>
+      <script type="text/javascript">
+         $(document).ready(function(){
+         $('.modal').modal();
+         });
+         
+         
+      </script>
+   </body>
+</html>
