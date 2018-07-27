@@ -58,15 +58,206 @@
             <div class="modal-content">
                <h4></h4>
                <ul class="tabs tabs-fixed-width tab-demo z-depth-1" >
-                  <li class="tab"><a class="active" href="#tab_e" >Table Log</a></li>
-                  <li class="tab"><a  href="#tab_f" >Request Header</a></li>
-                  <li class="tab"><a href="#tab_g" >Response Header</a></li>
-                  <li class="tab"><a href="#tab_h" >JSON Log</a></li>
+                  <li class="tab"><a class="active" href="#tab_a" >Statistik</a></li>
+                  <li class="tab"><a href="#tab_b" >Security Log</a></li>
+                  <li class="tab"><a  href="#tab_c" >Access Log</a></li>
+                  <li class="tab"><a href="#tab_d" >Edit Server</a></li>
+                  <li class="tab"><a href="#tab_e" >Download Report</a></li>
                </ul>
                <div class="tab_content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;overflow-y: scroll;overflow-x: scroll;">
-                  <div id="tab_e" class="col s12">
+            <div class="row" style="grid-auto-flow: row dense;">
+             <div id="tab_a" class="col s12">
+            <div class="col s6 m4">
+               <div class="card">
+                  <div class="card-content white-text">
+                     <canvas id="myChart"></canvas>
+                  </div>
+               </div>
+            </div>
+            <div class="col s6 m4">
+               <div class="card">
+                  <div class="card-content white-text">
+                     <canvas id="myChart2"></canvas>
+                  </div>
+               </div>
+            </div>
+            <div class="col s6 m4">
+               <div class="card">
+                  <div class="card-content white-text">
+                     <canvas id="myChart3"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+     </div>
+
+                  <div id="tab_b" class="col s12">
                      <div class="row">
-                        <table id="table_id2" class="display">
+                        <table id="table_id" class="display">
+                           <thead>
+                              <tr>
+                                 <th>ID</th>
+                                 <th>Date/Time</th>
+                                 <th>EventName</th>
+                                 <th>IP Source</th>
+                                 <th>Destination</th>
+                                 <th> </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>15281696620.095748</td>
+                                 <td>Tue Jun 5 10:34:22 2018</td>
+                                 <td>SQL Injection</td>
+                                 <td>10.0.0.1</td>
+                                 <td>1.1.1.1</td>
+                                 <td>
+                                    <a class="tooltip modal-trigger" href="#popup2">
+                                    <i class="material-icons">server</i>
+                                    <span class="tooltiptext">Popup</span>
+                                    </a>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>15281696620.095765</td>
+                                 <td>Tue Jun 5 10:34:20 2018</td>
+                                 <td>SQL Injection</td>
+                                 <td>10.0.0.1</td>
+                                 <td>1.1.1.1</td>
+                                 <td>
+                                    <a class="tooltip modal-trigger" href="#popup2">
+                                    <i class="material-icons">server</i>
+                                    <span class="tooltiptext">Popup</span>
+                                    </a>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <!-- tab 2 -->
+                  <div id="tab_c" class="col s12">
+                     <div class="row">
+                        <div class="col s12">
+                           <table id="table_id2" class="display">
+                              <thead>
+                                 <tr>
+                                    <th>TimeStamp</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Request</th>
+                                    <th>Request Body</th>
+                                    <th>Status</th>
+                                    <th>Body Bytes Sent</th>
+                                    <th>User Agent</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>Tue Jun 5 10:34:20 2018</td>
+                                    <td>192.168.30.403</td>
+                                    <td>192.168.1.1</td>
+                                    <td>GET /GetAccessLogs.php HTTP/1.0</td>
+                                    <td></td>
+                                    <td>200</td>
+                                    <td>53</td>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Tue Jun 5 10:34:20 2018</td>
+                                    <td>192.168.30.403</td>
+                                    <td>192.168.1.1</td>
+                                    <td>GET /GetAccessLogs.php HTTP/1.0</td>
+                                    <td>ServerName=Report&IP=4.4.1.1&Port=8080&Domain=www.reporting.com&ModSecurity=1</td>
+                                    <td>200</td>
+                                    <td>33</td>
+                                    <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="tab_d" class="col s12">
+                     <div class="row">
+                        <form class="col s12">
+                           <div class="row">
+                              <div class="input-field col s6">
+                                 <input name="servername" id="servernametxt" type="text" data-length="20">
+                                 <label for="servername">Server Name</label>
+                              </div>
+                              <div class="input-field col s6">
+                                 <input name="ip" id="iptxt" type="text" data-length="20">
+                                 <label for="ip">IP</label>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="input-field col s6">
+                                 <input name="portsopen" id="portsopentxt" type="text" data-length="20">
+                                 <label for="portsopen">Ports Open</label>
+                              </div>
+                              <div class="input-field col s6">
+                                 <input name="domain" id="domaintxt" type="text" data-length="20">
+                                 <label for="domain">Domain</label>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <p>
+                                 <label>
+                                 <input type="checkbox" name="custom7" value="1" id="custom7" />
+                                 <span>Enable Mod Security?</span>
+                                 </label>
+                              </p>
+                           </div>
+                           <div class="row">
+                              <label  for="error" id="errortxt" value="" style="color:red;"></label>
+                           </div>
+                           <div class="row">
+                              <a class="waves-effect waves-light btn" onclick="addserver();"><i class="material-icons right">send</i>Update Server</a>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+                  <div id="tab_e" class="col s12">
+                     <form action="#">
+                        <div class="input-field col s6">
+                           <select>
+                              <option value="" disabled selected>Choose Year</option>
+                              <option value="2018">2018</option>
+                           </select>
+                           <label>Select Year</label>
+                        </div>
+                        <div class="input-field col s6">
+                           <select>
+                              <option value="" disabled selected>Choose Month</option>
+                              <option value="Jun">Jun</option>
+                              <option value="Jul">Jul</option>
+                              <option value="Aug">Aug</option>
+                           </select>
+                           <label>Select Month</label>
+                        </div>
+                        <div class="row">
+                           <a class="waves-effect waves-light btn" onclick="addserver();"><i class="material-icons right">get_app</i>Download Report</a>
+                        </div>
+                     </form>
+                  </div>
+                
+               </div>
+            </div>
+         </div>
+
+    <div id="popup2" class="modal">
+        <div class="modal-content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;overflow-x: scroll;" >
+                <ul class="tabs tabs-fixed-width tab-demo z-depth-1" >
+                  <li class="tab"><a href="#tab_f" >Table Log</a></li>
+                  <li class="tab"><a  href="#tab_g" >Request Header</a></li>
+                  <li class="tab"><a href="#tab_h" >Response Header</a></li>
+                  <li class="tab"><a href="#tab_i" >JSON Log</a></li>
+               </ul>
+          
+           <div id="tab_f" class="col s12">
+                     <div class="row">
+                        <table id="table_id3" class="display">
                            <thead>
                               <tr>
                                  <th>ID</th>
@@ -123,7 +314,7 @@
                      </div>
                   </div>
                   <!-- REQUEST HEADER SECCTION -->
-                  <div id="tab_f" class="col s12">
+                  <div id="tab_g" class="col s12">
                      <div class="row">
                         <h4>Request Header</h4>
                         <table style="width:100%; border-collapse:collapse; border:1px solid black">
@@ -164,7 +355,7 @@
                   </div>
                   <!-- END OF REQUEST HEADER SECTION -->
                   <!-- RESPONSE HEADER SECCTION -->
-                  <div id="tab_g" class="col s12">
+                  <div id="tab_h" class="col s12">
                      <div class="row">
                         <h4>Response Header</h4>
                         <table style="width:100%; border-collapse:collapse; border:1px solid black">
@@ -195,7 +386,7 @@
                   </div>
                   <!-- END OF RESPONSE HEADER SECTION -->
                   <!-- JSON Log SECCTION -->
-                  <div id="tab_h" class="col s12">
+                  <div id="tab_i" class="col s12">
                      <div class="row">
                         <h4>JSON Log</h4>
                         <div class="input-field col s12">
@@ -205,9 +396,8 @@
                      </div>
                   </div>
                   <!-- JSON Log SECTION -->
-               </div>
-            </div>
-         </div>
+                   </div>
+       </div>
          <div class="row" style="grid-auto-flow: row dense;">
             <div class="col s6 m4">
                <div class="card">
@@ -316,8 +506,17 @@
          
              $(document).ready(function(){
              $('.modal').modal();
+
            });
            });
+         $("#signin").on( "click", function() {
+        $('#myModal1').modal('hide');  
+            });
+        //trigger next modal
+        $("#signin").on( "click", function() {
+                $('#myModal2').modal('show');  
+         });
+
       </script>
    </body>
 </html>
