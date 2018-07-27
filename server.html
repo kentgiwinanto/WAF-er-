@@ -125,7 +125,7 @@
                                  <td>10.0.0.1</td>
                                  <td>1.1.1.1</td>
                                  <td>
-                                    <a class="tooltip modal-trigger" href="#popup2">
+                                    <a class="tooltip modal-trigger" onclick="$('#popup1').modal('hide');$('#popup2').modal('open')" href="#">
                                     <i class="material-icons">server</i>
                                     <span class="tooltiptext">Popup</span>
                                     </a>
@@ -483,6 +483,7 @@
       <script src="js/materialize.js"></script>
       <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
       <script>
+
          $(document).ready( function () {
              $('#table_id').DataTable({
                  "bPaginate": false,
@@ -501,21 +502,29 @@
          $(document).ready(function(){
          $('.tabs').tabs();
          });
+
          $(document).ready(function(){
          $('select').formSelect();
-         
+
              $(document).ready(function(){
-             $('.modal').modal();
+             $('#popup1').modal();
+
 
            });
            });
-         $("#signin").on( "click", function() {
-        $('#myModal1').modal('hide');  
+
+             $(document).ready(function(){
+             $('#popup2').modal();
+
             });
-        //trigger next modal
-        $("#signin").on( "click", function() {
-                $('#myModal2').modal('show');  
-         });
+
+        //  $("select").on( "click", function() {
+        // $('#popup1').modal('hide');  
+        //     });
+        // //trigger next modal
+        // $("select").on( "click", function() {
+        //         $('#popup2').modal('show');  
+        //  });
 
       </script>
    </body>

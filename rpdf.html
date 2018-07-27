@@ -1,0 +1,65 @@
+<html>
+<head>
+ <title>MONTHLY WAF REPORT</title>
+ <link rel="stylesheet" href="css/materialize.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+    <style type="text/css">
+     	@page {size: a4;
+		}</style>
+</head>
+<body>
+	<div style="height: 842px width:595px">
+	 <div class="header" style="background-color:#97CE2F;  width: 100%;"><h1>REPORT</h1></div>
+
+
+   <div class="row" style="grid-auto-flow: row dense;">
+            <div class="col s6 m3">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart3"></canvas>                    
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+        <table style="border: solid ;border-color: #97CE2F;margin: auto; width:550px">
+  <tr>
+     <td style="border: solid ;border-color: #97CE2F;width: 50px">No.</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 50px">Month</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 150px">Attempted Attack</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 150px">Total Access Log</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 150px">Freq.UserAgent</td>
+  </tr>
+   <tr>
+    <td style='border: solid ;border-color: #97CE2F;width: 50px'>1</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 50px'>JUN</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>50</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>700</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>Firefox</td>
+    </tr>
+</table>
+	<div class="footer" style="position: fixed;  left: 0px; right: 0px;   bottom:0; height: 50px;  width:100%;  text-align: center;     ">
+			<div class="datetime">12-12-2018</div>
+			<div class="pic">PIC: 123.1231</div>
+	</div>
+</div>
+	<script src="js/materialize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="js/MainPageChart.js"></script>	
+</body>
+</html>
