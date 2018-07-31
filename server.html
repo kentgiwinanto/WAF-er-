@@ -478,11 +478,64 @@
                </tbody>
             </table>
          </div>
+         <div class="row">
+            <button class="btn modal-trigger" href="#popup3">ADD SERVER</button>
+         </div>
+          <div id="popup3" class="modal modal-fixed-footer">
+            <div class="modal-content" style="overflow-y: hidden;">
+         <div class="">
+
+               <h4>Add Server</h4>
+               <hr>
+
+         </div>
+         <div class="row">
+            <form class="col s12">
+               <div class="row">
+                  <div class="input-field col s6">
+                     <input name="servername" id="servernametxt" type="text" data-length="20">
+                     <label for="servername">Server Name</label>
+                  </div>
+                  <div class="input-field col s6">
+                     <input name="ip" id="iptxt" type="text" data-length="20">
+                     <label for="ip">IP</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="input-field col s6">
+                     <input name="portsopen" id="portsopentxt" type="text" data-length="20">
+                     <label for="portsopen">Ports Open</label>
+                  </div>
+                  <div class="input-field col s6">
+                     <input name="domain" id="domaintxt" type="text" data-length="20">
+                     <label for="domain">Domain</label>
+                  </div>
+               </div>
+               <div class="row">
+                  <p>
+                     <label>
+                     <input type="checkbox" name="custom7" value="1" id="custom7" />
+                     <span>Enable Mod Security?</span>
+                     </label>
+                  </p>
+               </div>
+               <div class="row">
+                  <label  for="error" id="errortxt" value="" style="color:red;"></label>
+               </div>
+         </div>
+            </div>
+            <div class="modal-footer">
+              <a class="waves-effect waves-light btn" onclick="addserver()"><i class="material-icons right">send</i>Submit</a>
+               <a class="waves-effect waves-light btn" href="index.html">Cancel</a>
+            </div>
+            </form>
+          </div>
       </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
       <script type="text/javascript" src="js/MainPageChart.js"></script>
       <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="js/addserver.js"></script>
       <script src="js/materialize.js"></script>
       <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
       <script>
@@ -520,6 +573,12 @@
              $('#popup2').modal();
 
             });
+           $(document).ready(function(){
+             $('#popup3').modal();
+
+            });
+             
+
 
         //  $("select").on( "click", function() {
         // $('#popup1').modal('hide');  
