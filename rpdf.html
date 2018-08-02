@@ -4,62 +4,234 @@
  <link rel="stylesheet" href="css/materialize.css">
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
-    <style type="text/css">
-     	@page {size: a4;
-		}</style>
+   
 </head>
-<body>
-	<div style="height: 842px width:595px">
-	 <div class="header" style="background-color:#97CE2F;  width: 100%;"><h1>REPORT</h1></div>
+<body style="background-color: white;">
 
+<button id="create_pdf" class="btn btn-primary btn-large">DOWNLOAD TEST</button>
+  <div id="report" style="background-color: #fff; ">
+	
+	
+	 <div class="header" style="background-color:#97CE2F;  width: 100%;margin:2%; "><h1>Summary</h1></div>
 
-   <div class="row" style="grid-auto-flow: row dense;">
-            <div class="col s6 m3">
-                <div class="card">
-                    <div class="card-content white-text">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 m3">
-                <div class="card">
-                    <div class="card-content white-text">
-                        <canvas id="myChart2"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 m3">
+   <div style="position: relative;margin:3%;">
+   <!-- <h1 style="background-color: : ">
+    
+    <img src="images/logo_visionet.png" style="width: 250px; height: 50px;">
+  </h1> -->
+  <h3 style="text-align: center;font-style: bold;color: #97CE2F;">Monthly WAF Report</h3>
+  <!-- <h3 style="text-align: left;font-family: Arial Black;font-style: bold;">Detail Report :</h3> -->
+
+    
+  <table style="font-size: 20px; font-color:black; width: 100%">
+    <tr style="border:none;">
+      <th style="width:50px">Server</th>
+      <th>: Reverse Proxy</th>
+    </tr>
+    <tr style="border:none;">
+      <th>IP Server </th>
+      <th>: 192.168.56.1:8000</th>
+    </tr>
+    <tr style="border:none;">
+      <th>PIC</th>
+      <th>: 123.123</th>
+    </tr>
+    <tr style="border:none;">
+      <th>Generated</th>
+      <th id="datetime"></th>
+    </tr>
+  </table>
+  </div>
+
+   <div class="row" style="margin:5%;">
+            <div class="col s6 m4">
                 <div class="card">
                     <div class="card-content white-text">
                         <canvas id="myChart3"></canvas>                    
                     </div>    
                 </div>
             </div>
+            
+        </div>
+        <div class="row" style="margin:5%;">
+          
+            <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row" style="margin:5%;">
+                      <div class="col s6 m4">
+                <div class="card">
+                    <div class="card-content white-text">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <table style="border: solid ;border-color: #97CE2F;margin: auto; width:550px">
+        <!-- TABEL A -->
+   <table style="border: solid ;border-color: #97CE2F;margin: 2%; width:auto; font-size:16px ">
   <tr>
-     <td style="border: solid ;border-color: #97CE2F;width: 50px">No.</td>
-    <td style="border: solid ;border-color: #97CE2F;width: 50px">Month</td>
-    <td style="border: solid ;border-color: #97CE2F;width: 150px">Attempted Attack</td>
-    <td style="border: solid ;border-color: #97CE2F;width: 150px">Total Access Log</td>
-    <td style="border: solid ;border-color: #97CE2F;width: 150px">Freq.UserAgent</td>
+    <th style="border: solid ;border-color: #97CE2F;width: 100px">No.</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 100px">Month</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 300px">Attempted Attack</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 300px">Total Access Log</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 300px">Freq.UserAgent</th>
   </tr>
-   <tr>
+     <tr>
     <td style='border: solid ;border-color: #97CE2F;width: 50px'>1</td>
     <td style='border: solid ;border-color: #97CE2F;width: 50px'>JUN</td>
     <td style='border: solid ;border-color: #97CE2F;width: 150px'>50</td>
     <td style='border: solid ;border-color: #97CE2F;width: 150px'>700</td>
-    <td style='border: solid ;border-color: #97CE2F;width: 150px'>Firefox</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>Safari</td>
+    </tr>
+</table>	
+<br>
+<table style="width:100% height:100% ">
+ <tr style="border:none;">
+ 	<td>
+      <!-- TABEL B -->
+    <table style="border: solid ;border-color: #97CE2F;margin: 2%; width:auto; font-size:16px ">
+	  <tr>
+	    <th style="border: solid ;border-color: #97CE2F;width: 100px">No.</th>
+	    <th style="border: solid ;border-color: #97CE2F;width: 100px">Event Name</th>
+	    <th style="border: solid ;border-color: #97CE2F;width: 200px">Timestamp</th>
+	    <th style="border: solid ;border-color: #97CE2F;width: 150pxth">Source</th>
+	    <th style="border: solid ;border-color: #97CE2F;width: 150pxth">Destination</th>
+	    <th style="border: solid ;border-color: #97CE2F;width: 50px">Risk</th>
+	  </tr>
+	     <tr style="border:none;">
+	    <td style='border: solid ;border-color: #97CE2F;'>1</td>
+	    <td style='border: solid ;border-color: #97CE2F;'>Attack</td>
+	    <td style='border: solid ;border-color: #97CE2F;'>26 Jul 2018 15:12:15</td>
+	    <td style='border: solid ;border-color: #97CE2F;'>192.1.1.1</td>
+	    <td style='border: solid ;border-color: #97CE2F;'>192.131.16.11</td>
+	    <td style='border: solid ;border-color: #97CE2F;'>9	</td>
+	    </tr>
+	</table></td>
+	<tr style="border:none;">
+    <td style="width: 25%;">
+      <!-- TABEL C -->
+ <table style="border: solid ;border-color: #97CE2F;margin: 2%;width: auto; font-size:16px ">
+  <tr>
+    <th style="border: solid ;border-color: #97CE2F;width: 150px">User Agents</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 100px">Count</th>
+  </tr>
+     <tr>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">Firefox</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">70</td>
+    </tr>
+     <tr>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">Chrome</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">20</td>
+    </tr>
+         <tr>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">Opera</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">10</td>
     </tr>
 </table>
-	<div class="footer" style="position: fixed;  left: 0px; right: 0px;   bottom:0; height: 50px;  width:100%;  text-align: center;     ">
-			<div class="datetime">12-12-2018</div>
-			<div class="pic">PIC: 123.1231</div>
-	</div>
+</td>
+	
+	<td>
+    <!-- TABEL D -->
+        <table style="border: solid ;border-color: #97CE2F;margin: 2%; width:auto; font-size:16px ">
+    <tr>
+      <th style="border: solid ;border-color: #97CE2F;width: 100px">Methods</th>
+      <th style="border: solid ;border-color: #97CE2F;width: 100px">Count</th>
+    </tr>
+     <tr>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">GET</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">100</td>
+    </tr>
+     <tr>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">POST</td>
+    <td style="border: solid ;border-color: #97CE2F;width: 100px">5</td>
+    </tr>
+</table>
+ 
+</td></tr></tr>
+</table>
+<br>
+<div id="footer" style="position:relative;  left: 0px; right: 0px;   bottom:0px; height: 50px;  width:100%;  text-align: center;  ">
+			<div id="datetime2"></div>
+			<div class="pic">PIC: 123.123</div>
+	</div> 
 </div>
 	<script src="js/materialize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/MainPageChart.js"></script>	
+    <script src="js/jspdf.debug.js"></script>
+    <script src="js/jspdf.min.js"></script>
+    <script type="js/html2canvas.js"></script>
+    <script type="text/javascript">
+    	    var d = new Date();
+   document.getElementById("datetime").innerHTML = ":"+d;
+  document.getElementById("datetime2").innerHTML = d;
+
+
+		 $(document).ready(function() {
+   var form = $('#report');
+   var cache_width = form.width();
+   var a4 = [595.28, 841.89];
+
+
+   $('#create_pdf').on('click', function() {
+     $('body').scrollTop(0);
+     createPDF();
+   });
+
+   //create pdf
+   function createPDF() {
+     getCanvas().then(function(canvas) {
+       var imgWidth = 200;
+       var pageHeight = 290;
+       var imgHeight = canvas.height * imgWidth / canvas.width;
+       var heightLeft = imgHeight;
+       var doc = new jsPDF('p', 'mm');
+       var position = 0;
+
+       var img = canvas.toDataURL("image/jpeg");
+
+
+
+       doc.addImage(img, 'JPEG', 0, position, imgWidth, imgHeight);
+       heightLeft -= pageHeight;
+
+
+
+       while (heightLeft >= 0) {
+         position = heightLeft - imgHeight;
+         doc.addPage();
+         doc.addImage(img, 'JPEG', 0, position, imgWidth, imgHeight);
+         heightLeft -= pageHeight;
+       }
+
+
+       doc.save('Report.pdf');
+       form.width(cache_width);
+     });
+   }
+
+
+   // create canvas object
+   function getCanvas() {
+     form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+     return html2canvas(form, {
+       imageTimeout: 2000,
+       removeContainer: false
+     });
+   }
+
+ });
+
+
+ 
+    </script>
 </body>
 </html>
