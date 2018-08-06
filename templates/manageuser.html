@@ -1,0 +1,312 @@
+{% extends "layout.html" %}
+
+{% block body %}
+	<div id="MainLayout" style="margin:1%;">
+		<div class=flash style="display: none;">{{ message }} </div>
+		<h4>Manage User</h4>
+		<hr>
+		<div id="modalDelete" class="modal modal-fixed-footer" style="height: 30%;">
+			<div class="modal-content">
+				<div class="">
+					<h4>Delete</h4>
+					<hr>
+					<p>Are You Sure You Want To Delete This User?</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a class="waves-effect waves-light btn" id="btnSubmitDeleteUser"  href="#">Yes</a>
+				<a class="waves-effect waves-light btn" id="btnCancelDeleteUser" style="margin-right: 3%;">No</a>
+			</div>
+		</div>
+		<div id="modalEdit" class="modal" >
+			<div class="modal-content">
+				<h4>Edit</h4>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="Edit_FirstNametxt" type="text" class="validate valid">
+								<label id="lblEdit_FirstNametxt" for="Edit_FirstNametxt">First Name</label>
+							</div>
+							<div class="input-field col s6">
+								<input id="Edit_LastNametxt" type="text" class="validate valid">
+								<label id="lblEdit_LastNametxt" for="Edit_LastNametxt">Last Name</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="Edit_Passwordtxt" type="password" class="validate">
+								<label for="Edit_Passwordtxt">New Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="Edit_Confirmtxt" type="password" class="validate">
+								<label for="Edit_Confirmtxt">Confirm Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<label for="error" class="cols-sm-2 control-label" id="Editerrortxt" value="" style="color:red;"></label>
+						</div>
+						<div class="modal-footer">
+							<a class="waves-effect waves-light btn" id="btnSubmitEditUser"><i class="material-icons right">send</i>Submit</a>
+							<a class="waves-effect waves-light btn" id="btnCancelEditUser">Cancel</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="modalAdd" class="modal">
+			<div class="modal-content">
+				<h4>Add Staff</h4>
+				<hr>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="Add_FirstNametxt" type="text" data-length="20">
+								<label for="Add_FirstNametxt">First Name</label>
+							</div>
+							<div class="input-field col s6">
+								<input id="Add_LastNametxt" type="text" data-length="20">
+								<label for="Add_LastNametxt">Last Name</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="Add_Passwordtxt" type="password" class="validate">
+								<label for="Add_Passwordtxt">Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="Add_Confirmtxt" type="password" class="validate">
+								<label for="Add_Confirmtxt">Confirm Password</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a class="waves-effect waves-light btn" id="btnSubmitAddUser"><i class="material-icons right">send</i>Submit</a>
+							<a class="waves-effect waves-light btn" id="btnCancelAddUser">Cancel</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table id="ManageUserTable" class="display">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>First Name</th>
+						<th>Last name</th>
+						<th>Job Post</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody id="ManageUserTable_Body">
+					
+				</tbody>
+				<tbody style="display: none;">
+					<tr id="ManageUserTable_Body_Template">
+						<td class="iNo"></td>
+						<td class="iFirstName"></td>
+						<td class="iLastName"></td>
+						<td class="iJobPos"></td>
+						<td class="iAction">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<a class="waves-effect waves-light btn modal-trigger" href="#modalAdd"><i class="material-icons right">person_add</i>Add Staff</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block js %}
+
+	<script type="text/javascript">
+		$(document).ready( function () {
+			var userProfileID;
+			function LoadTableData(){
+				$.ajax({
+					url: "manageuser", 
+					type: 'post',
+					data: {
+						"action": "GetUser",
+						},
+					beforeSend: function(){
+						                 
+					},
+					error: function(result){
+						                
+					},
+					success: function(result){
+						if ($.fn.dataTable.isDataTable('#ManageUserTable')) {
+						    $('#ManageUserTable').DataTable().destroy();
+						}
+						if(result.Message.length != 0){
+							$('#ManageUserTable_Body').empty();
+							for(var i = 0;i < result.Message.length; i++){
+								tr = $('#ManageUserTable_Body_Template').clone().removeAttr('id').addClass('ManageUserRow');
+								$('.iNo',tr).text(i);
+								$('.iFirstName',tr).text(result.Message[i][1]);
+								$('.iLastName',tr).text(result.Message[i][2]);
+								$('.iJobPos',tr).text(result.Message[i][4]);
+								$('.iAction',tr).html(
+									'<a class="tooltip modal-trigger iEdit" userProfileID="'+result.Message[i][0]+'" href="#modalEdit">\
+										<i class="material-icons">edit</i>\
+										<span class="tooltiptext">Edit</span>\
+									</a>\
+									<a class="tooltip modal-trigger iDelete" userProfileID="'+result.Message[i][0]+'" href="#modalDelete">\
+										<i class="material-icons">delete</i>\
+										<span class="tooltiptext">Delete</span>\
+									</a>\
+									'
+								);
+								$('#ManageUserTable_Body').append(tr);
+								$('.iDelete').on("click", function (e) {
+									userProfileID = $(this).attr('userProfileID');
+								}); 
+								$('.iEdit').on("click", function (e) {
+									userProfileID = $(this).attr('userProfileID');
+									$.ajax({
+										url: "manageuser", 
+										type: 'post',
+										data: {
+											"action": "GetUserDetail",
+											"UserProfileID": $(this).attr('userProfileID'),
+											},
+										beforeSend: function(){
+											$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").prop('disabled', true);
+											$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").val('');
+											$('#Editerrortxt').text('');
+										},
+										error: function(result){
+											$('.flash').css('display','').css('background','red').css('color','white').text('Something went wrong... Please contact Administrator!');
+											LoadTableData();
+											$('.modal').modal('close');            
+										},
+										success: function(result){
+											$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").prop('disabled', false);
+											$('#Edit_FirstNametxt').val(result.Message[0][1]);
+											$('#Edit_LastNametxt').val(result.Message[0][2]);
+											$('#lblEdit_FirstNametxt').addClass('active');
+											$('#lblEdit_LastNametxt').addClass('active');
+										}
+									});
+								}); 
+							}
+							
+						}else{
+							$('#ManageUserTable_Body').append("<td colspan=5 rowspan=2 style='text-align:center'><div class='loader'>No Data Available!</div></td>"); 
+						}
+						$('#ManageUserTable').DataTable({
+							"bPaginate": false,
+							"bLengthChange": false,
+							"bFilter": false,
+							"bInfo": false,
+							 "bAutoWidth": false
+						});
+					}
+				});
+			};
+			LoadTableData();
+			$('#btnSubmitAddUser').on("click", function (e) {
+				$.ajax({
+					url: "manageuser", 
+					type: 'post',
+					data: {
+						"action": "AddUser",
+						"FirstNametxt": $('#Add_FirstNametxt').val(),
+						"LastNametxt": $('#Add_LastNametxt').val(),
+						"Passwordtxt": $('#Add_Passwordtxt').val(),
+						"ConfPasstxt": $('#Add_Confirmtxt').val(),
+						},
+					beforeSend: function(){
+						                 
+					},
+					error: function(result){
+						                
+					},
+					success: function(result){
+						$('.flash').css('display','').text('User has been added successfully!');
+						LoadTableData();
+						$('#Add_FirstNametxt, #Add_LastNametxt, #Add_Passwordtxt, #Add_Confirmtxt').val(''),
+						$('.modal').modal('close');
+
+					}
+				});
+			}); 
+
+			$('#btnSubmitEditUser').on("click", function (e) {
+				$.ajax({
+					url: "manageuser", 
+					type: 'post',
+					data: {
+						"action": "EditUser",
+						"UserProfileID": userProfileID,
+						"FirstName": $("#Edit_FirstNametxt").val(),
+						"LastName": $("#Edit_LastNametxt").val(),
+						"Password": $("#Edit_Passwordtxt").val(),
+						"ConfPassword": $("#Edit_Confirmtxt").val(),
+						},
+					beforeSend: function(){     
+						$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").prop('disabled', true);
+					},
+					error: function(result){
+						$('.flash').css('display','').css('background','red').css('color','white').text('Something went wrong... Please contact Administrator!');
+						LoadTableData();
+						$('.modal').modal('close');            
+					},
+					success: function(result){
+						if(result.Status == "1"){
+							LoadTableData();
+							$('.flash').css('display','').text('User has been edited successfully!');
+							$('.modal').modal('close');
+							$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").val('');
+							$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").prop('disabled', false);
+						}else{
+							$('#Editerrortxt').css('display','').text(result.Message);
+							$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").val('');
+							$("#Edit_FirstNametxt, #Edit_LastNametxt, #Edit_Passwordtxt, #Edit_Confirmtxt").prop('disabled', false);
+						}
+					}
+				});
+			});
+
+			$('#btnSubmitDeleteUser').on("click", function (e) {
+				$.ajax({
+					url: "manageuser", 
+					type: 'post',
+					data: {
+						"action": "DeleteUser",
+						"UserProfileID": userProfileID,
+						},
+					beforeSend: function(){
+						                 
+					},
+					error: function(result){
+						$('.flash').css('display','').css('background','red').css('color','white').text('Something went wrong... Please contact Administrator!');
+						LoadTableData();
+						$('.modal').modal('close');            
+					},
+					success: function(result){
+						$('.flash').css('display','').text('User has been deleted successfully!');
+						LoadTableData();
+						$('.modal').modal('close');
+
+					}
+				});
+			});
+
+			$('#btnCancelDeleteUser, #btnCancelEditUser, #btnCancelAddUser').on("click", function (e) {
+				$('.modal').modal('close');
+			});
+			
+		});
+	</script>
+
+{% endblock %}

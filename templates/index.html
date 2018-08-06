@@ -1,49 +1,23 @@
 {% extends "layout.html" %}
 
-{% block css %}
-	<style type="text/css">
-		.modal { 
-		width: 90%  ;
-		height: 70%  ;
-		}
-		.tabs .tab a{
-		color:#97ce2f;
-		} /*Black color to the text*/
-		.tabs .tab a:hover {
-		background-color:#ffffff;
-		color:#97ce2f;
-		} /*Text color on hover*/
-		.tabs .tab a.active {
-		background-color:#ffffff;
-		color:#97ce2f;
-		} /*Background and text color when a tab is active*/
-		.tabs .indicator {
-		background-color:#97ce2f;
-		} /*Color of underline*/
-	</style>
-{% endblock %}
-
 {% block body %}
 	<!-- Cards For Statistic -->
 	<div id="MainLayout">
-
-		
-
 		<div id="PopUpDetail" class="modal">
 			<div class="modal-content">
 				<h4></h4>
 				<ul class="tabs tabs-fixed-width tab-demo z-depth-1" >
-					<li class="tab"><a class="active" href="#tab_e" >Table Log</a></li>
-					<li class="tab"><a  href="#tab_f" >Request Header</a></li>
-					<li class="tab"><a href="#tab_g" >Response Header</a></li>
-					<li class="tab"><a href="#tab_h" >JSON Log</a></li>
+					<li class="tab"><a class="active" href="#tabTableLog_Index" >Table Log</a></li>
+					<li class="tab"><a href="#TabRequestHeader_Index" >Request Header</a></li>
+					<li class="tab"><a href="#TabResponseHeader_Index" >Response Header</a></li>
+					<li class="tab"><a href="#TabJSONLog_Index" >JSON Log</a></li>
 				</ul>
 				<div class="tab_content" style="background-color: white;padding-left: 13px;padding-top: 10px; overflow-y: scroll;overflow-x: scroll;">
-					<div id="tab_e" class="col s12">
+					<div id="tabTableLog_Index" class="col s12">
 						<div class="row">
 							<h4>Detail Log</h4>
 							<hr>
-							<table id="detaillog" class="display">
+							<table class="display">
 								<thead>
 									<tr>
 										<th>ID</th>
@@ -63,7 +37,7 @@
 									</tr>
 								</thead>
 								<tbody id="PopUpSecLog">
-									</tbody>
+								</tbody>
 								<tbody style="display:none">
 									<tr id="PopUpSecLogTemplate">
 										<td class="iID"></td>
@@ -95,7 +69,7 @@
 						</div>
 					</div>
 					<!-- REQUEST HEADER SECCTION -->
-					<div id="tab_f" class="col s12">
+					<div id="TabRequestHeader_Index" class="col s12">
 						<div class="row">
 							<h4>Request Header</h4>
 							<hr>
@@ -107,7 +81,7 @@
 					</div>
 					<!-- END OF REQUEST HEADER SECTION -->
 					<!-- RESPONSE HEADER SECCTION -->
-					<div id="tab_g" class="col s12">
+					<div id="TabResponseHeader_Index" class="col s12">
 						<div class="row">
 							<h4>Response Header</h4>
 							<hr>
@@ -121,7 +95,7 @@
 					</div>
 					<!-- END OF RESPONSE HEADER SECTION -->
 					<!-- JSON Log SECCTION -->
-					<div id="tab_h" class="col s12">
+					<div id="TabJSONLog_Index" class="col s12">
 						<div class="row">
 							<h4>JSON Log</h4>
 							<hr>
@@ -136,6 +110,147 @@
 			</div>
 		</div>
 
+		<div id="ServerDetailPopUp" class="modal">
+            <div class="modal-content">
+               <h4></h4>
+               <ul class="tabs tabs-fixed-width tab-demo z-depth-1" >
+                  <li class="tab"><a class="active" href="#TabSecurityLog_ServerDetail" >Security Log</a></li>
+                  <li class="tab"><a href="#TabAccessLog_ServerDetail" >Access Log</a></li>
+                  <li class="tab"><a href="#TabEditServer_ServerDetail" >Edit Server</a></li>
+                  <li class="tab"><a href="#TabDownload_ServerDetail" >Download Report</a></li>
+               </ul>
+               <div class="tab_content" style="background-color: white;border-radius: 1px;padding-left: 13px;padding-top: 10px; border-bottom: solid 1px;overflow-y: scroll;overflow-x: scroll;">
+                  	<div id="TabSecurityLog_ServerDetail" class="col s12">
+	                    <div class="row">
+	                        <table class="display">
+	                           <thead>
+	                              <tr>
+	                                 <th>ID</th>
+	                                 <th>Date/Time</th>
+	                                 <th>EventName</th>
+	                                 <th>IP Source</th>
+	                                 <th>Destination</th>
+	                                 <th>Action</th>
+	                              </tr>
+	                           </thead>
+	                           <tbody id="Table_SecLog_ServerDetail">
+	                           </tbody>
+	                           <tbody style="display: none;">
+	                              <tr id="Table_SecLog_ServerDetail_Template">
+	                                 <td class="iID_SecLog_Server_Detail"></td>
+	                                 <td class="iDate_SecLog_Server_Detail"></td>
+	                                 <td class="iEventName_SecLog_Server_Detail"></td>
+	                                 <td class="iIPSource_SecLog_Server_Detail"></td>
+	                                 <td class="iDestination_SecLog_Server_Detail"></td>
+	                                 <td class="iAction_SecLog_Server_Detail">
+	                                 </td>
+	                              </tr>
+	                           </tbody>
+	                        </table>
+	                    </div>
+                  	</div>
+					<div id="TabAccessLog_ServerDetail" class="col s12">
+					 <div class="row">
+					    <div class="col s12">
+					       <table class="display">
+					          <thead>
+					             <tr>
+					                <th>TimeStamp</th>
+					                <th>From</th>
+					                <th>To</th>
+					                <th>Request</th>
+					                <th>Request Body</th>
+					                <th>Status</th>
+					                <th>Body Bytes Sent</th>
+					                <th>User Agent</th>
+					             </tr>
+					          </thead>
+					          <tbody id="Table_AccessLog_ServerDetail">
+					          	
+					          </tbody>
+					          <tbody style="display: none;">
+					             <tr id="Table_AccessLog_ServerDetail_Template">
+					                <td class="iDate_AccessLog_Server_Detail">Tue Jun 5 10:34:20 2018</td>
+					                <td class="iIPFrom_AccessLog_Server_Detail">192.168.30.403</td>
+					                <td class="iIPTo_AccessLog_Server_Detail">192.168.1.1</td>
+					                <td class="iRequest_AccessLog_Server_Detail">GET /GetAccessLogs.php HTTP/1.0</td>
+					                <td class="iRequestBody_AccessLog_Server_Detail">ServerName=Report&IP=4.4.1.1&Port=8080&Domain=www.reporting.com&ModSecurity=1</td>
+					                <td class="iStatusCode_AccessLog_Server_Detail">200</td>
+					                <td class="iBodyBytesSent_AccessLog_Server_Detail">33</td>
+					                <td class="iUserAgent_AccessLog_Server_Detail">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36</td>
+					             </tr>
+					          </tbody>
+					       </table>
+					    </div>
+					 </div>
+					</div>
+					<div id="TabEditServer_ServerDetail" class="col s12">
+					 <div class="row">
+					    <form class="col s12">
+					       <div class="row">
+					          <div class="input-field col s6">
+					             <input name="servername" id="servernametxt" type="text" data-length="20">
+					             <label for="servername">Server Name</label>
+					          </div>
+					          <div class="input-field col s6">
+					             <input name="ip" id="iptxt" type="text" data-length="20">
+					             <label for="ip">IP</label>
+					          </div>
+					       </div>
+					       <div class="row">
+					          <div class="input-field col s6">
+					             <input name="portsopen" id="portsopentxt" type="text" data-length="20">
+					             <label for="portsopen">Ports Open</label>
+					          </div>
+					          <div class="input-field col s6">
+					             <input name="domain" id="domaintxt" type="text" data-length="20">
+					             <label for="domain">Domain</label>
+					          </div>
+					       </div>
+					       <div class="row">
+					          <p>
+					             <label>
+					             <input type="checkbox" name="custom7" value="1" id="custom7" />
+					             <span>Enable Mod Security?</span>
+					             </label>
+					          </p>
+					       </div>
+					       <div class="row">
+					          <label  for="error" id="errortxt" value="" style="color:red;"></label>
+					       </div>
+					       <div class="row">
+					          <a class="waves-effect waves-light btn" onclick="addserver();"><i class="material-icons right">send</i>Update Server</a>
+					       </div>
+					    </form>
+					 </div>
+					</div>
+					<div id="TabDownload_ServerDetail" class="col s12">
+					 <form action="#">
+					    <div class="input-field col s6">
+					       <select>
+					          <option value="" disabled selected>Choose Year</option>
+					          <option value="2018">2018</option>
+					       </select>
+					       <label>Select Year</label>
+					    </div>
+					    <div class="input-field col s6">
+					       <select>
+					          <option value="" disabled selected>Choose Month</option>
+					          <option value="Jun">Jun</option>
+					          <option value="Jul">Jul</option>
+					          <option value="Aug">Aug</option>
+					       </select>
+					       <label>Select Month</label>
+					    </div>
+					    <div class="row">
+					       <a class="waves-effect waves-light btn" onclick="addserver();"><i class="material-icons right">get_app</i>Download Report</a>
+					    </div>
+					 </form>
+					</div>
+               </div>
+            </div>
+         </div>
+
 		{% for message in get_flashed_messages() %}
 			<div class=flash>{{ message }} </div>
 		{% endfor %}
@@ -145,42 +260,39 @@
 			<div class="col s6 m4">
 				<div class="card">
 					<div class="card-content white-text">
-						<canvas id="myChart"></canvas>
+						<div class="chart-container">
+							<canvas id="ChartDailyServeActivity"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col s6 m4">
 				<div class="card">
 					<div class="card-content white-text">
-						<canvas id="myChart2"></canvas>
+						<div class="chart-container">
+							<canvas id="ChartTotalAttack"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col s6 m4">
 				<div class="card">
 					<div class="card-content white-text">
-						<canvas id="myChart3"></canvas>                    
+						<canvas id="ChartMethodServePerDay"></canvas>                    
 					</div>    
 				</div>
 			</div>
 			 <div class="col s6 m4">
 				<div class="card">
 					<div class="card-content white-text">
-						<canvas id="myChart4"></canvas>                    
+						<canvas id="ChartStatusCodeErrors"></canvas>                    
 					</div>    
 				</div>
 			</div>
 			 <div class="col s6 m4">
 				<div class="card">
 					<div class="card-content white-text">
-						<canvas id="myChart5"></canvas>                    
-					</div>    
-				</div>
-			</div>
-			 <div class="col s6 m4">
-				<div class="card">
-					<div class="card-content white-text">
-						<canvas id="myChart6"></canvas>                    
+						<canvas id="ChartUserAgent"></canvas>                    
 					</div>    
 				</div>
 			</div>
@@ -217,7 +329,7 @@
 											<td> {{ data['transaction']['host_ip'] }}:{{ data['transaction']['host_port'] }} </td>
 											<td>
 												<!-- <a class="tooltip modal-trigger" ValueLogID="{{ data['transaction']['id'] }}" href="#PopUpDetail"> -->
-												<a class="tooltip modal-trigger LogDetailPopUpButtonTrigger" ValueLogID="{{ data['transaction']['id'] }}" href="#PopUpDetail">
+												<a class="tooltip modal-trigger LogDetailPopUpButtonTrigger_Index" ValueLogID="{{ data['transaction']['id'] }}" href="#PopUpDetail">
 													<i class="material-icons">pageview</i>
 													<span class="tooltiptext">Detail</span>
 												</a>
@@ -271,6 +383,7 @@
 			<table id="ServerListTable" class="display">
 				<thead>
 					<tr>
+						<th style="text-align: center;">No</th>
 						<th style="text-align: center;">Server Name</th>
 						<th style="text-align: center;">Hostname</th>
 						<th style="text-align: center;">IP Address</th>
@@ -284,6 +397,7 @@
 					
 					{% for data in ServerListResult %}
 							<tr>
+								<td style="text-align: center">{{ loop.index }}</td>
 								<td style="text-align: center">{{ data['ServerName'] }}</td>
 								<td style="text-align: center">{{ data['Hostname'] }}</td>
 								<td style="text-align: center">{{ data['IP'] }}</td>
@@ -296,11 +410,10 @@
 								{% endif %}
 								
 								<td style="text-align: center">
-									<input type="hidden" name="ServerID" ">
-									<a class="tooltip ServerDetailPopUpButton" ServerID="{{ data['ServerID'] }}" href="#!">
-										<i class="material-icons">pageview</i>
-										<span class="tooltiptext ">Detail</span>
-									</a>
+									<a class="tooltip modal-trigger ServerDetailPopUpButton" ServerID="{{ data['ServerID'] }}" href="#ServerDetailPopUp">
+				                        <i class="material-icons">pageview</i>
+				                        <span class="tooltiptext">Detail</span>
+			                        </a>
 								</td>
 							</tr>
 					{% endfor %}
@@ -316,140 +429,4 @@
 <!-- Tambahan JS masukkin ke parent -->
 {% block js %}
 	<script src="{{ url_for('static', filename='js/MainPageChart.js') }}"></script>
-	<script>
-		$(document).ready( function () {
-
-			$('.LogDetailPopUpButtonTrigger').on("click", function (e) {
-				$.ajax({
-					url: "DetailLog", 
-					type: 'post',
-					data: {
-						"SecLogID": $(this).attr('ValueLogID')
-						},
-					beforeSend: function(){
-						$('#PopUpSecLog').empty();
-						$('#RequestHeaderSection').empty();
-						$('#ResponseHeaderSection').empty();
-						$('#jsonlog').empty();
-						$('#PopUpSecLog').append("<td colspan=14 rowspan=2 style='text-align:center'><div class='loader'>Loading...</div></td>"); 
-						$('#RequestHeaderSection').append(
-							"<tr>\
-								<td colspan=2>Loading...</td>\
-							</tr>\
-							"
-						); 
-						$('#ResponseHeaderSection').append(
-							"<tr>\
-								<td colspan=2>Loading...</td>\
-							</tr>\
-							"
-						); 
-						$('#jsonlog').text("Loading...");                   
-					},
-					error: function(result){
-						$('#PopUpSecLog').empty();
-						$('#RequestHeaderSection').empty();
-						$('#ResponseHeaderSection').empty();
-						$('#jsonlog').empty();
-						$('#PopUpSecLog').append("<td colspan=14 rowspan=2 style='text-align:center'>Something Went Wrong... Please contact Administrator!</td>");  
-						$('#RequestHeaderSection').append(
-							"<tr>\
-								<td colspan=2>Something Went Wrong... Please Contact Administrator!</td>\
-							</tr>\
-							"
-						); 
-						$('#ResponseHeaderSection').append(
-							"<tr>\
-								<td colspan=2>Something Went Wrong... Please Contact Administrator!</td>\
-							</tr>\
-							"
-						); 
-						$('#jsonlog').text("Something Went Wrong... Please Contact Adminsitrator!");                     
-					},
-					success: function(result){
-						result = JSON.parse(result);
-						console.log(result);
-						$('#PopUpSecLog').empty();
-						$('#RequestHeaderSection').empty();
-						$('#ResponseHeaderSection').empty();
-						$('#jsonlog').empty();
-						for(var i = 0;i < result[0].transaction.messages.length; i++){
-							tr = $('#PopUpSecLogTemplate').clone().removeAttr('id').addClass('PopUpSecLogRow');
-							$('.iID',tr).text(result[0].transaction.id);
-							$('.iMessage',tr).text(result[0].transaction.messages[i].message);
-							$('.iMatch',tr).text(result[0].transaction.messages[i].details.match);
-							$('.iReference',tr).text(result[0].transaction.messages[i].details.reference);
-							$('.iRuleID',tr).text(result[0].transaction.messages[i].details.ruleId);
-							$('.iFile',tr).text(result[0].transaction.messages[i].details.file);
-							$('.iLineNumber',tr).text(result[0].transaction.messages[i].details.lineNumber);
-							$('.iData',tr).text(result[0].transaction.messages[i].details.data);
-							$('.iSeverity',tr).text(result[0].transaction.messages[i].details.severity);
-							$('.iVer',tr).text(result[0].transaction.messages[i].details.ver);
-							$('.iRev',tr).text(result[0].transaction.messages[i].details.rev);
-							$('.iMaturity',tr).text(result[0].transaction.messages[i].details.maturity);
-							$('.iAccuracy',tr).text(result[0].transaction.messages[i].details.accuracy);
-							$('#PopUpSecLog').append(tr);
-						}
-						var RequestKeyNames = Object.getOwnPropertyNames(result[0].transaction.request.headers);
-						for(var i = 0; i < RequestKeyNames.length ; i++){
-							$('#RequestHeaderSection').append(
-								"<tr>\
-									<td style='border:1px solid black'> "+RequestKeyNames[i]+" </td>\
-									<td style='border:1px solid black'> "+result[0].transaction.request.headers[RequestKeyNames[i]]+" </td>\
-								</tr>\
-								"
-							);
-						}
-						var ResponseKeyNames = Object.getOwnPropertyNames(result[0].transaction.response.headers);
-						for(var i = 0; i < ResponseKeyNames.length ; i++){
-							$('#ResponseHeaderSection').append(
-								"<tr>\
-									<td style='border:1px solid black'> "+ResponseKeyNames[i]+" </td>\
-									<td style='border:1px solid black'> "+result[0].transaction.response.headers[ResponseKeyNames[i]]+" </td>\
-								</tr>\
-								"
-							);
-						}
-						$('#jsonlog').text(JSON.stringify(result, null, 4));     
-					}
-				});
-			  }); 
-
-			$('.ServerDetailPopUpButton').on("click", function (e) {
-				$.ajax({
-					url: "detail", 
-					type: 'post',
-					data: {
-						"ServerID": $(this).attr('ServerID')
-						},
-					beforeSend: function(){
-										 
-					},
-					error: function(result){
-										  
-					},
-					success: function(result){
-						
-						console.log(result);
-						 
-					}
-				});
-			  }); 
-
-
-			$('#SecurityLogTable').DataTable({
-				"bLengthChange": false,
-				"bAutoWidth": false
-			});
-			
-			$('#AccessLogsTable').DataTable({
-				"bLengthChange": false,
-				"bAutoWidth": false
-			});
-			$('#ServerListTable').DataTable({
-				"bLengthChange": false,
-				"bAutoWidth": false
-			});
-		});
-	</script>
-	{% endblock %}
+{% endblock %}

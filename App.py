@@ -1,25 +1,26 @@
 from flask import Flask, request, session, redirect, url_for, abort, render_template, flash, jsonify,make_response
 from flaskext.mysql import MySQL
 from functools import wraps
-import os, json, requests
+from ua_parser import user_agent_parser
+import os, json, requests, datetime
 
 __app = Flask(__name__)
-mysql = MySQL()
-
+__app.config['JSON_SORT_KEYS'] = False
 __app.config.update(dict(
 	SECRET_KEY = 'h[#T@t$bKvya*h[#T@t$bKvya*h[#T@t$bKvya*ctr(^ctr(^ctr(^',
 ))
 
 #MySQL Configuration
+mysql = MySQL()
 __Database_Username = 'root'
 __Database_Password = 'toor'
 __Database_Database = 'WAFer'
 __Database_Host = '127.0.0.1'
-
 __app.config['MYSQL_DATABASE_USER'] = __Database_Username
 __app.config['MYSQL_DATABASE_PASSWORD'] = __Database_Password
 __app.config['MYSQL_DATABASE_DB'] = __Database_Database
 __app.config['MYSQL_DATABASE_HOST'] = __Database_Host
+
 mysql.init_app(__app)
 
 ###Variables
@@ -28,13 +29,11 @@ __headers_requests = {
     'User-Agent': 'WAFer Crawler/1.0'
 }
 
-__conn = mysql.connect()
-__cursor = __conn.cursor()
+
 
 
 ### Decorators section
-# Check is session exists
-def is_logged_in(f):
+def is_logged_in(f): #Check if session already exist or not
 	@wraps(f)
 	def wrap(*args, **kwargs):
 		if 'logged_in' in session:
@@ -68,8 +67,7 @@ def SendRequestPingServer(__JSONDump):
 		)
 	return r.text
 
-def GetLogsFromServer():
-	# Get Logs from Server and then convert all list into dict
+def GetLogsFromServer(): # Get Logs from Server and then convert all list into dict
 	global __SecLogs_WAF_ReverseProxy
 	global __AccessLogs_Nginx_ReverseProxy
 	__SecLogs_WAF_ReverseProxy = json.loads(
@@ -96,8 +94,8 @@ def GetLogsFromServer():
 @is_logged_in
 def home():
 	GetLogsFromServer()
-
-	#Get Server List
+	__conn = mysql.connect()
+	__cursor = __conn.cursor()
 	__cursor.callproc('WAF_Read_ServerList')
 	__conn.commit()
 	__Result = __cursor.fetchall()
@@ -112,11 +110,78 @@ def home():
 			'Hostname':value[4],
 			'ModSecurity':value[5]
 		})
-
-	global __FinalResult_ServerList
 	__FinalResult_ServerList = json.loads(SendRequestPingServer(json.dumps(__ServerList)))
 
+	print(__AccessLogs_Nginx_ReverseProxy[0]['time_local'].split('/'))
+
 	return render_template('index.html',SecurityLog=__SecLogs_WAF_ReverseProxy,AccessLogs=__AccessLogs_Nginx_ReverseProxy,ServerListResult=__FinalResult_ServerList)
+
+@__app.route('/manageuser',methods=['GET','POST'])
+@is_logged_in
+def manageuser():
+	if request.method == 'POST':
+		if request.form['action'] == 'AddUser':
+			__FirstName_AddUser_Form = request.form['FirstNametxt']
+			__LastName_AddUser_Form = request.form['LastNametxt']
+			__Password_AddUser_Form = request.form['Passwordtxt']
+			__ConfPass_AddUser_Form = request.form['ConfPasstxt']
+			if __Password_AddUser_Form == __ConfPass_AddUser_Form:
+				__args = [__FirstName_AddUser_Form,__LastName_AddUser_Form,'UserJobPosID_1d1f20a9-3966',__Password_AddUser_Form,session['userProfileID']]
+				__conn = mysql.connect()
+				__cursor = __conn.cursor()
+				__cursor.callproc('WAF_Insert_Register',__args)
+				__conn.commit()
+				__Result = __cursor.fetchall()
+				return jsonify({"Status":"1","Message":"User have been added Successfully!"})
+			else:
+				return jsonify({"Status":"0","Message":"Password does not match!"})
+
+		elif request.form['action'] == 'GetUser':
+			__conn = mysql.connect()
+			__cursor = __conn.cursor()
+			__cursor.callproc('WAF_Read_GetAllUser')
+			__conn.commit()
+			__Result = __cursor.fetchall()
+			return jsonify({"Status":"1","Message":__Result})
+
+		elif request.form['action'] == 'GetUserDetail':
+			__UserProfileID_GetUserDetail_Form = request.form['UserProfileID']
+			__conn = mysql.connect()
+			__cursor = __conn.cursor()
+			__args = [__UserProfileID_GetUserDetail_Form]
+			__cursor.callproc('WAF_Read_GetUserDetail',__args)
+			__conn.commit()
+			__Result = __cursor.fetchall()
+			return jsonify({"Status":"1","Message":__Result})
+
+		elif request.form['action'] == 'EditUser':
+			__UserProfileID_EditUser_Form = request.form['UserProfileID']
+			__FirstName_EditUser_Form = request.form['FirstName']
+			__LastName_EditUser_Form = request.form['LastName']
+			__Password_EditUser_Form = request.form['Password']
+			__ConfPassword_EditUser_Form = request.form['ConfPassword']
+			if __Password_EditUser_Form == __ConfPassword_EditUser_Form:
+				__conn = mysql.connect()
+				__cursor = __conn.cursor()
+				__args = [__FirstName_EditUser_Form,__LastName_EditUser_Form,__Password_EditUser_Form,__UserProfileID_EditUser_Form,session['userProfileID']]
+				__cursor.callproc('WAF_Update_EditProfileAdminPage',__args)
+				__conn.commit()
+				__Result = __cursor.fetchall()
+				return jsonify({"Status":"1","Message":"User have been edited Successfully!"})
+			else:
+				return jsonify({"Status":"0","Message":"Password does not match!"})
+
+		elif request.form['action'] == 'DeleteUser':
+			__UserProfileID_DeleteUser_Form = request.form['UserProfileID']
+			__args = [session['userProfileID'],__UserProfileID_DeleteUser_Form]
+			__conn = mysql.connect()
+			__cursor = __conn.cursor()
+			__cursor.callproc('WAF_Update_DeleteUser',__args)
+			__conn.commit()
+			__Result = __cursor.fetchall()
+			return jsonify({"Status":"1","Message":"User has been deleted Successfully!"})
+	else:
+		return render_template('manageuser.html')
 
 @__app.route('/addServer',methods=['GET','POST'])
 @is_logged_in
@@ -131,6 +196,8 @@ def addServer():
 		except Exception as e:
 			__ModSec_addServer_Form = '0'
 		__args = [session['userProfileID'],__ServerName_addServer_Form,__IPAddress_addServer_Form,__PortOpen_addServer_Form,__Hostname_addServer_Form,__ModSec_addServer_Form]
+		__conn = mysql.connect()
+		__cursor = __conn.cursor()
 		__cursor.callproc('WAF_Insert_ServerList',__args)
 		__conn.commit()
 		__Result = __cursor.fetchall()
@@ -156,6 +223,8 @@ def detailServer():
 	GetLogsFromServer()
 
 	__args = [__ServerID_Detail_Page]
+	__conn = mysql.connect()
+	__cursor = __conn.cursor()
 	__cursor.callproc('WAF_Read_GetServerDetail',__args)
 	__conn.commit()
 	__Result = __cursor.fetchall()
@@ -168,9 +237,7 @@ def detailServer():
 		if __Result[0][2] == x['server_pass']:
 			__AccessLogs_Detail_Return.append(x)
 
-	# print(json.dumps(__SecLogs_Detail_Return))
 	return jsonify({'SecurityLogs':json.dumps(__SecLogs_Detail_Return),'AccessLogs':json.dumps(__AccessLogs_Detail_Return)})
-	# return render_template('detail.html',SecurityLogs=__SecLogs_Detail_Return,AccessLogs=__AccessLogs_Detail_Return)
 
 @__app.route('/DetailLog',methods=['POST'])
 def detailLog():
@@ -182,13 +249,15 @@ def detailLog():
 			__SecLogs_Detail_Return.append(x)
 
 	return json.dumps(__SecLogs_Detail_Return)
-	
+
 @__app.route('/login',methods=['POST'])
 def login():
 	_Username_Login_Form = request.form['username']
 	_Password_Login_Form = request.form['password']
 	error = None
 	__args = [_Username_Login_Form,_Password_Login_Form]
+	__conn = mysql.connect()
+	__cursor = __conn.cursor()
 	__cursor.callproc('WAF_Read_Login',__args)
 	__conn.commit()
 	__Result = __cursor.fetchall()
@@ -212,6 +281,66 @@ def logout():
 	session.pop("UserJobPosName")
 	return redirect(url_for('home'))
 
+
+### Chart Section
+@__app.route('/getWeeklyAccessActivity')
+def GetWeeklyAccessActivity():
+	chart = {}
+	for x in __AccessLogs_Nginx_ReverseProxy:
+		if len(chart) == 7:
+			break
+		else:
+			if str(x['time_local'].split('/')[0]+x['time_local'].split('/')[1]) in chart:
+				chart[str(x['time_local'].split('/')[0]+x['time_local'].split('/')[1])]+=1
+			else:
+				chart[str(x['time_local'].split('/')[0]+x['time_local'].split('/')[1])] = 1
+	return jsonify(chart)
+
+@__app.route('/getMonthlyAttackSummary')
+def getMonthlyAttackSummary():
+	chart = {}
+	for x in __SecLogs_WAF_ReverseProxy:
+		if x['transaction']['time_stamp'].split(' ')[1] in chart:
+			chart[x['transaction']['time_stamp'].split(' ')[1]] += 1
+		else:
+			chart[x['transaction']['time_stamp'].split(' ')[1]] = 1
+	return jsonify(chart)
+
+@__app.route('/getDailyAccessMethod')
+def getDailyAccessMethod():
+	chart = {}
+	for x in __AccessLogs_Nginx_ReverseProxy:
+		if x['time_local'].split('/')[0]+x['time_local'].split('/')[1] == datetime.datetime.today().strftime('%d%b'):
+			if x['request'].split(' ')[0] in chart:
+				chart[x['request'].split(' ')[0]] += 1
+			else:
+				chart[x['request'].split(' ')[0]] = 1
+
+	return jsonify(chart)
+
+@__app.route('/getDailyErrorStatusCode')
+def getDailyErrorStatusCode():
+	chart = {}
+	for x in __AccessLogs_Nginx_ReverseProxy:
+		if x['time_local'].split('/')[0]+x['time_local'].split('/')[1] == datetime.datetime.today().strftime('%d%b'):
+			if x['status'] in chart:
+				chart[x['status']] += 1
+			else:
+				chart[x['status']] = 1
+	chart.pop('200',None)
+	return jsonify(chart)
+
+@__app.route('/getUserAgentAccessMonthly')
+def getUserAgentAccessMonthly():
+	chart = {}
+	for x in __AccessLogs_Nginx_ReverseProxy:
+		if x['time_local'].split('/')[1] == datetime.datetime.today().strftime('%b'):
+			if user_agent_parser.ParseUserAgent(x['http_user_agent'])['family'] in chart:
+				chart[user_agent_parser.ParseUserAgent(x['http_user_agent'])['family']] += 1
+			else:
+				chart[user_agent_parser.ParseUserAgent(x['http_user_agent'])['family']] = 1
+	return jsonify(chart)
+
 if __name__ == "__main__":
 	__app.secret_key = os.urandom(12)
-	__app.run(debug=True)
+	__app.run(host='0.0.0.0',debug=True)
