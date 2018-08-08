@@ -12,7 +12,6 @@
   <div id="report" style="background-color: #fff; ">
 	
 	
-	 <div class="header" style="background-color:#97CE2F;  width: 100%;margin:2%; "><h1>Summary</h1></div>
 
    <div style="position: relative;margin:3%;">
    <!-- <h1 style="background-color: : ">
@@ -23,29 +22,39 @@
   <!-- <h3 style="text-align: left;font-family: Arial Black;font-style: bold;">Detail Report :</h3> -->
 
     
-  <table cellpadding="0" cellspacing="0" style="font-size: 20px; font-color:black; width: 100%;border-collapse: collapse; border-spacing:0">
-    <tr style="border:none;border-collapse: collapse;line-height: 0">
-      <th style="width:50px; ">Server</th>
+  <table cellpadding="0" cellspacing="0" style="font-size: 20px; font-color:black; width: 100%;border-collapse: collapse;">
+    <tr  style="border:none;line-height: 0%">
+      <th style="width:50px">Server</th>
       <th>: Reverse Proxy</th>
     </tr>
-    <tr style="border:none;line-height: 0">
+    <tr style="border:none;line-height: 0%;">
       <th>IP Server </th>
       <th>: 192.168.56.1:8000</th>
     </tr>
-    <tr style="border:none;line-height: 0">
+    <tr style="border:none;line-height: 0%">
       <th>PIC</th>
       <th>: 123.123</th>
     </tr>
-    <tr style="border:none;line-height: 0">
+    <tr style="border:none;line-height: 0%">
       <th>Generated</th>
       <th id="datetime"></th>
     </tr>
   </table>
   </div>
 
+        <div class="row" style="margin:0% 5%;">
+            <div class="col s6">
+                <div class="">
+                    <div class="">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
         <br>
-        <div class="row" style="margin:5%;">
-                      <div class="col s6">
+        <div class="row" style="margin:0% 5%;">
+                      <div class="col s6 ">
                 <div class="">
                     <div class="">
                         <canvas id="myChart"></canvas>
@@ -53,17 +62,20 @@
                 </div>
             </div>
         </div>
-
+<br>
+<br>
+<br>
+<br>
         <!-- TABEL A -->
    <table style="border: solid ;border-color: #97CE2F;margin: 2%; width:auto; font-size:16px ">
-  <tr>
+  <tr style="line-height: 0%">
     <th style="border: solid ;border-color: #97CE2F;width: 100px">No.</th>
     <th style="border: solid ;border-color: #97CE2F;width: 100px">Month</th>
     <th style="border: solid ;border-color: #97CE2F;width: 300px">Attempted Attack</th>
     <th style="border: solid ;border-color: #97CE2F;width: 300px">Total Access Log</th>
     <th style="border: solid ;border-color: #97CE2F;width: 300px">Freq.UserAgent</th>
   </tr>
-     <tr>
+     <tr style="line-height: 0%">
     <td style='border: solid ;border-color: #97CE2F;width: 50px'>1</td>
     <td style='border: solid ;border-color: #97CE2F;width: 50px'>JUN</td>
     <td style='border: solid ;border-color: #97CE2F;width: 150px'>50</td>
@@ -71,10 +83,28 @@
     <td style='border: solid ;border-color: #97CE2F;width: 150px'>Safari</td>
     </tr>
 </table>	
-
+<br><br><br><br>
+ <table style="border: solid ;border-color: #97CE2F;margin: 2%; width:auto; font-size:16px ">
+  <tr style="line-height: 0%">
+    <th style="border: solid ;border-color: #97CE2F;width: 100px">No.</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 100px">Month</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 300px">Attempted Attack</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 300px">Total Access Log</th>
+    <th style="border: solid ;border-color: #97CE2F;width: 300px">Freq.UserAgent</th>
+  </tr>
+     <tr style="line-height: 0%">
+    <td style='border: solid ;border-color: #97CE2F;width: 50px'>1</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 50px'>JUN</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>50</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>700</td>
+    <td style='border: solid ;border-color: #97CE2F;width: 150px'>Safari</td>
+    </tr>
+</table>  
+ 
+</td></tr></tr>
+</table>
 <br>
-<br>
-<div id="footer" style="position:relative;  left: 0px; right: 0px;   bottom:0px; height: 50px;  width:100%;  text-align: center;   ">
+<div id="footer" style="position:relative;  left: 0px; right: 0px;   bottom:0px; height: 50px;  width:100%;  text-align: center;  ">
 			<div id="datetime2"></div>
 			<div class="pic">PIC: 123.123</div>
 	</div> 
