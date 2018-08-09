@@ -725,7 +725,119 @@ DELIMITER ;
 	CALL WAF_Insert_Config('Admin','SecUploadKeepFiles','Configures whether or not the intercepted files will be kept after transaction is processed.','SecUploadKeepFiles On|Off|RelevantOnly','','Any','2.0.0');
 	CALL WAF_Insert_Config('Admin','SecWebAppId','Creates an application namespace, allowing for separate persistent session and user storage.','SecWebAppId "NAME"','default','Any','2.0.0-3.x');
 	CALL WAF_Insert_Config('Admin','SecXmlExternalEntity','Enable or Disable the loading process of xml external entity. Loading external entity without correct verifying process can lead to a security issue.','SecXmlExternalEntity On|Off','default is Off','Any','2.7.3');
+    
+    DELIMITER $$
+	CREATE PROCEDURE `WAF_Read_GetAllUser`()
+	-- ==================================
+	-- AUTHOR       : KENTGI TOMO
+	-- CREATED DATE : 3 AGUSTUS
+	-- DESCRIPTION  : Mengambil semua data user
+	-- ==================================
+	BEGIN
+		SELECT
+		a.UserProfileID,
+		a.FirstName,
+		a.LastName,
+		a.UserJobPosID,
+		b.UserJobName
+	FROM
+		UserProfile a
+		JOIN UserJobPosition b ON a.UserJobPosID = b.UserJobPosID
+	WHERE a.STSRC <> 'D' AND b.STSRC <> 'D';
 
-			
-				
+	END$$
+DELIMITER ;
 
+DELIMITER $$
+	CREATE PROCEDURE `WAF_Update_DeleteUser`(
+		UserUpParam VARCHAR(32),
+        UserProfileIDParam VARCHAR(8192)
+	)
+	BEGIN
+	-- ==================================
+	-- AUTHOR       : KENTGI TOMO
+	-- CREATED DATE : 3 AGUSTUS
+	-- DESCRIPTION  : Delete user dengan menggantikan Stsrc ke D
+	-- ==================================
+
+		UPDATE userLogin a
+		JOIN UserProfile b ON a.UserProfileID = b.UserProfileID
+		SET 
+        a.stsrc = 'D',
+        b.stsrc='D',
+        a.UserUp=UserUpParam, 
+        a.DateUp = NOW(), 
+        b.UserUp = UserUpParam, 
+        b.DateUp = NOW()
+		WHERE a.UserProfileID = UserProfileIDParam;
+	END$$
+	DELIMITER ;
+    
+DELIMITER $$
+	CREATE PROCEDURE `WAF_Read_GetUserDetail`(
+		UserProfileIDParam VARCHAR(8192)
+    )
+    
+	BEGIN
+		SELECT
+		a.UserProfileID,
+		a.FirstName,
+		a.LastName,
+		a.UserJobPosID,
+		b.UserJobName
+	FROM
+		UserProfile a
+		JOIN UserJobPosition b ON a.UserJobPosID = b.UserJobPosID
+	WHERE a.STSRC <> 'D' 
+    AND b.STSRC <> 'D'
+    AND a.UserProfileID = UserProfileIDParam
+    ;
+
+	END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `WAF_Update_EditProfileAdminPage`(
+		firstnamein VARCHAR(32),
+		lastnamein VARCHAR(32), 
+		userpassin VARCHAR(32),
+        userProfileIDin VARCHAR(8192),
+        userinin VARCHAR(32)
+)
+BEGIN
+	-- ===================================		
+	-- Created By: Kentgi Tomo Winanto
+	-- Created Date: 06 - 08 - 2018
+	-- Description: Edit profile dari Admin page manage user
+	-- ===================================    
+	DECLARE a VARCHAR(20);
+    SET @username= CONCAT(firstnamein,'.',lastnamein);
+    SET @userpass= SHA2(CONCAT(@username,userpassin),256);
+    
+	
+    IF EXISTS(SELECT UserProfileID FROM UserLogin WHERE UserProfileID=userProfileIDin) THEN
+	        UPDATE UserProfile
+            SET 
+				FirstName = firstnamein,
+				LastName = lastnamein,
+				UserUP = userinin,
+				DateUP = NOW()
+            WHERE UserProfileID = userProfileIDin;
+            
+            UPDATE UserLogin
+            SET
+            Username = @username,
+            Userpass = @userpass,
+            UserUp = Userinin
+            WHERE
+            UserProfileID = userProfileIDin;
+            
+            SET a = '1';
+    ELSE 
+		
+        SET a ='0'; 
+    END IF;
+    
+    SELECT a as Status;
+	END$$
+DELIMITER ;
