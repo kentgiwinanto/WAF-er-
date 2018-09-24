@@ -1,0 +1,220 @@
+<html>
+   <head>
+      <title>MONTHLY WAF REPORT</title>
+       <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/materialize.css') }}">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+   </head>
+   <body style="background-color: white;">
+      <button id="create_pdf" class="btn btn-primary btn-large" style="display: none;">DOWNLOAD TEST</button>
+      <div id="report" style="background-color: #fff; ">
+         <div style="position: relative;margin:3%;">
+            <!-- <h1 style="background-color: : ">
+               <img src="images/logo_visionet.png" style="width: 250px; height: 50px;">
+               </h1> -->
+            <h3 style="text-align:left;font-style: bold;color: #97CE2F;">WAF-er-</h3>
+            <hr>
+            <!-- <h3 style="text-align: left;font-family: Arial Black;font-style: bold;">Detail Report :</h3> -->
+            <h4 style="text-align:left;font-style: bold;">Web App Firewall - Hosts summary</h4>
+            <label id="datetime"></label>
+            <hr>
+            <h6 style="font-color:black;font-family: Arial Black;">Table Of Content</h6>
+            <h6 style="font-family: Arial Black;font-size: 15px;">  Host Summary</h6>
+            <ol style="list-style-type: circle;">
+               <li>192.168.1.1</li>
+            </ol>
+            <hr>
+            <h4 style="text-align:left;font-style: bold;">Host Executive Summary</h4>
+            <hr>
+            <h5 style="font-family: Arial Black;"> 192.168.1.1 </h5>
+            <div class="table-wrapper" style="display: block;">
+               <table style="border-collapse: collapse;border:none;" cellspacing="0" cellpadding="0" >
+                  <thead>
+                     <tr>
+                        <th width="20%">  </th>
+                        <th width="20%">  </th>
+                        <th width="20%">  </th>
+                        <th width="20%">  </th>
+                        <th width="20%">  </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr style="border:none;">
+                        <td class="#d43f3a" style="padding: 0">
+                           <div style="box-sizing: border-box; font-size: 45px; font-weight: 100; line-height: 80px; color: #fff; text-align: center; background: #d43f3a; border-radius: 3px 3px 0 0; width: 98%; margin: 0;"> 0 </div>
+                        </td>
+                        <td class="#ee9336" style="padding: 0">
+                           <div style="box-sizing: border-box; font-size: 45px; font-weight: 100; line-height: 80px; color: #fff; text-align: center; background: #ee9336; border-radius: 3px 3px 0 0; width: 98%; margin: 0 1%;"> 3 </div>
+                        </td>
+                        <td class="#fdc431" style="padding: 0">
+                           <div style="box-sizing: border-box; font-size: 45px; font-weight: 100; line-height: 80px; color: #fff; text-align: center; background: #fdc431; border-radius: 3px 3px 0 0; width: 98%; margin: 0 1%;"> 12 </div>
+                        </td>
+                        <td class="#3fae49" style="padding: 0">
+                           <div style="box-sizing: border-box; font-size: 45px; font-weight: 100; line-height: 80px; color: #fff; text-align: center; background: #3fae49; border-radius: 3px 3px 0 0; width: 98%; margin: 0 1%;"> 0 </div>
+                        </td>
+                        <td class="#0071b9" style="padding: 0">
+                           <div style="box-sizing: border-box; font-size: 45px; font-weight: 100; line-height: 80px; color: #fff; text-align: center; background: #0071b9; border-radius: 3px 3px 0 0; width: 98%; margin: 0 0 0 2%;"> 8 </div>
+                        </td>
+                     </tr>
+                     <tr style="border:none;">
+                        <td class="#ffffff"  style="padding: 0">
+                           <div style="font-size: 10px; text-transform: uppercase; padding: 5px 0; text-align: center; width: 98%; box-sizing: border-box; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-radius: 0 0 3px 3px;  margin: 0; margin-bottom: 15px;">Critical</div>
+                        </td>
+                        <td class="#ffffff"  style="padding: 0">
+                           <div style="font-size: 10px; text-transform: uppercase; padding: 5px 0; text-align: center; width: 98%; box-sizing: border-box; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-radius: 0 0 3px 3px;  margin: 0; margin-bottom: 15px;">High</div>
+                        </td>
+                        <td class="#ffffff"  style="padding: 0">
+                           <div style="font-size: 10px; text-transform: uppercase; padding: 5px 0; text-align: center; width: 98%; box-sizing: border-box; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-radius: 0 0 3px 3px;  margin: 0; margin-bottom: 15px;">Medium</div>
+                        </td>
+                        <td class="#ffffff"  style="padding: 0">
+                           <div style="font-size: 10px; text-transform: uppercase; padding: 5px 0; text-align: center; width: 98%; box-sizing: border-box; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-radius: 0 0 3px 3px;  margin: 0; margin-bottom: 15px;">Low</div>
+                        </td>
+                        <td class="#ffffff"  style="padding: 0">
+                           <div style="font-size: 10px; text-transform: uppercase; padding: 5px 0; text-align: center; width: 98%; box-sizing: border-box; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-radius: 0 0 3px 3px;  margin: 0; margin-bottom: 15px;">Info</div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <!-- TABLE DETAIL -->
+            <table>
+               <thead>
+                  <tr>
+                     <th width="1%"></th>
+                     <th width="10%"></th>
+                     <th width="2%"></th>
+                     <th width="6%"></th>
+                     <th width="2%"></th>
+                     <th width="10%"></th>
+                     <th width="69%"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="plugin-row-header">
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">Severity</td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">CVSS</td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">Plugin</td>
+                     <td class="#ffffff">Name</td>
+                  </tr>
+                  <tr class="plugin-row">
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">
+                        <span style="display: inline-block; width: 60px; text-align: center; text-transform: uppercase; background: #ee9336; font-size: 10px; color: #fff; border-radius: 3px; line-height: 20px;">High</span>
+                     </td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">8.5</td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">100955</td>
+                     <td class="#ffffff">Apache 2.2.x < 2.2.33-dev / 2.4.x < 2.4.26 Multiple Vulnerabilities</td>
+                  </tr>
+                  <tr class="plugin-row">
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">
+                        <span style="display: inline-block; width: 60px; text-align: center; text-transform: uppercase; background: #ee9336; font-size: 10px; color: #fff; border-radius: 3px; line-height: 20px;">High</span>
+                     </td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">6.5</td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">89250</td>
+                     <td class="#ffffff">Apache 2.2.x < 2.2.33-dev / 2.4.x < 2.4.26 Multiple Vulnerabilities</td>
+                  </tr>
+                  <tr class="plugin-row">
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">
+                        <span style="display: inline-block; width: 60px; text-align: center; text-transform: uppercase; background: #ee9336; font-size: 10px; color: #fff; border-radius: 3px; line-height: 20px;">High</span>
+                     </td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">9.5</td>
+                     <td class="#ffffff"></td>
+                     <td class="#ffffff">60250</td>
+                     <td class="#ffffff">Apache 2.2.x < 2.2.33-dev / 2.4.x < 2.4.26 Multiple Vulnerabilities</td>
+                  </tr>
+               </tbody>
+            </table>
+            <!-- END OF TABLE DETAIL -->
+         </div>
+         <br><br>
+         <div id="footer" style="position:relative;  left: 0px; right: 0px;   bottom:0px; height: 50px;  width:100%;  text-align: center;  ">
+            <div id="datetime2"></div>
+            <div class="pic">PIC: 123.123</div>
+         </div>
+      </div>
+      <script src="{{ url_for('static',filename='js/materialize.js')}}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="{{ url_for('static', filename='js/MainPageChart.js') }}"></script> 
+      <script src="{{ url_for('static',filename='js/jspdf.debug.js')}}"></script>
+      <script src="{{ url_for('static',filename='js/jspdf.min.js')}}"></script>
+      <script type="{{ url_for('static',filename='js/html2canvas.js')}}"></script>
+      <script type="text/javascript">
+         var d = new Date();
+         document.getElementById("datetime").innerHTML = ": "+d;
+         document.getElementById("datetime2").innerHTML = d;
+         
+         
+         $(document).ready(function() {
+         var form = $('#report');
+         var cache_width = form.width();
+         var a4 = [595.28, 841.89];
+         
+         
+         $(document).ready(function() {
+         $('body').scrollTop(0);
+         createPDF();
+         $('#create_pdf').trigger("click");
+         });
+         
+         //create pdf
+         function createPDF() {
+         getCanvas().then(function(canvas) {
+         var imgWidth = 200;
+         var pageHeight = 290;
+         var imgHeight = canvas.height * imgWidth / canvas.width;
+         var heightLeft = imgHeight;
+         var doc = new jsPDF('p', 'mm');
+         var position = 0;
+         
+         var img = canvas.toDataURL("image/jpeg");
+         
+         
+         
+         doc.addImage(img, 'JPEG', 0, position, imgWidth, imgHeight);
+         heightLeft -= pageHeight;
+         
+         
+         
+         while (heightLeft >= 0) {
+         position = heightLeft - imgHeight;
+         doc.addPage();
+         doc.addImage(img, 'JPEG', 0, position, imgWidth, imgHeight);
+         heightLeft -= pageHeight;
+         }
+         
+         
+         doc.save('Report.pdf');
+         form.width(cache_width);
+         });
+         }
+         
+         
+         // create canvas object
+         function getCanvas() {
+         form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+         return html2canvas(form, {
+         imageTimeout: 2000,
+         removeContainer: false
+         });
+         }
+         
+         });
+         
+
+         setTimeout(function(){
+         self.close();
+         },5000);
+      </script>
+   </body>
+</html>

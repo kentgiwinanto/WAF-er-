@@ -13,7 +13,7 @@ __app.config.update(dict(
 #MySQL Configuration
 mysql = MySQL()
 __Database_Username = 'root'
-__Database_Password = 'toor'
+__Database_Password = ''
 __Database_Database = 'WAFer'
 __Database_Host = '127.0.0.1'
 __app.config['MYSQL_DATABASE_USER'] = __Database_Username
@@ -24,7 +24,7 @@ __app.config['MYSQL_DATABASE_HOST'] = __Database_Host
 mysql.init_app(__app)
 
 ###Variables
-__ReverseProxy_Address = "http://192.168.56.103:9112/"
+__ReverseProxy_Address = "http://192.168.1.102/"
 __headers_requests = {
     'User-Agent': 'WAFer Crawler/1.0'
 }
@@ -57,15 +57,15 @@ def SendRequestAddServer(__ServerName,__IPAddress,__PortAddress,__Hostname,__Mod
 		)
 	return r.text
 
-def SendRequestPingServer(__JSONDump):
-	r = requests.post(
-			__ReverseProxy_Address+"pingServer.php",
-			headers = __headers_requests,
-			data = {
-				'ListIPJSON':__JSONDump
-			}
-		)
-	return r.text
+# def SendRequestPingServer(__JSONDump):
+# 	r = requests.post(
+# 			__ReverseProxy_Address+"pingServer.php",
+# 			headers = __headers_requests,
+# 			data = {
+# 				'ListIPJSON':__JSONDump
+# 			}
+# 		)
+# 	return r.text
 
 def GetLogsFromServer(): # Get Logs from Server and then convert all list into dict
 	global __SecLogs_WAF_ReverseProxy
@@ -110,11 +110,11 @@ def home():
 			'Hostname':value[4],
 			'ModSecurity':value[5]
 		})
-	__FinalResult_ServerList = json.loads(SendRequestPingServer(json.dumps(__ServerList)))
+	# __FinalResult_ServerList = json.loads(SendRequestPingServer(json.dumps(__ServerList)))
 
 	print(__AccessLogs_Nginx_ReverseProxy[0]['time_local'].split('/'))
 
-	return render_template('index.html',SecurityLog=__SecLogs_WAF_ReverseProxy,AccessLogs=__AccessLogs_Nginx_ReverseProxy,ServerListResult=__FinalResult_ServerList)
+	return render_template('index.html',SecurityLog=__SecLogs_WAF_ReverseProxy,AccessLogs=__AccessLogs_Nginx_ReverseProxy,ServerListResult=__ServerList)
 
 @__app.route('/manageuser',methods=['GET','POST'])
 @is_logged_in
@@ -280,6 +280,11 @@ def logout():
 	session.pop("UserJobPosID")
 	session.pop("UserJobPosName")
 	return redirect(url_for('home'))
+
+@__app.route('/rpdf')
+def report():
+	
+	return render_template('rpdf.html')
 
 
 ### Chart Section

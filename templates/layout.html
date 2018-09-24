@@ -52,11 +52,14 @@
 			<li>
 				<a class="subheader">Settings</a>
 			</li>
+			{% if "UserJobPosID_1cad7222-3966" in session.UserJobPosID %}
 			<li>
 				<a class="waves-effect" href="manageuser">
 					<i class="material-icons">account_box</i>Manage User
 				</a>
 			</li>
+			{% endif %}
+		
 			<li>
 				<a class="waves-effect" href="logout" style="color: red">
 					<i class="material-icons" style="color: red">power_settings_new</i>Logout
