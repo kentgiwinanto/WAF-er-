@@ -21,7 +21,8 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="POST" action="{{ url_for('login') }}">
+					<!-- {{ url_for('login') }} -->
+					<form class="form-horizontal" method="POST" action="{{ url_for('login') }}" onsubmit="check();">
 						<div class="form-group">
 							<label for="username" class="cols-sm-2 control-label">Username</label>
 							<div class="cols-sm-10">
@@ -51,7 +52,7 @@
 						
 
 						<div class="form-group ">
-							<input type="submit" Value="Login" class="btn btn-primary btn-lg btn-block login-button"/>
+							<input type="submit"  Value="Login" class="btn btn-primary btn-lg btn-block login-button"/>
 						</div>
 						
 					</form>

@@ -24,7 +24,7 @@ __app.config['MYSQL_DATABASE_HOST'] = __Database_Host
 mysql.init_app(__app)
 
 ###Variables
-__ReverseProxy_Address = "http://192.168.1.102/"
+__ReverseProxy_Address = "http://192.168.1.102:8000/"
 __headers_requests = {
     'User-Agent': 'WAFer Crawler/1.0'
 }
@@ -269,7 +269,7 @@ def login():
 		session["UserJobPosName"] = __Result[0][3]
 		return redirect(url_for('home'))
 	else:
-		error = "Invalid Username or Password!"
+		error = "Invalid Username or Password!Backend"
 		return render_template('login.html',errorMessage=error)
 
 @__app.route('/logout')
