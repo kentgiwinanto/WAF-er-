@@ -24,7 +24,8 @@ __app.config['MYSQL_DATABASE_HOST'] = __Database_Host
 mysql.init_app(__app)
 
 ###Variables
-__ReverseProxy_Address = "http://192.168.1.102:8000/"
+# __ReverseProxy_Address = "http://103.106.81.87:8080/"
+# __ReverseProxy_Address = "http://10.10.10.2:80/"
 __headers_requests = {
     'User-Agent': 'WAFer Crawler/1.0'
 }
@@ -70,18 +71,8 @@ def SendRequestAddServer(__ServerName,__IPAddress,__PortAddress,__Hostname,__Mod
 def GetLogsFromServer(): # Get Logs from Server and then convert all list into dict
 	global __SecLogs_WAF_ReverseProxy
 	global __AccessLogs_Nginx_ReverseProxy
-	__SecLogs_WAF_ReverseProxy = json.loads(
-									requests.get(
-										__ReverseProxy_Address+"GetLogs.php",
-										headers = __headers_requests
-									).text
-								)
-	__AccessLogs_Nginx_ReverseProxy = json.loads(
-										requests.get(
-											__ReverseProxy_Address+"GetAccessLogs.php",
-											headers = __headers_requests
-										).text
-									)
+	__SecLogs_WAF_ReverseProxy = json.loads(requests.get("http://103.106.81.87:58724/GetLogs.php").text)
+	__AccessLogs_Nginx_ReverseProxy = json.loads(requests.get("http://103.106.81.87:58724/GetAccessLogs.php").text)
 	
 	for key,value in enumerate(__SecLogs_WAF_ReverseProxy):
 		__SecLogs_WAF_ReverseProxy[key] = json.loads(value)
